@@ -41,3 +41,20 @@ def get_recent_incidents(limit: int = 5) -> list:
     rows = [dict(row) for row in cursor.fetchall()]
     conn.close()
     return rows
+
+
+def search_incidents(keywords: list, limit: int = 5) -> list:
+    """Lightweight keyword-based similarity search in memory."""
+    import sqlite3
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    # Simple OR search across alert_type and analysis fields
+    conditions = ' OR '.join(['alert_type LIKE ?' for _ in keywords] + ['analysis LIKE ?' for _ in keywords])
+    params = [f'%{k}%' for k in keywords] * 2
+    cursor = conn.execute(
+        f'SELECT * FROM incidents WHERE {conditions} ORDER BY id DESC LIMIT ?', 
+        params + [limit]
+    )
+    rows = [dict(row) for row in cursor.fetchall()]
+    conn.close()
+    return rows
