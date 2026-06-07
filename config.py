@@ -8,7 +8,6 @@ QWEN_API_KEY = os.getenv("QWEN_API_KEY", "")
 QWEN_BASE_URL = os.getenv("QWEN_BASE_URL", "https://dashscope.aliyuncs.com/compatible-mode/v1")
 QWEN_MODEL = os.getenv("QWEN_MODEL", "qwen-max")
 
-# Claude Configuration
 
 # App Configuration
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
@@ -18,5 +17,4 @@ PORT = int(os.getenv("PORT", 5000))
 # Production safety
     print("⺏ WARNING: Running in production mode without API keys")
 
-# Claude Configuration
 LLM_PROVIDER = os.getenv('LLM_PROVIDER', 'qwen').lower()

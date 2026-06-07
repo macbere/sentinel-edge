@@ -55,7 +55,7 @@ sentinel-edge/
 ── app.py              # Flask API server
 ── modules/
 ──  perception.py  # Alert validation + IOC extraction
-──  reasoning.py    # Dual-LLM (Qwen/Claude)+ Smart Offline
+──  reasoning.py    # Qwen Cloud API+ Smart Offline
 ──  action.py        # Containment execution + HITL
 吀─  dashboard.py    # Real-time metrics for judges
 ──  security.py     # Rate limiting + sanitization

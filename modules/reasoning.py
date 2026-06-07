@@ -53,8 +53,6 @@ def analyze_with_retry(prompt, max_retries=2):
     provider = LLM_PROVIDER
     for attempt in range(max_retries + 1):
         try:
-            if provider == "claude":
-                result = _call_claude(prompt)
             if provider == "qwen":
                 result = _call_qwen(prompt)
             else:

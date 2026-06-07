@@ -18,7 +18,6 @@ def get_dashboard_data():
     
     # Provider stats (parse from analysis JSON)
     qwen_count = 0
-    claude_count = 0
     offline_count = 0
     rows = conn.execute("SELECT analysis FROM incidents").fetchall()
     for row in rows:
@@ -28,8 +27,6 @@ def get_dashboard_data():
             p = a.get("provider", "")
             if p == "qwen":
                 qwen_count += 1
-            elif p == "claude":
-                claude_count += 1
             elif p == "offline_smart" or a.get("fallback"):
                 offline_count += 1
         except:
@@ -86,8 +83,7 @@ def get_dashboard_data():
         },
         "ai_provider_stats": {
             "qwen_analyses": qwen_count,
-            "claude_analyses": claude_count,
-            "offline_fallbacks": offline_count,
+                "offline_fallbacks": offline_count,
             "resilience_rate": str(round(offline_count / max(total, 1) * 100, 1)) + "% offline capable"
         },
         "top_threats": [{"type": t[0], "count": t[1]} for t in top_threats],
