@@ -57,7 +57,7 @@ def analyze_alert():
         return jsonify({"error": validated["error"]}), 400
     recent = get_recent_incidents(limit=3)
     context = "\n\nRECENT CONTEXT:\n" + "\n".join([f"- {i['alert_type']} ({i['status']})" for i in recent]) if recent else ""
-    analysis = analyze_with_retry(validated["text"] + context)
+    analysis = analyze_with_retry(validated["text"])  # Pass clean alert only, context pollutes keyword matching
     threat_type = analysis.get("threat_type", "unknown")
     incident_id = save_incident(threat_type, json.dumps(analysis))
     analysis["incident_id"] = incident_id
