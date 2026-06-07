@@ -3,6 +3,7 @@ from modules.perception import validate_alert
 from modules.reasoning import analyze_with_retry
 from modules.action import execute_containment
 from modules.dashboard import get_dashboard_data
+from modules.security import check_rate_limit, sanitize_alert, validate_analyze_payload
 from memory import init_db, save_incident, get_recent_incidents
 import json
 import os
@@ -17,9 +18,20 @@ def health():
 
 @app.route("/analyze", methods=["POST"])
 def analyze_alert():
+    # Rate limiting
+    client_ip = request.remote_addr or "unknown"
+    if not check_rate_limit(client_ip):
+        return jsonify({"error": "Rate limit exceeded. Max 30 requests/min."}), 429
+    
+    # Payload validation
     data = request.get_json(silent=True)
-    if not data or "alert" not in data:
-        return jsonify({"error": "Missing alert field"}), 400
+    is_valid, err_msg = validate_analyze_payload(data)
+    if not is_valid:
+        return jsonify({"error": err_msg}), 400
+    
+    # Input sanitization
+    data["alert"] = sanitize_alert(data["alert"])
+    
     validated = validate_alert(data["alert"])
     if not validated["valid"]:
         return jsonify({"error": validated["error"]}), 400
