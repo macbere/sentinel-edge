@@ -1,0 +1,98 @@
+{
+  "timestamp": "2026-06-07T19:57:30.399762",
+  "total": 15,
+  "passed": 15,
+  "failed": 0,
+  "results": [
+    {
+      "name": "Health Endpoint",
+      "passed": true,
+      "details": "Status: 200",
+      "timestamp": "2026-06-07T19:57:28.286083"
+    },
+    {
+      "name": "Malformed JSON",
+      "passed": true,
+      "details": "Status: 400",
+      "timestamp": "2026-06-07T19:57:28.419437"
+    },
+    {
+      "name": "Missing Alert Field",
+      "passed": true,
+      "details": "Status: 400",
+      "timestamp": "2026-06-07T19:57:28.433141"
+    },
+    {
+      "name": "Empty Alert",
+      "passed": true,
+      "details": "Status: 400",
+      "timestamp": "2026-06-07T19:57:28.444077"
+    },
+    {
+      "name": "Very Long Alert (10KB)",
+      "passed": true,
+      "details": "Status: 200",
+      "timestamp": "2026-06-07T19:57:28.519759"
+    },
+    {
+      "name": "Unicode Characters",
+      "passed": true,
+      "details": "Status: 200",
+      "timestamp": "2026-06-07T19:57:28.706730"
+    },
+    {
+      "name": "SQL Injection Attempt",
+      "passed": true,
+      "details": "Status: 200",
+      "timestamp": "2026-06-07T19:57:28.728838"
+    },
+    {
+      "name": "Multiple IOCs Extraction",
+      "passed": true,
+      "details": "Found 5 IOC types: ['domain', 'filepath', 'ipv4', 'port', 'username']",
+      "timestamp": "2026-06-07T19:57:28.888753"
+    },
+    {
+      "name": "Rapid Sequential (20 requests)",
+      "passed": true,
+      "details": "20/20 successful in 0.51s",
+      "timestamp": "2026-06-07T19:57:29.396301"
+    },
+    {
+      "name": "Dashboard Metrics",
+      "passed": true,
+      "details": "Total incidents: 160",
+      "timestamp": "2026-06-07T19:57:29.425785"
+    },
+    {
+      "name": "Audit Logging",
+      "passed": true,
+      "details": "Total logged requests: 206",
+      "timestamp": "2026-06-07T19:57:30.006386"
+    },
+    {
+      "name": "Incident Persistence",
+      "passed": true,
+      "details": "Incident 261 persisted",
+      "timestamp": "2026-06-07T19:57:30.062165"
+    },
+    {
+      "name": "Threat Classification Accuracy",
+      "passed": true,
+      "details": "4/4 correct classifications",
+      "timestamp": "2026-06-07T19:57:30.171407"
+    },
+    {
+      "name": "Concurrent Requests (10)",
+      "passed": true,
+      "details": "10/10 successful in 0.11s",
+      "timestamp": "2026-06-07T19:57:30.286802"
+    },
+    {
+      "name": "Endpoint Discovery",
+      "passed": true,
+      "details": "4/4 endpoints accessible",
+      "timestamp": "2026-06-07T19:57:30.396579"
+    }
+  ]
+}
