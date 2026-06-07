@@ -1,5 +1,35 @@
+# Environment and secrets
 .env
+.env.bak
+
+# Runtime files
+.uptime_marker
 *.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Python
 __pycache__/
+*.py[cod]
+*$py.class
+*.so
 venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
 .DS_Store
+Thumbs.db
+
+# Temporary scripts
+fix_*.py
+test_*.py
+
+# Gunicorn
+*.pid
