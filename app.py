@@ -4,6 +4,9 @@ from modules.reasoning import analyze_with_retry
 from modules.action import execute_containment
 from modules.dashboard import get_dashboard_data
 from modules.security import check_rate_limit, sanitize_alert, validate_analyze_payload
+from modules.audit import log_request, log_security_event, get_audit_summary
+import time
+import uuid
 from memory import init_db, save_incident, get_recent_incidents
 import json
 import os
@@ -11,6 +14,23 @@ import sqlite3
 
 app = Flask(__name__)
 init_db()
+
+
+@app.before_request
+def before_request():
+    """Start timing request and assign request ID."""
+    request.start_time = time.time()
+    request.request_id = str(uuid.uuid4())
+
+
+@app.after_request
+def after_request(response):
+    """Log request after completion."""
+    if hasattr(request, 'start_time'):
+        duration_ms = (time.time() - request.start_time) * 1000
+        log_request(request, response, duration_ms)
+    return response
+
 
 @app.route("/health", methods=["GET"])
 def health():
@@ -91,6 +111,19 @@ def generate_report(incident_id):
     report_text += f"Human Approval: {analysis.get('requires_human_approval', 'N/A')}\n"
     report_text += f"Similar Past Incidents: {len(similar)}\n"
     return jsonify({"incident_id": row["id"], "timestamp": row["timestamp"], "alert_type": row["alert_type"], "analysis": analysis, "similar_incidents": similar, "report_text": report_text})
+
+
+@app.route("/audit", methods=["GET"])
+def audit_summary():
+    """Get audit log summary for monitoring."""
+    hours = request.args.get('hours', 24, type=int)
+    summary = get_audit_summary(hours)
+    return jsonify({
+        "status": "success",
+        "period_hours": hours,
+        "summary": summary
+    })
+
 
 @app.route("/dashboard", methods=["GET"])
 def dashboard():
