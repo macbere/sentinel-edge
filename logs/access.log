@@ -1,0 +1,15 @@
+2026-06-07 11:28:37 | INFO     | access | ❡ GET /health | Status: 200 | Duration: 0.43ms | IP: 127.0.0.1 | User: anonymous
+2026-06-07 11:28:37 | INFO     | access | ❡ GET /dashboard | Status: 200 | Duration: 9.07ms | IP: 127.0.0.1 | User: anonymous
+2026-06-07 11:28:37 | INFO     | access | ❡ POST /analyze | Status: 200 | Duration: 13.64ms | IP: 127.0.0.1 | User: anonymous
+2026-06-07 11:28:37 | INFO     | access | ❡ GET /audit | Status: 404 | Duration: 1.33ms | IP: 127.0.0.1 | User: anonymous
+2026-06-07 11:33:47 | INFO     | access | ❡ GET /health | Status: 200 | Duration: 0.87ms | IP: 127.0.0.1 | User: anonymous
+2026-06-07 11:33:47 | INFO     | access | ❡ GET /dashboard | Status: 200 | Duration: 9.10ms | IP: 127.0.0.1 | User: anonymous
+2026-06-07 11:33:47 | INFO     | access | ❡ POST /analyze | Status: 200 | Duration: 16.70ms | IP: 127.0.0.1 | User: anonymous
+2026-06-07 11:33:47 | INFO     | access | ❡ GET /audit | Status: 200 | Duration: 2.29ms | IP: 127.0.0.1 | User: anonymous
+2026-06-07 11:41:00 | INFO     | access | ❡ GET /health | Status: 200 | Duration: 2.85ms | IP: 127.0.0.1 | User: anonymous
+2026-06-07 11:44:44 | INFO     | access | ❡ POST /analyze | Status: 200 | Duration: 29.09ms | IP: 127.0.0.1 | User: anonymous
+2026-06-07 11:44:44 | INFO     | access | ❡ POST /analyze | Status: 200 | Duration: 11.39ms | IP: 127.0.0.1 | User: anonymous
+2026-06-07 11:48:27 | INFO     | access | ❡ POST /analyze | Status: 200 | Duration: 50.17ms | IP: 127.0.0.1 | User: anonymous
+2026-06-07 11:51:21 | INFO     | access | ❡ POST /analyze | Status: 200 | Duration: 28.77ms | IP: 127.0.0.1 | User: anonymous
+2026-06-07 11:51:21 | INFO     | access | ❡ POST /analyze | Status: 200 | Duration: 56.32ms | IP: 127.0.0.1 | User: anonymous
+2026-06-07 11:51:22 | INFO     | access | ❡ POST /analyze | Status: 200 | Duration: 11.22ms | IP: 127.0.0.1 | User: anonymous

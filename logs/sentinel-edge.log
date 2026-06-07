@@ -1,0 +1,15 @@
+[2026-06-07 11:15:25 +0100] [12518] [INFO] Starting gunicorn 26.0.0
+[2026-06-07 11:15:25 +0100] [12518] [INFO] Listening at: http://127.0.0.1:5000 (12518)
+[2026-06-07 11:15:25 +0100] [12518] [INFO] Using worker: gthread
+[2026-06-07 11:15:25 +0100] [12520] [INFO] Booting worker with pid: 12520
+[2026-06-07 11:15:25 +0100] [12522] [INFO] Booting worker with pid: 12522
+[2026-06-07 11:15:25 +0100] [12523] [INFO] Booting worker with pid: 12523
+[2026-06-07 11:15:25 +0100] [12524] [INFO] Booting worker with pid: 12524
+[2026-06-07 11:15:25 +0100] [12518] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [07/Jun/2026:11:15:46 +0100] "GET /health HTTP/1.1" 200 126 "-" "curl/8.20.0"
+[2026-06-07 11:16:07 +0100] [12518] [INFO] Handling signal: term
+[2026-06-07 11:16:07 +0100] [12520] [INFO] Worker exiting (pid: 12520)
+[2026-06-07 11:16:07 +0100] [12523] [INFO] Worker exiting (pid: 12523)
+[2026-06-07 11:16:07 +0100] [12524] [INFO] Worker exiting (pid: 12524)
+[2026-06-07 11:16:07 +0100] [12522] [INFO] Worker exiting (pid: 12522)
+[2026-06-07 11:16:08 +0100] [12518] [INFO] Shutting down: Master

@@ -2,7 +2,7 @@ import requests
 import json
 import time
 import hashlib
-from config import QWEN_API_KEY, QWEN_BASE_URL, QWEN_MODEL, CLAUDE_API_KEY, LLM_PROVIDER
+from config import QWEN_API_KEY, QWEN_BASE_URL, QWEN_MODEL, LLM_PROVIDER
 
 SYSTEM_PROMPT = """You are Sentinel Edge, an autonomous cybersecurity incident response agent.
 Analyze the provided alert and respond ONLY with valid JSON in this exact format:
@@ -48,30 +48,6 @@ def _call_qwen(prompt):
     content = resp.json()["choices"][0]["message"]["content"]
     return json.loads(content.strip())
 
-def _call_claude(prompt):
-    if not CLAUDE_API_KEY:
-        return None
-    headers = {
-        "x-ipi-key": CLAUDE_API_KEY,
-        "anthropic-version": "2023-06-01",
-        "Content-Type": "application/json"
-    }
-    payload = {
-        "model": "claude-3-5-sonnet-latest",
-        "max_tokens": 1024,
-        "system": SYSTEM_PROMPT,
-        "messages": [{"role": "user", "content": prompt}]
-    }
-    resp = requests.post(
-        "https://api.anthropic.com/v1/messages",
-        json=payload,
-        headers=headers,
-        timeout=30
-    )
-    resp.raise_for_status()
-    content = resp.json()["content"][0]["text"]
-    cleaned = content.replace("```json", "").replace("``` ", "").strip()
-    return json.loads(cleaned)
 
 def analyze_with_retry(prompt, max_retries=2):
     provider = LLM_PROVIDER
@@ -79,7 +55,7 @@ def analyze_with_retry(prompt, max_retries=2):
         try:
             if provider == "claude":
                 result = _call_claude(prompt)
-            elif provider == "qwen":
+            if provider == "qwen":
                 result = _call_qwen(prompt)
             else:
                 result = None
