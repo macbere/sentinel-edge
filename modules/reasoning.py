@@ -17,39 +17,10 @@ Analyze the provided alert and respond ONLY with valid JSON in this exact format
 Do NOT include markdown, explanations, or any text outside the JSON."""
 
 def _smart_offline(prompt):
-    h = int(hashlib.md5(prompt.encode()).hexdigest()[:8], 16)
-    severities = ["low", "medium", "high", "critical"]
-    threats = [
-        "brute_force_attack", "sql_injection", "ransomware_beacon",
-        "privilege_escalation", "data_exfiltration", "malware_execution",
-        "unauthorized_access", "network_scan", "phishing_attempt"
-    ]
-    sev = severities[h % len(severities)]
-    threat = threats[(h >> 4) % len(threats)]
-    conf = round(0.6 + (h % 40) / 100.0, 2)
-    approval = sev in ["high", "critical"]
-    steps_map = {
-        "brute_force_attack": ["Block source IP at firewall", "Reset affected account passwords", "Enable MFA enforcement"],
-        "sql_injection": ["Patch vulnerable endpoint", "Review WAF rules", "Audit database access logs"],
-        "ransomware_beacon": ["Isolate infected host immediately", "Block C2 domain at DNS", "Initiate backup verification"],
-        "privilege_escalation": ["Revoke elevated privileges", "Audit sudo/admin logs", "Patch privilege escalation vector"],
-        "data_exfiltration": ["Block outbound connection", "Identify exfiltrated data scope", "Notify data protection officer"],
-        "malware_execution": ["Quarantine malicious file", "Scan all endpoints for IOCs", "Update AV signatures"],
-        "unauthorized_access": ["Disable compromised account", "Review access logs for lateral movement", "Rotate session tokens"],
-        "network_scan": ["Rate-limit source IP", "Verify firewall rules", "Check for follow-up exploitation"],
-        "phishing_attempt": ["Block sender domain", "Alert targeted users", "Scan for credential compromise"]
-    }
-    steps = steps_map.get(threat, ["Investigate alert manually", "Check system logs", "Escalate to SOC team"])
-    return {
-        "severity": sev,
-        "threat_type": threat,
-        "containment_steps": steps,
-        "requires_human_approval": approval,
-        "confidence": conf,
-        "reasoning": "Offline heuristic analysis based on alert pattern matching. Awaiting cloud API for deep inspection.",
-        "provider": "offline_smart",
-        "fallback": True
-    }
+    """Use enhanced offline analyzer for realistic threat classification."""
+    from modules.offline_analyzer import smart_offline_analyze
+    return smart_offline_analyze(prompt)
+
 
 def _call_qwen(prompt):
     if not QWEN_API_KEY:
