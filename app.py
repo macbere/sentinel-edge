@@ -5,6 +5,8 @@ from modules.action import execute_containment
 from modules.dashboard import get_dashboard_data
 from modules.security import check_rate_limit, sanitize_alert, validate_analyze_payload
 from modules.audit import log_request, log_security_event, get_audit_summary
+from modules.correlation import correlation_engine
+from modules.correlation import correlation_engine
 import time
 import uuid
 from memory import init_db, save_incident, get_recent_incidents
@@ -123,6 +125,14 @@ def audit_summary():
         "period_hours": hours,
         "summary": summary
     })
+
+
+
+@app.route("/correlate", methods=["GET"])
+def get_correlations():
+    hours = request.args.get('hours', 24, type=int)
+    campaigns = correlation_engine.correlate_incidents(hours)
+    return jsonify({"status": "success", "period_hours": hours, "campaigns_detected": len(campaigns), "campaigns": campaigns})
 
 
 @app.route("/dashboard", methods=["GET"])
