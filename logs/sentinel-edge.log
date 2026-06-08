@@ -13,3 +13,673 @@
 [2026-06-07 11:16:07 +0100] [12524] [INFO] Worker exiting (pid: 12524)
 [2026-06-07 11:16:07 +0100] [12522] [INFO] Worker exiting (pid: 12522)
 [2026-06-07 11:16:08 +0100] [12518] [INFO] Shutting down: Master
+[2026-06-07 19:44:14 +0100] [6393] [INFO] Starting gunicorn 26.0.0
+[2026-06-07 19:44:14 +0100] [6393] [INFO] Listening at: http://127.0.0.1:5000 (6393)
+[2026-06-07 19:44:14 +0100] [6393] [INFO] Using worker: gthread
+[2026-06-07 19:44:14 +0100] [6394] [INFO] Booting worker with pid: 6394
+[2026-06-07 19:44:14 +0100] [6395] [INFO] Booting worker with pid: 6395
+[2026-06-07 19:44:14 +0100] [6396] [INFO] Booting worker with pid: 6396
+[2026-06-07 19:44:14 +0100] [6397] [INFO] Booting worker with pid: 6397
+[2026-06-07 19:44:14 +0100] [6393] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "GET /health HTTP/1.1" 200 126 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 400 38 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 400 42 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 400 34 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 200 799 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 200 1106 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 200 792 "-" "python-requests/2.34.2"
+[2026-06-07 19:44:29,232] ERROR in app: Exception on /analyze [POST]
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/reasoning.py", line 61, in analyze_with_retry
+    return _smart_offline(prompt)
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/reasoning.py", line 22, in _smart_offline
+    return smart_offline_analyze(prompt)
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/offline_analyzer.py", line 195, in smart_offline_analyze
+    return analyzer_instance.analyze(alert_text)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/offline_analyzer.py", line 176, in analyze
+    reasoning = self.generate_reasoning(alert_text, threat_type, iocs)
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/offline_analyzer.py", line 166, in generate_reasoning
+    parts.append(f"Affected file(s): {', '.join(iocs['filepath'])}.")
+                                      ~~~~~~~~~^^^^^^^^^^^^^^^^^^
+TypeError: sequence item 0: expected str instance, tuple found
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/sentinel-edge/app.py", line 60, in analyze_alert
+    analysis = analyze_with_retry(validated["text"])  # Pass clean alert only, context pollutes keyword matching
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/reasoning.py", line 68, in analyze_with_retry
+    return _smart_offline(prompt)
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/reasoning.py", line 22, in _smart_offline
+    return smart_offline_analyze(prompt)
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/offline_analyzer.py", line 195, in smart_offline_analyze
+    return analyzer_instance.analyze(alert_text)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/offline_analyzer.py", line 176, in analyze
+    reasoning = self.generate_reasoning(alert_text, threat_type, iocs)
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/offline_analyzer.py", line 166, in generate_reasoning
+    parts.append(f"Affected file(s): {', '.join(iocs['filepath'])}.")
+                                      ~~~~~~~~~^^^^^^^^^^^^^^^^^^
+TypeError: sequence item 0: expected str instance, tuple found
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 500 265 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 200 997 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 200 1024 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 200 795 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 200 1032 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 200 1024 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 200 1032 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 200 747 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 200 997 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 200 763 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 200 1024 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 200 769 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 200 1032 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 200 997 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 200 795 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 200 1032 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 200 997 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 200 781 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 200 781 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 200 781 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 200 747 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "GET /dashboard HTTP/1.1" 200 1365 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:29 +0100] "POST /analyze HTTP/1.1" 200 762 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:30 +0100] "GET /audit HTTP/1.1" 200 339 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:30 +0100] "POST /analyze HTTP/1.1" 200 1041 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:30 +0100] "GET /incidents HTTP/1.1" 200 7323 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:30 +0100] "POST /analyze HTTP/1.1" 200 968 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:30 +0100] "POST /analyze HTTP/1.1" 200 908 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:30 +0100] "POST /analyze HTTP/1.1" 200 921 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:30 +0100] "POST /analyze HTTP/1.1" 200 1193 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:30 +0100] "POST /analyze HTTP/1.1" 200 757 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:30 +0100] "POST /analyze HTTP/1.1" 200 791 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:30 +0100] "POST /analyze HTTP/1.1" 200 829 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:30 +0100] "POST /analyze HTTP/1.1" 200 829 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:30 +0100] "POST /analyze HTTP/1.1" 200 805 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:30 +0100] "POST /analyze HTTP/1.1" 200 1042 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:30 +0100] "POST /analyze HTTP/1.1" 200 779 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:30 +0100] "POST /analyze HTTP/1.1" 200 791 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:30 +0100] "POST /analyze HTTP/1.1" 200 791 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:30 +0100] "POST /analyze HTTP/1.1" 200 1007 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:30 +0100] "GET /health HTTP/1.1" 200 126 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:30 +0100] "GET /dashboard HTTP/1.1" 200 1360 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:30 +0100] "GET /incidents HTTP/1.1" 200 7455 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:44:30 +0100] "GET /audit HTTP/1.1" 200 341 "-" "python-requests/2.34.2"
+[2026-06-07 19:48:22,942] ERROR in app: Exception on /analyze [POST]
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/reasoning.py", line 61, in analyze_with_retry
+    return _smart_offline(prompt)
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/reasoning.py", line 22, in _smart_offline
+    return smart_offline_analyze(prompt)
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/offline_analyzer.py", line 195, in smart_offline_analyze
+    return analyzer_instance.analyze(alert_text)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/offline_analyzer.py", line 176, in analyze
+    reasoning = self.generate_reasoning(alert_text, threat_type, iocs)
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/offline_analyzer.py", line 166, in generate_reasoning
+    parts.append(f"Affected file(s): {', '.join(iocs['filepath'])}.")
+                                      ~~~~~~~~~^^^^^^^^^^^^^^^^^^
+TypeError: sequence item 0: expected str instance, tuple found
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/sentinel-edge/app.py", line 60, in analyze_alert
+    analysis = analyze_with_retry(validated["text"])  # Pass clean alert only, context pollutes keyword matching
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/reasoning.py", line 68, in analyze_with_retry
+    return _smart_offline(prompt)
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/reasoning.py", line 22, in _smart_offline
+    return smart_offline_analyze(prompt)
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/offline_analyzer.py", line 195, in smart_offline_analyze
+    return analyzer_instance.analyze(alert_text)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/offline_analyzer.py", line 176, in analyze
+    reasoning = self.generate_reasoning(alert_text, threat_type, iocs)
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/offline_analyzer.py", line 166, in generate_reasoning
+    parts.append(f"Affected file(s): {', '.join(iocs['filepath'])}.")
+                                      ~~~~~~~~~^^^^^^^^^^^^^^^^^^
+TypeError: sequence item 0: expected str instance, tuple found
+127.0.0.1 - - [07/Jun/2026:19:48:22 +0100] "POST /analyze HTTP/1.1" 500 265 "-" "curl/8.20.0"
+127.0.0.1 - - [07/Jun/2026:19:49:03 +0100] "POST /analyze HTTP/1.1" 200 905 "-" "curl/8.20.0"
+[2026-06-07 19:51:01,378] ERROR in app: Exception on /analyze [POST]
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/reasoning.py", line 61, in analyze_with_retry
+    return _smart_offline(prompt)
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/reasoning.py", line 22, in _smart_offline
+    return smart_offline_analyze(prompt)
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/offline_analyzer.py", line 195, in smart_offline_analyze
+    'iocs': iocs
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/offline_analyzer.py", line 176, in analyze
+    parts.append("Threat classified using offline heuristic analysis engine. Cloud API integration required for deep inspection.")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/offline_analyzer.py", line 166, in generate_reasoning
+    parts.append(f"Identified {len(iocs['ipv4'])} source IP(s): {', '.join(iocs['ipv4'])}.")
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: sequence item 0: expected str instance, tuple found
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/sentinel-edge/app.py", line 60, in analyze_alert
+    analysis = analyze_with_retry(validated["text"])  # Pass clean alert only, context pollutes keyword matching
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/reasoning.py", line 68, in analyze_with_retry
+    return _smart_offline(prompt)
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/reasoning.py", line 22, in _smart_offline
+    return smart_offline_analyze(prompt)
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/offline_analyzer.py", line 195, in smart_offline_analyze
+    'iocs': iocs
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/offline_analyzer.py", line 176, in analyze
+    parts.append("Threat classified using offline heuristic analysis engine. Cloud API integration required for deep inspection.")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/offline_analyzer.py", line 166, in generate_reasoning
+    parts.append(f"Identified {len(iocs['ipv4'])} source IP(s): {', '.join(iocs['ipv4'])}.")
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: sequence item 0: expected str instance, tuple found
+127.0.0.1 - - [07/Jun/2026:19:51:01 +0100] "POST /analyze HTTP/1.1" 500 265 "-" "curl/8.20.0"
+127.0.0.1 - - [07/Jun/2026:19:51:20 +0100] "GET /health HTTP/1.1" 200 126 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:20 +0100] "POST /analyze HTTP/1.1" 400 38 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:20 +0100] "POST /analyze HTTP/1.1" 400 42 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:20 +0100] "POST /analyze HTTP/1.1" 400 34 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:20 +0100] "POST /analyze HTTP/1.1" 200 799 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:20 +0100] "POST /analyze HTTP/1.1" 200 1106 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:20 +0100] "POST /analyze HTTP/1.1" 200 792 "-" "python-requests/2.34.2"
+[2026-06-07 19:51:20,511] ERROR in app: Exception on /analyze [POST]
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/reasoning.py", line 61, in analyze_with_retry
+    return _smart_offline(prompt)
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/reasoning.py", line 22, in _smart_offline
+    return smart_offline_analyze(prompt)
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/offline_analyzer.py", line 195, in smart_offline_analyze
+    'iocs': iocs
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/offline_analyzer.py", line 176, in analyze
+    parts.append("Threat classified using offline heuristic analysis engine. Cloud API integration required for deep inspection.")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/offline_analyzer.py", line 166, in generate_reasoning
+    parts.append(f"Identified {len(iocs['ipv4'])} source IP(s): {', '.join(iocs['ipv4'])}.")
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: sequence item 0: expected str instance, tuple found
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/sentinel-edge/app.py", line 60, in analyze_alert
+    analysis = analyze_with_retry(validated["text"])  # Pass clean alert only, context pollutes keyword matching
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/reasoning.py", line 68, in analyze_with_retry
+    return _smart_offline(prompt)
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/reasoning.py", line 22, in _smart_offline
+    return smart_offline_analyze(prompt)
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/offline_analyzer.py", line 195, in smart_offline_analyze
+    'iocs': iocs
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/offline_analyzer.py", line 176, in analyze
+    parts.append("Threat classified using offline heuristic analysis engine. Cloud API integration required for deep inspection.")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/offline_analyzer.py", line 166, in generate_reasoning
+    parts.append(f"Identified {len(iocs['ipv4'])} source IP(s): {', '.join(iocs['ipv4'])}.")
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: sequence item 0: expected str instance, tuple found
+127.0.0.1 - - [07/Jun/2026:19:51:20 +0100] "POST /analyze HTTP/1.1" 500 265 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:20 +0100] "POST /analyze HTTP/1.1" 200 997 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:20 +0100] "POST /analyze HTTP/1.1" 200 1024 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:20 +0100] "POST /analyze HTTP/1.1" 200 795 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:20 +0100] "POST /analyze HTTP/1.1" 200 1032 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:20 +0100] "POST /analyze HTTP/1.1" 200 1024 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:20 +0100] "POST /analyze HTTP/1.1" 200 1032 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:20 +0100] "POST /analyze HTTP/1.1" 200 747 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:20 +0100] "POST /analyze HTTP/1.1" 200 997 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:20 +0100] "POST /analyze HTTP/1.1" 200 763 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:20 +0100] "POST /analyze HTTP/1.1" 200 1024 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:20 +0100] "POST /analyze HTTP/1.1" 200 769 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:20 +0100] "POST /analyze HTTP/1.1" 200 1032 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:20 +0100] "POST /analyze HTTP/1.1" 200 997 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:20 +0100] "POST /analyze HTTP/1.1" 200 795 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:21 +0100] "POST /analyze HTTP/1.1" 200 1032 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:21 +0100] "POST /analyze HTTP/1.1" 200 997 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:21 +0100] "POST /analyze HTTP/1.1" 200 781 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:21 +0100] "POST /analyze HTTP/1.1" 200 781 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:21 +0100] "POST /analyze HTTP/1.1" 200 781 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:21 +0100] "POST /analyze HTTP/1.1" 200 747 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:21 +0100] "GET /dashboard HTTP/1.1" 200 1373 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:21 +0100] "POST /analyze HTTP/1.1" 200 762 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:21 +0100] "GET /audit HTTP/1.1" 200 344 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:21 +0100] "POST /analyze HTTP/1.1" 200 1041 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:21 +0100] "GET /incidents HTTP/1.1" 200 7323 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:21 +0100] "POST /analyze HTTP/1.1" 200 968 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:21 +0100] "POST /analyze HTTP/1.1" 200 908 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:21 +0100] "POST /analyze HTTP/1.1" 200 921 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:21 +0100] "POST /analyze HTTP/1.1" 200 1193 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:21 +0100] "POST /analyze HTTP/1.1" 200 757 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:21 +0100] "POST /analyze HTTP/1.1" 200 829 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:21 +0100] "POST /analyze HTTP/1.1" 200 805 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:21 +0100] "POST /analyze HTTP/1.1" 200 791 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:21 +0100] "POST /analyze HTTP/1.1" 200 829 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:21 +0100] "POST /analyze HTTP/1.1" 200 791 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:21 +0100] "POST /analyze HTTP/1.1" 200 779 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:21 +0100] "POST /analyze HTTP/1.1" 200 791 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:22 +0100] "POST /analyze HTTP/1.1" 200 1042 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:22 +0100] "POST /analyze HTTP/1.1" 200 1007 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:22 +0100] "GET /health HTTP/1.1" 200 126 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:22 +0100] "GET /dashboard HTTP/1.1" 200 1369 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:22 +0100] "GET /incidents HTTP/1.1" 200 7455 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:51:22 +0100] "GET /audit HTTP/1.1" 200 345 "-" "python-requests/2.34.2"
+[2026-06-07 19:55:47 +0100] [6393] [INFO] Handling signal: term
+[2026-06-07 19:55:47 +0100] [6394] [INFO] Worker exiting (pid: 6394)
+[2026-06-07 19:55:47 +0100] [6396] [INFO] Worker exiting (pid: 6396)
+[2026-06-07 19:55:47 +0100] [6397] [INFO] Worker exiting (pid: 6397)
+[2026-06-07 19:55:47 +0100] [6395] [INFO] Worker exiting (pid: 6395)
+[2026-06-07 19:55:48 +0100] [6393] [INFO] Shutting down: Master
+[2026-06-07 19:55:50 +0100] [14753] [INFO] Starting gunicorn 26.0.0
+[2026-06-07 19:55:50 +0100] [14753] [INFO] Listening at: http://127.0.0.1:5000 (14753)
+[2026-06-07 19:55:50 +0100] [14753] [INFO] Using worker: gthread
+[2026-06-07 19:55:50 +0100] [14755] [INFO] Booting worker with pid: 14755
+[2026-06-07 19:55:50 +0100] [14756] [INFO] Booting worker with pid: 14756
+[2026-06-07 19:55:50 +0100] [14757] [INFO] Booting worker with pid: 14757
+[2026-06-07 19:55:50 +0100] [14758] [INFO] Booting worker with pid: 14758
+[2026-06-07 19:55:50 +0100] [14753] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [07/Jun/2026:19:56:11 +0100] "POST /analyze HTTP/1.1" 200 1254 "-" "curl/8.20.0"
+[2026-06-07 19:56:43 +0100] [14753] [INFO] Handling signal: term
+[2026-06-07 19:56:43 +0100] [14755] [INFO] Worker exiting (pid: 14755)
+[2026-06-07 19:56:43 +0100] [14756] [INFO] Worker exiting (pid: 14756)
+[2026-06-07 19:56:43 +0100] [14758] [INFO] Worker exiting (pid: 14758)
+[2026-06-07 19:56:43 +0100] [14757] [INFO] Worker exiting (pid: 14757)
+[2026-06-07 19:56:44 +0100] [14753] [INFO] Shutting down: Master
+[2026-06-07 19:56:45 +0100] [16072] [INFO] Starting gunicorn 26.0.0
+[2026-06-07 19:56:45 +0100] [16072] [INFO] Listening at: http://127.0.0.1:5000 (16072)
+[2026-06-07 19:56:45 +0100] [16072] [INFO] Using worker: gthread
+[2026-06-07 19:56:45 +0100] [16073] [INFO] Booting worker with pid: 16073
+[2026-06-07 19:56:45 +0100] [16074] [INFO] Booting worker with pid: 16074
+[2026-06-07 19:56:45 +0100] [16075] [INFO] Booting worker with pid: 16075
+[2026-06-07 19:56:45 +0100] [16076] [INFO] Booting worker with pid: 16076
+[2026-06-07 19:56:46 +0100] [16072] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [07/Jun/2026:19:57:03 +0100] "POST /analyze HTTP/1.1" 200 1254 "-" "curl/8.20.0"
+127.0.0.1 - - [07/Jun/2026:19:57:28 +0100] "GET /health HTTP/1.1" 200 126 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:28 +0100] "POST /analyze HTTP/1.1" 400 38 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:28 +0100] "POST /analyze HTTP/1.1" 400 42 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:28 +0100] "POST /analyze HTTP/1.1" 400 34 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:28 +0100] "POST /analyze HTTP/1.1" 200 799 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:28 +0100] "POST /analyze HTTP/1.1" 200 1106 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:28 +0100] "POST /analyze HTTP/1.1" 200 792 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:28 +0100] "POST /analyze HTTP/1.1" 200 1254 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:28 +0100] "POST /analyze HTTP/1.1" 200 997 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:28 +0100] "POST /analyze HTTP/1.1" 200 1024 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:28 +0100] "POST /analyze HTTP/1.1" 200 795 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:29 +0100] "POST /analyze HTTP/1.1" 200 1032 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:29 +0100] "POST /analyze HTTP/1.1" 200 1024 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:29 +0100] "POST /analyze HTTP/1.1" 200 1032 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:29 +0100] "POST /analyze HTTP/1.1" 200 747 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:29 +0100] "POST /analyze HTTP/1.1" 200 997 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:29 +0100] "POST /analyze HTTP/1.1" 200 763 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:29 +0100] "POST /analyze HTTP/1.1" 200 1024 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:29 +0100] "POST /analyze HTTP/1.1" 200 769 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:29 +0100] "POST /analyze HTTP/1.1" 200 1032 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:29 +0100] "POST /analyze HTTP/1.1" 200 997 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:29 +0100] "POST /analyze HTTP/1.1" 200 795 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:29 +0100] "POST /analyze HTTP/1.1" 200 1032 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:29 +0100] "POST /analyze HTTP/1.1" 200 997 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:29 +0100] "POST /analyze HTTP/1.1" 200 781 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:29 +0100] "POST /analyze HTTP/1.1" 200 781 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:29 +0100] "POST /analyze HTTP/1.1" 200 781 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:29 +0100] "POST /analyze HTTP/1.1" 200 747 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:29 +0100] "GET /dashboard HTTP/1.1" 200 1374 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:29 +0100] "POST /analyze HTTP/1.1" 200 762 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:30 +0100] "GET /audit HTTP/1.1" 200 347 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:30 +0100] "POST /analyze HTTP/1.1" 200 1049 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:30 +0100] "GET /incidents HTTP/1.1" 200 7321 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:30 +0100] "POST /analyze HTTP/1.1" 200 968 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:30 +0100] "POST /analyze HTTP/1.1" 200 908 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:30 +0100] "POST /analyze HTTP/1.1" 200 921 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:30 +0100] "POST /analyze HTTP/1.1" 200 1193 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:30 +0100] "POST /analyze HTTP/1.1" 200 757 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:30 +0100] "POST /analyze HTTP/1.1" 200 791 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:30 +0100] "POST /analyze HTTP/1.1" 200 805 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:30 +0100] "POST /analyze HTTP/1.1" 200 791 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:30 +0100] "POST /analyze HTTP/1.1" 200 829 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:30 +0100] "POST /analyze HTTP/1.1" 200 1007 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:30 +0100] "POST /analyze HTTP/1.1" 200 791 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:30 +0100] "POST /analyze HTTP/1.1" 200 1042 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:30 +0100] "POST /analyze HTTP/1.1" 200 829 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:30 +0100] "POST /analyze HTTP/1.1" 200 779 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:30 +0100] "GET /health HTTP/1.1" 200 126 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:30 +0100] "GET /dashboard HTTP/1.1" 200 1370 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:30 +0100] "GET /incidents HTTP/1.1" 200 7455 "-" "python-requests/2.34.2"
+127.0.0.1 - - [07/Jun/2026:19:57:30 +0100] "GET /audit HTTP/1.1" 200 347 "-" "python-requests/2.34.2"
+[2026-06-07 20:07:48 +0100] [25679] [INFO] Starting gunicorn 26.0.0
+127.0.0.1 - - [07/Jun/2026:20:07:50 +0100] "GET /correlate HTTP/1.1" 404 207 "-" "curl/8.20.0"
+[2026-06-07 20:11:04 +0100] [16072] [INFO] Handling signal: term
+[2026-06-07 20:11:04 +0100] [16074] [INFO] Worker exiting (pid: 16074)
+[2026-06-07 20:11:04 +0100] [16075] [INFO] Worker exiting (pid: 16075)
+[2026-06-07 20:11:04 +0100] [16076] [INFO] Worker exiting (pid: 16076)
+[2026-06-07 20:11:04 +0100] [16073] [INFO] Worker exiting (pid: 16073)
+[2026-06-07 20:11:05 +0100] [16072] [INFO] Shutting down: Master
+[2026-06-07 20:11:06 +0100] [29095] [INFO] Starting gunicorn 26.0.0
+[2026-06-07 20:11:06 +0100] [29095] [INFO] Listening at: http://127.0.0.1:5000 (29095)
+[2026-06-07 20:11:06 +0100] [29095] [INFO] Using worker: gthread
+[2026-06-07 20:11:06 +0100] [29096] [INFO] Booting worker with pid: 29096
+[2026-06-07 20:11:06 +0100] [29097] [INFO] Booting worker with pid: 29097
+[2026-06-07 20:11:06 +0100] [29098] [INFO] Booting worker with pid: 29098
+[2026-06-07 20:11:06 +0100] [29099] [INFO] Booting worker with pid: 29099
+[2026-06-07 20:11:06 +0100] [29095] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+[2026-06-07 20:11:07 +0100] [29098] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/arbiter.py", line 713, in spawn_worker
+    worker.init_process()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/workers/gthread.py", line 243, in init_process
+    super().init_process()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/workers/base.py", line 136, in init_process
+    self.load_wsgi()
+    ~~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+    self.wsgi = self.app.wsgi()
+                ~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+                    ~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+    return self.load_wsgiapp()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+    return util.import_app(self.app_uri)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/util.py", line 411, in import_app
+    mod = importlib.import_module(module)
+  File "/data/data/com.termux/files/usr/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/data/data/com.termux/files/home/sentinel-edge/app.py", line 8, in <module>
+    from modules.correlation import correlation_engine
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/correlation.py", line 105
+    }
+    ^
+SyntaxError: unmatched '}'
+[2026-06-07 20:11:07 +0100] [29098] [INFO] Worker exiting (pid: 29098)
+[2026-06-07 20:11:07 +0100] [29097] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/arbiter.py", line 713, in spawn_worker
+    worker.init_process()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/workers/gthread.py", line 243, in init_process
+    super().init_process()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/workers/base.py", line 136, in init_process
+    self.load_wsgi()
+    ~~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+    self.wsgi = self.app.wsgi()
+                ~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+                    ~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+    return self.load_wsgiapp()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+    return util.import_app(self.app_uri)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/util.py", line 411, in import_app
+    mod = importlib.import_module(module)
+  File "/data/data/com.termux/files/usr/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/data/data/com.termux/files/home/sentinel-edge/app.py", line 8, in <module>
+    from modules.correlation import correlation_engine
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/correlation.py", line 105
+    }
+    ^
+SyntaxError: unmatched '}'
+[2026-06-07 20:11:07 +0100] [29097] [INFO] Worker exiting (pid: 29097)
+[2026-06-07 20:11:07 +0100] [29099] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/arbiter.py", line 713, in spawn_worker
+    worker.init_process()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/workers/gthread.py", line 243, in init_process
+    super().init_process()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/workers/base.py", line 136, in init_process
+    self.load_wsgi()
+    ~~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+    self.wsgi = self.app.wsgi()
+                ~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+                    ~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+    return self.load_wsgiapp()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+    return util.import_app(self.app_uri)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/util.py", line 411, in import_app
+    mod = importlib.import_module(module)
+  File "/data/data/com.termux/files/usr/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/data/data/com.termux/files/home/sentinel-edge/app.py", line 8, in <module>
+    from modules.correlation import correlation_engine
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/correlation.py", line 105
+    }
+    ^
+SyntaxError: unmatched '}'
+[2026-06-07 20:11:07 +0100] [29099] [INFO] Worker exiting (pid: 29099)
+[2026-06-07 20:11:07 +0100] [29096] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/arbiter.py", line 713, in spawn_worker
+    worker.init_process()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/workers/gthread.py", line 243, in init_process
+    super().init_process()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/workers/base.py", line 136, in init_process
+    self.load_wsgi()
+    ~~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+    self.wsgi = self.app.wsgi()
+                ~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+                    ~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+    return self.load_wsgiapp()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+    return util.import_app(self.app_uri)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/site-packages/gunicorn/util.py", line 411, in import_app
+    mod = importlib.import_module(module)
+  File "/data/data/com.termux/files/usr/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/data/data/com.termux/files/home/sentinel-edge/app.py", line 8, in <module>
+    from modules.correlation import correlation_engine
+  File "/data/data/com.termux/files/home/sentinel-edge/modules/correlation.py", line 105
+    }
+    ^
+SyntaxError: unmatched '}'
+[2026-06-07 20:11:07 +0100] [29096] [INFO] Worker exiting (pid: 29096)
+[2026-06-07 20:11:07 +0100] [29095] [ERROR] Worker (pid:29098) exited with code 3.
+[2026-06-07 20:11:07 +0100] [29095] [INFO] Worker (pid:29096) was sent SIGTERM!
+[2026-06-07 20:11:07 +0100] [29095] [ERROR] Worker (pid:29097) exited with code 3.
+[2026-06-08 08:32:43 +0100] [7793] [INFO] Starting gunicorn 26.0.0
+[2026-06-08 08:32:43 +0100] [7793] [INFO] Listening at: http://127.0.0.1:5000 (7793)
+[2026-06-08 08:32:43 +0100] [7793] [INFO] Using worker: gthread
+[2026-06-08 08:32:43 +0100] [7797] [INFO] Booting worker with pid: 7797
+[2026-06-08 08:32:43 +0100] [7798] [INFO] Booting worker with pid: 7798
+[2026-06-08 08:32:43 +0100] [7799] [INFO] Booting worker with pid: 7799
+[2026-06-08 08:32:43 +0100] [7800] [INFO] Booting worker with pid: 7800
+[2026-06-08 08:32:43 +0100] [7793] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [08/Jun/2026:08:32:57 +0100] "POST /analyze HTTP/1.1" 200 968 "-" "curl/8.20.0"
+127.0.0.1 - - [08/Jun/2026:08:32:57 +0100] "POST /analyze HTTP/1.1" 200 908 "-" "curl/8.20.0"
+127.0.0.1 - - [08/Jun/2026:08:32:57 +0100] "POST /analyze HTTP/1.1" 200 921 "-" "curl/8.20.0"
+127.0.0.1 - - [08/Jun/2026:08:32:58 +0100] "POST /analyze HTTP/1.1" 200 1193 "-" "curl/8.20.0"
+127.0.0.1 - - [08/Jun/2026:08:33:08 +0100] "GET /health HTTP/1.1" 200 126 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:08 +0100] "POST /analyze HTTP/1.1" 400 38 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:08 +0100] "POST /analyze HTTP/1.1" 400 42 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:08 +0100] "POST /analyze HTTP/1.1" 400 34 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:08 +0100] "POST /analyze HTTP/1.1" 200 799 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:08 +0100] "POST /analyze HTTP/1.1" 200 1106 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:08 +0100] "POST /analyze HTTP/1.1" 200 792 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:08 +0100] "POST /analyze HTTP/1.1" 200 1254 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:08 +0100] "POST /analyze HTTP/1.1" 200 997 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:08 +0100] "POST /analyze HTTP/1.1" 200 1024 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:08 +0100] "POST /analyze HTTP/1.1" 200 795 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:08 +0100] "POST /analyze HTTP/1.1" 200 1032 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:08 +0100] "POST /analyze HTTP/1.1" 200 1024 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:08 +0100] "POST /analyze HTTP/1.1" 200 1032 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:08 +0100] "POST /analyze HTTP/1.1" 200 747 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:08 +0100] "POST /analyze HTTP/1.1" 200 997 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:08 +0100] "POST /analyze HTTP/1.1" 200 763 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:08 +0100] "POST /analyze HTTP/1.1" 200 1024 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:08 +0100] "POST /analyze HTTP/1.1" 200 769 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:08 +0100] "POST /analyze HTTP/1.1" 200 1032 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:08 +0100] "POST /analyze HTTP/1.1" 200 997 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:08 +0100] "POST /analyze HTTP/1.1" 200 795 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:09 +0100] "POST /analyze HTTP/1.1" 200 1032 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:09 +0100] "POST /analyze HTTP/1.1" 200 997 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:09 +0100] "POST /analyze HTTP/1.1" 200 781 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:09 +0100] "POST /analyze HTTP/1.1" 200 781 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:09 +0100] "POST /analyze HTTP/1.1" 200 781 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:09 +0100] "POST /analyze HTTP/1.1" 200 747 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:09 +0100] "GET /dashboard HTTP/1.1" 200 1375 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:09 +0100] "POST /analyze HTTP/1.1" 200 762 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:09 +0100] "GET /audit HTTP/1.1" 200 364 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:09 +0100] "POST /analyze HTTP/1.1" 200 780 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:09 +0100] "GET /incidents HTTP/1.1" 200 7321 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:09 +0100] "POST /analyze HTTP/1.1" 200 968 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:09 +0100] "POST /analyze HTTP/1.1" 200 908 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:09 +0100] "POST /analyze HTTP/1.1" 200 921 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:09 +0100] "POST /analyze HTTP/1.1" 200 1193 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:09 +0100] "POST /analyze HTTP/1.1" 200 757 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:09 +0100] "POST /analyze HTTP/1.1" 200 829 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:09 +0100] "POST /analyze HTTP/1.1" 200 791 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:09 +0100] "POST /analyze HTTP/1.1" 200 805 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:09 +0100] "POST /analyze HTTP/1.1" 200 779 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:09 +0100] "POST /analyze HTTP/1.1" 200 791 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:09 +0100] "POST /analyze HTTP/1.1" 200 1007 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:10 +0100] "POST /analyze HTTP/1.1" 200 829 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:10 +0100] "POST /analyze HTTP/1.1" 200 1042 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:10 +0100] "POST /analyze HTTP/1.1" 200 791 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:10 +0100] "GET /health HTTP/1.1" 200 126 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:10 +0100] "GET /dashboard HTTP/1.1" 200 1374 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:10 +0100] "GET /incidents HTTP/1.1" 200 7455 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:33:10 +0100] "GET /audit HTTP/1.1" 200 364 "-" "python-requests/2.34.2"
+127.0.0.1 - - [08/Jun/2026:08:44:19 +0100] "GET /health HTTP/1.1" 200 126 "-" "curl/8.20.0"
+127.0.0.1 - - [08/Jun/2026:08:44:41 +0100] "GET /health HTTP/1.1" 200 126 "-" "curl/8.20.0"
+127.0.0.1 - - [08/Jun/2026:08:44:42 +0100] "POST /analyze HTTP/1.1" 200 905 "-" "curl/8.20.0"
+127.0.0.1 - - [08/Jun/2026:08:44:42 +0100] "GET /dashboard HTTP/1.1" 200 1378 "-" "curl/8.20.0"
+127.0.0.1 - - [08/Jun/2026:08:44:42 +0100] "GET /audit HTTP/1.1" 200 364 "-" "curl/8.20.0"
+127.0.0.1 - - [08/Jun/2026:08:44:43 +0100] "GET /correlate HTTP/1.1" 200 3149 "-" "curl/8.20.0"
+127.0.0.1 - - [08/Jun/2026:08:44:43 +0100] "GET /incidents HTTP/1.1" 200 7576 "-" "curl/8.20.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "GET /health HTTP/1.1" 200 126 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 400 38 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 400 42 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 400 34 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 200 799 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 200 1106 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 200 792 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 200 1254 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 200 997 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 200 1024 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 200 795 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 200 1032 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 200 1024 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 200 1032 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 200 747 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 200 997 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 200 763 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 200 1024 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 200 769 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 200 1032 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 200 997 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 200 795 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 200 1032 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 200 997 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 200 781 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 200 781 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 200 781 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:55 +0100] "POST /analyze HTTP/1.1" 200 747 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:56 +0100] "GET /dashboard HTTP/1.1" 200 1376 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:56 +0100] "POST /analyze HTTP/1.1" 200 762 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:56 +0100] "GET /audit HTTP/1.1" 200 364 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:56 +0100] "POST /analyze HTTP/1.1" 200 836 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:56 +0100] "GET /incidents HTTP/1.1" 200 7343 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:56 +0100] "POST /analyze HTTP/1.1" 200 968 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:56 +0100] "POST /analyze HTTP/1.1" 200 908 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:56 +0100] "POST /analyze HTTP/1.1" 200 921 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:56 +0100] "POST /analyze HTTP/1.1" 200 1193 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:56 +0100] "POST /analyze HTTP/1.1" 200 757 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:56 +0100] "POST /analyze HTTP/1.1" 200 805 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:56 +0100] "POST /analyze HTTP/1.1" 200 791 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:56 +0100] "POST /analyze HTTP/1.1" 200 791 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:56 +0100] "POST /analyze HTTP/1.1" 200 1007 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:56 +0100] "POST /analyze HTTP/1.1" 200 791 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:56 +0100] "POST /analyze HTTP/1.1" 200 829 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:56 +0100] "POST /analyze HTTP/1.1" 200 1042 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:56 +0100] "POST /analyze HTTP/1.1" 200 829 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:56 +0100] "POST /analyze HTTP/1.1" 200 779 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:56 +0100] "GET /health HTTP/1.1" 200 126 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:56 +0100] "GET /dashboard HTTP/1.1" 200 1375 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:56 +0100] "GET /incidents HTTP/1.1" 200 7455 "-" "python-requests/2.31.0"
+127.0.0.1 - - [08/Jun/2026:08:44:56 +0100] "GET /audit HTTP/1.1" 200 364 "-" "python-requests/2.31.0"
