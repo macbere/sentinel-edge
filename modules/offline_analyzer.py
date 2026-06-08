@@ -121,7 +121,15 @@ class OfflineAnalyzer:
         for ioc_type, pattern in self.IOC_PATTERNS.items():
             matches = re.findall(pattern, alert_text, re.IGNORECASE)
             if matches:
-                iocs[ioc_type] = list(set(matches))
+                # Handle capture groups - flatten tuples to strings
+                flattened = []
+                for m in matches:
+                    if isinstance(m, tuple):
+                        # Take non-empty groups from capture groups
+                        flattened.extend([g for g in m if g])
+                    else:
+                        flattened.append(m)
+                iocs[ioc_type] = list(set(flattened))
         return iocs
     
     def classify_threat(self, alert_text: str) -> tuple[str, float]:

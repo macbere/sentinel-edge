@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-06-08T08:33:10.158708",
+  "timestamp": "2026-06-08T08:44:57.003200",
   "total": 15,
   "passed": 15,
   "failed": 0,
@@ -8,91 +8,91 @@
       "name": "Health Endpoint",
       "passed": true,
       "details": "Status: 200",
-      "timestamp": "2026-06-08T08:33:08.433001"
+      "timestamp": "2026-06-08T08:44:55.238762"
     },
     {
       "name": "Malformed JSON",
       "passed": true,
       "details": "Status: 400",
-      "timestamp": "2026-06-08T08:33:08.445702"
+      "timestamp": "2026-06-08T08:44:55.252012"
     },
     {
       "name": "Missing Alert Field",
       "passed": true,
       "details": "Status: 400",
-      "timestamp": "2026-06-08T08:33:08.454968"
+      "timestamp": "2026-06-08T08:44:55.266173"
     },
     {
       "name": "Empty Alert",
       "passed": true,
       "details": "Status: 400",
-      "timestamp": "2026-06-08T08:33:08.465324"
+      "timestamp": "2026-06-08T08:44:55.281036"
     },
     {
       "name": "Very Long Alert (10KB)",
       "passed": true,
       "details": "Status: 200",
-      "timestamp": "2026-06-08T08:33:08.502213"
+      "timestamp": "2026-06-08T08:44:55.319654"
     },
     {
       "name": "Unicode Characters",
       "passed": true,
       "details": "Status: 200",
-      "timestamp": "2026-06-08T08:33:08.548139"
+      "timestamp": "2026-06-08T08:44:55.348285"
     },
     {
       "name": "SQL Injection Attempt",
       "passed": true,
       "details": "Status: 200",
-      "timestamp": "2026-06-08T08:33:08.567974"
+      "timestamp": "2026-06-08T08:44:55.372636"
     },
     {
       "name": "Multiple IOCs Extraction",
       "passed": true,
       "details": "Found 5 IOC types: ['domain', 'filepath', 'ipv4', 'port', 'username']",
-      "timestamp": "2026-06-08T08:33:08.588845"
+      "timestamp": "2026-06-08T08:44:55.392631"
     },
     {
       "name": "Rapid Sequential (20 requests)",
       "passed": true,
-      "details": "20/20 successful in 0.55s",
-      "timestamp": "2026-06-08T08:33:09.137151"
+      "details": "20/20 successful in 0.60s",
+      "timestamp": "2026-06-08T08:44:55.996267"
     },
     {
       "name": "Dashboard Metrics",
       "passed": true,
-      "details": "Total incidents: 234",
-      "timestamp": "2026-06-08T08:33:09.173443"
+      "details": "Total incidents: 275",
+      "timestamp": "2026-06-08T08:44:56.034841"
     },
     {
       "name": "Audit Logging",
       "passed": true,
-      "details": "Total logged requests: 321",
-      "timestamp": "2026-06-08T08:33:09.746292"
+      "details": "Total logged requests: 379",
+      "timestamp": "2026-06-08T08:44:56.595476"
     },
     {
       "name": "Incident Persistence",
       "passed": true,
-      "details": "Incident 335 persisted",
-      "timestamp": "2026-06-08T08:33:09.786863"
+      "details": "Incident 376 persisted",
+      "timestamp": "2026-06-08T08:44:56.643045"
     },
     {
       "name": "Threat Classification Accuracy",
       "passed": true,
       "details": "4/4 correct classifications",
-      "timestamp": "2026-06-08T08:33:09.900625"
+      "timestamp": "2026-06-08T08:44:56.770568"
     },
     {
       "name": "Concurrent Requests (10)",
       "passed": true,
-      "details": "10/10 successful in 0.14s",
-      "timestamp": "2026-06-08T08:33:10.044167"
+      "details": "10/10 successful in 0.12s",
+      "timestamp": "2026-06-08T08:44:56.889587"
     },
     {
       "name": "Endpoint Discovery",
       "passed": true,
       "details": "4/4 endpoints accessible",
-      "timestamp": "2026-06-08T08:33:10.155772"
+      "timestamp": "2026-06-08T08:44:56.999701"
     }
   ]
 }

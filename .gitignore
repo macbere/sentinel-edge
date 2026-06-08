@@ -29,7 +29,6 @@ Thumbs.db
 
 # Temporary scripts
 fix_*.py
-test_*.py
 
 # Gunicorn
 *.pid
