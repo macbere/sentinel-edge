@@ -8,13 +8,19 @@ SYSTEM_PROMPT = """You are Sentinel Edge, an autonomous cybersecurity incident r
 Analyze the provided alert and respond ONLY with valid JSON in this exact format:
 {
   "severity": "low|medium|high|critical",
-  "threat_type": "string describing the threat",
+  "threat_type": "ransomware_beacon|brute_force_attack|sql_injection|unauthorized_access|data_exfiltration|malware_execution|network_scan|phishing_attempt|privilege_escalation",
   "containment_steps": ["step1", "step2", "step3"],
   "requires_human_approval": true|false,
   "confidence": 0.0-1.0,
-  "reasoning": "brief explanation"
+  "reasoning": "brief explanation",
+  "iocs": {
+    "ipv4": ["ip1", "ip2"],
+    "username": ["user1"],
+    "domain": ["domain1"],
+    "filepath": ["/path/to/file"]
+  }
 }
-Do NOT include markdown, explanations, or any text outside the JSON."""
+Use ONLY the threat_type values listed above. Do NOT include markdown, explanations, or any text outside the JSON."""
 
 def _smart_offline(prompt):
     """Use enhanced offline analyzer for realistic threat classification."""
