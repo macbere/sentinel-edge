@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#f5f5f5"/>
+  
+  <!-- Title -->
+  <text x="600" y="30" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">
+    Sentinel Edge Architecture
+  </text>
+  
+  <!-- Edge Layer -->
+  <rect x="50" y="60" width="1100" height="100" fill="#e3f2fd" stroke="#1976d2" stroke-width="2" rx="10"/>
+  <text x="600" y="85" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#1976d2">
+    EDGE LAYER (Android/Termux)
+  </text>
+  <rect x="100" y="100" width="200" height="40" fill="#bbdefb" stroke="#1976d2" rx="5"/>
+  <text x="200" y="125" font-family="Arial" font-size="14" text-anchor="middle">SIEM Logs</text>
+  <rect x="350" y="100" width="200" height="40" fill="#bbdefb" stroke="#1976d2" rx="5"/>
+  <text x="450" y="125" font-family="Arial" font-size="14" text-anchor="middle">IDS Alerts</text>
+  <rect x="600" y="100" width="200" height="40" fill="#bbdefb" stroke="#1976d2" rx="5"/>
+  <text x="700" y="125" font-family="Arial" font-size="14" text-anchor="middle">Network Flow</text>
+  <rect x="850" y="100" width="200" height="40" fill="#bbdefb" stroke="#1976d2" rx="5"/>
+  <text x="950" y="125" font-family="Arial" font-size="14" text-anchor="middle">User Input</text>
+  
+  <!-- Arrow down -->
+  <line x1="600" y1="160" x2="600" y2="190" stroke="#333" stroke-width="3" marker-end="url(#arrowhead)"/>
+  
+  <!-- Core Agent -->
+  <rect x="50" y="190" width="1100" height="350" fill="#fff3e0" stroke="#f57c00" stroke-width="2" rx="10"/>
+  <text x="600" y="215" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#f57c00">
+    SENTINEL EDGE AGENT (Core Engine)
+  </text>
+  
+  <!-- Perception -->
+  <rect x="100" y="230" width="1000" height="50" fill="#ffe0b2" stroke="#f57c00" rx="5"/>
+  <text x="600" y="260" font-family="Arial" font-size="14" text-anchor="middle">1. PERCEPTION: IOC Extraction & Alert Parsing</text>
+  
+  <!-- Reasoning -->
+  <rect x="100" y="290" width="1000" height="70" fill="#ffe0b2" stroke="#f57c00" rx="5"/>
+  <text x="600" y="315" font-family="Arial" font-size="14" text-anchor="middle">2. REASONING: 4-Step Agentic Chain</text>
+  <text x="600" y="340" font-family="Arial" font-size="12" text-anchor="middle">Classification → Tool Selection → Action Plan → Validation</text>
+  
+  <!-- MCP -->
+  <rect x="100" y="370" width="1000" height="50" fill="#ffe0b2" stroke="#f57c00" rx="5"/>
+  <text x="600" y="400" font-family="Arial" font-size="14" text-anchor="middle">3. MCP INTEGRATION: Threat Intelligence Lookup</text>
+  
+  <!-- Action -->
+  <rect x="100" y="430" width="1000" height="50" fill="#ffe0b2" stroke="#f57c00" rx="5"/>
+  <text x="600" y="460" font-family="Arial" font-size="14" text-anchor="middle">4. ACTION: Containment Plan & Human-in-the-Loop Approval</text>
+  
+  <!-- Memory -->
+  <rect x="100" y="490" width="1000" height="40" fill="#ffe0b2" stroke="#f57c00" rx="5"/>
+  <text x="600" y="515" font-family="Arial" font-size="14" text-anchor="middle">5. MEMORY: SQLite Storage & Campaign Detection</text>
+  
+  <!-- Arrow down -->
+  <line x1="600" y1="540" x2="600" y2="570" stroke="#333" stroke-width="3" marker-end="url(#arrowhead)"/>
+  
+  <!-- Alibaba Cloud -->
+  <rect x="50" y="570" width="1100" height="120" fill="#e8f5e9" stroke="#388e3c" stroke-width="2" rx="10"/>
+  <text x="600" y="595" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#388e3c">
+    ALIBABA CLOUD INFRASTRUCTURE
+  </text>
+  <rect x="100" y="610" width="450" height="60" fill="#c8e6c9" stroke="#388e3c" rx="5"/>
+  <text x="325" y="635" font-family="Arial" font-size="14" text-anchor="middle">Qwen Cloud API (DashScope)</text>
+  <text x="325" y="655" font-family="Arial" font-size="12" text-anchor="middle">Model: qwen-max</text>
+  <rect x="650" y="610" width="450" height="60" fill="#c8e6c9" stroke="#388e3c" rx="5"/>
+  <text x="875" y="635" font-family="Arial" font-size="14" text-anchor="middle">ECS Instance (47.77.199.98)</text>
+  <text x="875" y="655" font-family="Arial" font-size="12" text-anchor="middle">Ubuntu 22.04 | Gunicorn</text>
+  
+  <!-- Arrow down -->
+  <line x1="600" y1="690" x2="600" y2="720" stroke="#333" stroke-width="3" marker-end="url(#arrowhead)"/>
+  
+  <!-- Output -->
+  <rect x="50" y="720" width="1100" height="60" fill="#fce4ec" stroke="#c2185b" stroke-width="2" rx="10"/>
+  <text x="600" y="745" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#c2185b">
+    OUTPUT & DASHBOARD
+  </text>
+  <text x="600" y="765" font-family="Arial" font-size="14" text-anchor="middle">JSON API | Dashboard Metrics | Audit Logs | Reports</text>
+  
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+  </defs>
+</svg>

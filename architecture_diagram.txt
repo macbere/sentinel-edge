@@ -1,0 +1,101 @@
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                         SENTINEL EDGE ARCHITECTURE                              │
+│                    Autonomous Cybersecurity Incident Response                   │
+└─────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                              EDGE LAYER (Android/Termux)                        │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐        │
+│  │  SIEM Logs   │  │  IDS Alerts  │  │ Network Flow │  │  User Input  │        │
+│  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘        │
+│         │                 │                 │                 │                 │
+│         └─────────────────┴─────────────────┴─────────────────┘                 │
+│                                    │                                            │
+│                           ┌────────▼────────┐                                   │
+│                           │  Alert Ingestion│                                   │
+│                           └────────┬────────┘                                   │
+└────────────────────────────────────┼────────────────────────────────────────────┘
+                                     │
+                                     ▼
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                        SENTINEL EDGE AGENT (Core Engine)                        │
+│                                                                                 │
+│  ┌──────────────────────────────────────────────────────────────────────────┐  │
+│  │  1. PERCEPTION MODULE                                                    │  │
+│  │     • IOC Extraction (IPs, domains, usernames, filepaths)                │  │
+│  │     • Alert Parsing & Normalization                                      │  │
+│  └──────────────────────────────────────────────────────────────────────────┘  │
+│                                    │                                            │
+│                                    ▼                                            │
+│  ┌──────────────────────────────────────────────────────────────────────────┐  │
+│  │  2. REASONING MODULE (4-Step Agentic Chain)                              │  │
+│  │     Step 1: Threat Classification (Qwen AI)                              │  │
+│  │     Step 2: Tool Selection (Qwen AI)                                     │  │
+│  │     Step 3: Action Plan Generation (Qwen AI)                             │  │
+│  │     Step 4: Confidence Validation (Qwen AI)                              │  │
+│  └──────────────────────────────────────────────────────────────────────────┘  │
+│                                    │                                            │
+│                                    ▼                                            │
+│  ┌──────────────────────────────────────────────────────────────────────────┐  │
+│  │  3. MCP INTEGRATION (Model Context Protocol)                             │  │
+│  │     • Threat Intelligence Lookup (VirusTotal/AbuseIPDB/OTX)              │  │
+│  │     • IOC Enrichment (reputation, geolocation, known threats)            │  │
+│  └──────────────────────────────────────────────────────────────────────────┘  │
+│                                    │                                            │
+│                                    ▼                                            │
+│  ┌──────────────────────────────────────────────────────────────────────────┐  │
+│  │  4. ACTION MODULE                                                        │  │
+│  │     • Containment Plan Generation                                        │  │
+│  │     • Human-in-the-Loop Approval Gate                                    │  ││  │     • Incident Response Execution                                        │  │
+│  └──────────────────────────────────────────────────────────────────────────┘  │
+│                                    │                                            │
+│                                    ▼                                            │
+│  ┌──────────────────────────────────────────────────────────────────────────┐  │
+│  │  5. MEMORY MODULE                                                        │  │
+│  │     • SQLite Persistent Storage                                          │  │
+│  │     • Incident History & Correlation                                     │  │
+│  │     • Campaign Detection & Threat Actor Profiling                        │  │
+│  └──────────────────────────────────────────────────────────────────────────┘  │
+│                                                                                 │
+└─────────────────────────────────────────────────────────────────────────────────┘
+                                     │
+                                     ▼
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                         ALIBABA CLOUD INFRASTRUCTURE                            │
+│                                                                                 │
+│  ┌──────────────────────────────────────────────────────────────────────────┐  │
+│  │  QWEN CLOUD API (DashScope International)                                │  │
+│  │  • Model: qwen-max                                                       │  │
+│  │  • Endpoint: dashscope-intl.aliyuncs.com                                 │  │
+│  │  • Usage: Multi-step reasoning chain                                     │  │
+│  └──────────────────────────────────────────────────────────────────────────┘  │
+│                                                                                 │
+│  ┌──────────────────────────────────────────────────────────────────────────┐  │
+│  │  ELASTIC COMPUTE SERVICE (ECS)                                           │  │
+│  │  • Instance: ecs.t6-c1m2.large (2 vCPU, 4 GiB RAM)                       │  │
+│  │  • OS: Ubuntu 22.04 LTS                                                  │  │
+│  │  • Public IP: 47.77.199.98                                               │  │
+│  │  • Server: Gunicorn (production mode)                                    │  │
+│  │  • URL: http://47.77.199.98:5000                                         │  │
+│  └──────────────────────────────────────────────────────────────────────────┘  │
+│                                                                                 │
+└─────────────────────────────────────────────────────────────────────────────────┘
+                                     │
+                                     ▼
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                              OUTPUT & DASHBOARD                                 │
+│                                                                                 │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐        │
+│  │  JSON API    │  │  Dashboard   │  │ Audit Logs   │  │   Reports    │        │
+│  │  Responses   │  │  Metrics     │  │              │  │              │        │
+│  └──────────────┘  └──────────────┘  └──────────────┘  └──────────────┘        │
+│                                                                                 │
+└─────────────────────────────────────────────────────────────────────────────────┘
+
+KEY FEATURES:
+✓ Edge-Cloud Hybrid Architecture
+✓ 4-Step Agentic Reasoning Chain
+✓ MCP Tool Integration (Threat Intelligence)✓ Human-in-the-Loop Approval
+✓ Persistent Memory & Campaign Detection
+✓ Production Deployment on Alibaba Cloud ECS
+✓ 15/15 Edge Case Tests Passing (100%)
