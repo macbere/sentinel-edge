@@ -1009,3 +1009,13 @@ SyntaxError: unmatched '}'
 [2026-06-22 20:58:12 +0100] [13639] [INFO] Worker exiting (pid: 13639)
 [2026-06-22 20:58:12 +0100] [13637] [INFO] Worker exiting (pid: 13637)
 [2026-06-22 20:58:13 +0100] [13634] [INFO] Shutting down: Master
+[2026-06-22 21:40:18 +0100] [16611] [INFO] Starting gunicorn 26.0.0
+[2026-06-22 21:40:18 +0100] [16611] [INFO] Listening at: http://127.0.0.1:5000 (16611)
+[2026-06-22 21:40:18 +0100] [16611] [INFO] Using worker: gthread
+[2026-06-22 21:40:18 +0100] [16614] [INFO] Booting worker with pid: 16614
+[2026-06-22 21:40:18 +0100] [16615] [INFO] Booting worker with pid: 16615
+[2026-06-22 21:40:18 +0100] [16616] [INFO] Booting worker with pid: 16616
+[2026-06-22 21:40:19 +0100] [16617] [INFO] Booting worker with pid: 16617
+[2026-06-22 21:40:19 +0100] [16611] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [22/Jun/2026:21:40:25 +0100] "GET /health HTTP/1.1" 200 126 "-" "curl/8.20.0"
+127.0.0.1 - - [22/Jun/2026:21:40:42 +0100] "GET /health HTTP/1.1" 200 126 "-" "curl/8.20.0"
