@@ -1,240 +1,161 @@
 # Sentinel Edge
 
-**Autonomous Cybersecurity Incident Response Agent for Edge Devices**
+**Autonomous Cybersecurity Incident Response Agent — Alibaba Cloud x Qwen Hackathon**
 
-Sentinel Edge is a production-grade AI agent that runs entirely on Android/Termux, designed for real-time cybersecurity incident response under constrained edge conditions.
+Sentinel Edge is a production-grade AI agent that automates end-to-end cybersecurity incident response workflows using a 4-step agentic reasoning chain powered by Qwen Cloud API, with real-time threat intelligence enrichment via AbuseIPDB.
 
-> 🎩 Hunting Prize: Global AI Hackathon Series — Track 5: EdgeAgent
+> 🏆 Submitted to: Global AI Hackathon Series with Qwen Cloud — **Track 4: Autopilot Agent**
 
 ## 🎥 Demo Video
-**[Watch the Demo Video](#)** *(Link will be added after recording)*
-## 🏢 What It Does
+**[Watch the Demo Video](#)** *(Link will be updated before submission)*
 
-Sentinel Edge automates the full incident response lifecycle:
+## 🔍 What It Does
 
-1. **Perceive** - Extracts IOCs (IPs, usernames, timestamps) from raw alerts
-2. **Reason** - Classifies threats via Qwen Cloud API or smart offline heuristics
-3. **Act** - Generates containment plans with human-in-the-loop approval
-4. **Remember** - Persists incidents in SQLite for cross-session forensic intelligence
+Sentinel Edge automates the full incident response lifecycle end-to-end:
 
-## 🏤 Track Alignment
+1. **Perceive** — Extracts IOCs (IPs, domains, usernames, filepaths) from raw security alerts
+2. **Reason** — Runs a 4-step agentic chain via Qwen Cloud API
+3. **Enrich** — Queries AbuseIPDB in real-time to enrich IP reputation and threat context
+4. **Act** — Generates containment plans with mandatory human-in-the-loop approval gates
+5. **Remember** — Persists all incidents in SQLite for cross-session forensic correlation
 
-| Track | HowSentinel Edge Qualifies |
-|-----|-----|
-| **Track 5: EdgeAgent** (primary) | Runs on Android, graceful offline degradation, privacy-aware data handling, <0.5s response time |
-| **Track 1: MemoryAgent** (overlap) | SQLite persistent memory, keyword search, historical context injection |
-| **Track 4: Autopilot Agent** (overlap) | End-to-end IR workflow with explicit HITL checkpoints |
+## 🎯 Track 4: Autopilot Agent — Qualification
 
-## ⚙ Stress Test Results (10/10 PASSED)
+| Requirement | How Sentinel Edge Qualifies |
+|---|---|
+| Automates real-world workflows end-to-end | Full incident response: alert to analysis to containment plan to approval |
+| Handles ambiguous inputs | Offline fallback analyzer handles any unstructured alert text |
+| Invokes external tools | AbuseIPDB MCP tool called live during every analysis |
+| Human-in-the-loop checkpoints | Every critical/high severity incident requires human approval |
+| Production-readiness | Deployed on Alibaba Cloud ECS with Gunicorn, audit logging, rate limiting |
 
-| # | Test | Result | Judging Criteria |
-|---|-----|------|-----|
-| 1 | Baseline Health | ✅ 6/6 | |
-| 2 | Rapid-Fire Load (10 alerts) | ✅ 5/5 | Scalability |
-| 3 | Malformed Input (6 cases) | ✔ V/6 | Robustness |
-| 4 | Memory Search Under Load | ✅ 5/5 | Track 1: MemoryAgent |
-| 5 | Concurrent Requests (5 analysts) | ✅ 5/5 | Architecture |
-| 6 | Offline/Online Resilience | ✔ T/4 | Track 5: EdgeAgent Core |
-| 7 | Large Payload (5KB) | ✅ 3/3 | Perception Depth |
-| 8 | Report Generation | ✅ 3/3 | Track 1/4 Overlap |
-| 9 | HITL Workflow Lifecycle | ✅ 4/4 | Track 4: Autopilot |
-| 10 | E2E production Simulation | ✅ 6/6 | All Criteria |
+## 🧠 4-Step Agentic Reasoning Chain
 
-**Total: 50/50 checks passed**
+Every /analyze request triggers 4 sequential Qwen API calls:
 
-## 🔚 Security Hardening
+Step 1: Threat Classification — Identifies threat type, severity, extracts IOCs
+MCP Tool: AbuseIPDB Lookup — Enriches IP reputation, country, abuse score
+Step 2: Tool Selection — Decides which security tools are needed
+Step 3: Action Plan Generation — Creates containment steps
+Step 4: Confidence Validation — Self-checks the plan, assigns confidence score
+Human Approval Gate — Incident Stored — Dashboard Updated
 
-Sentinel Edge defends itself against abuse and attack:
-
-- **Rate Limiting**: 30 requests/min per IP (protects edge hardware)
-- **Input Sanitization**: Blocks SQL/command injection patterns
-- **Schema Validation**: Rejects malformed payloads before AI processing
-
-## 🔡 Architecture
-
-```
-sentinel-edge/
-── app.py              # Flask API server
-── modules/
-──  perception.py  # Alert validation + IOC extraction
-──  reasoning.py    # Qwen Cloud API+ Smart Offline
-──  action.py        # Containment execution + HITL
-吀─  dashboard.py    # Real-time metrics for judges
-──  security.py     # Rate limiting + sanitization
-
-── memory.py            # SQLite persistent storage
-── config.py             # Env-loaded configuration
-──����؀������������������A$����̀���ɽ٥��ȁ͕���ѥ��)���((����j��Eե���Mх��()�����͠)��Ё�����������輽��ѡՈ����������ɔ�͕�ѥ������������)���͕�ѥ��������)��ѡ������ٕ�؁ٕ��)ͽ�ɍ��ٕ�ؽ������ѥمє)�������х����ȁɕ�եɕ����̹���((��
-������ɔ�1-4��ɽ٥���)������115}AI=Y%H��ݕ����������)������E]9}A%}-d����}��䜀�������((��Mх�Ё͕�ٕ�)��ѡ���������)���((����~j��%d�Mх�Ѐ�9��A$�-��()M��ѥ��������ݽɭ́�������ѕ��ݥѡ��Ё��䁍��Ր��ɕ�����()�����͠)��ѡ���������)��ɰ��`�A=MP�����輼��ܸ����������������锁p(��� ��
-��ѕ�еQ���聅������ѥ����ͽ���p(������쉅���Ј耉M��������́ɽ�Ё�������ɽ���������ԉ��)���()Q���͵��Ё�������������ɕ��ɹ́ɕ����ѥ��ѡɕ�Ё�����ͥ́ݥѠ����х�����Ё�ѕ�̰�͕ٕɥ��͍�ɥ���������������������ٕ�̀����������Ʌѕ���������((����~R��A$���������()��������Ё��5�ѡ������͍ɥ�ѥ����)𴴴������𴴴���𴴴���)��������ѡ�����P���M��ѕ������Ѡ��������)����������镁����A=MP�������锁����Ѐ�)M=8�쉅���Ј耈��������)�������������́����P���1��Ёɕ���Ё��������́�)�����ɕ���м�������P������Ʌє���ɕ�ͥ��ɕ���Ё�)��������ɽٔ��������A=MP���ᕍ�є����х�����Ѐ�!%Q0���)�������͡���ɑ�����P���I����ѥ������ɥ�́�((����~R���؁Y�ɥ�����()��Y�ɥ��������͍ɥ�ѥ��������ձЁ�)𴴴������𴴴��𴴴���)��115}AI=Y%H����ݕ�������Ց���������������ݕ���(�E]9}A%}-d����͡M�����A$���������)��
-1U}A%}-d����ѡɽ����A$���������)��!=MP���M��ٕȁ��������ɕ�́����ܸ����ā�)��A=IP���M��ٕȁ���Ё��������((����~N��1����͔()5%P�1����͔��M���m1%
-9Mt�1%
-9M����ȁ��х��̸(
 ## ☁️ Alibaba Cloud Deployment
 
-Sentinel Edge is designed for deployment on Alibaba Cloud ECS (Elastic Compute Service).
+Live URL: http://47.77.199.98:5000
 
-### Quick Deploy (Automated)
+| Service | Usage |
+|---|---|
+| Elastic Compute Service (ECS) | Hosts the production Flask/Gunicorn server |
+| Qwen Cloud API (DashScope) | Powers the 4-step agentic reasoning chain |
 
-```bash
-# Prerequisites: Alibaba Cloud CLI configured
-./deploy_alibaba.sh
-```
+Test the live deployment:
 
-### Manual Deploy (Docker)
+curl http://47.77.199.98:5000/health
 
-```bash
-# Build image
-docker build -t sentinel-edge .
-
-# Run container
-docker run -d \
-  --name sentinel-edge \
-  -p 5000:5000 \
-  --env-file .env \
-  sentinel-edge
-```
-
-### Docker Compose (Recommended)
-
-```bash
-# Start services
-docker-compose up -d
-
-# View logs
-docker-compose logs -f
-
-# Stop services
-docker-compose down
-```
-
-### Production Configuration
-
-For production deployment on Alibaba Cloud:
-
-1. **ECS Instance**: Use `ecs.t6-c1m1.large` (2 vCPU, 2GB RAM)
-2. **Security Group**: Open port 5000 for API access
-3. **SSL/TLS**: Use Alibaba Cloud SLB with HTTPS
-4. **Monitoring**: Enable CloudMonitor for metrics
-5. **Backup**: Use OSS for database backups
-
-### Environment Variables for Production
-
-```bash
-LLM_PROVIDER=qwen
-QWEN_API_KEY=your_production_key
-QWEN_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1
-QWEN_MODEL=qwen-max
-HOST=0.0.0.0
-PORT=5000
-DEBUG=False
-```
-
-
-
-## 🎯 Automated Incident Correlation Engine
-- Pattern Recognition: Identifies related incidents by IP, username, domain, filepath
-- Campaign Detection: Groups incidents into attack campaigns using graph analysis
-- Threat Actor Profiling: Creates profiles with aggregated IOCs and tactics
-- Attack Chain Analysis: Maps progression (recon -> access -> execution -> impact)
-- Correlation Scoring: Weighted algorithm (time 30%, IOC overlap 50%, threat 20%)
-- API Endpoint: /correlate?hours=24 returns detected campaigns
-
-## 🧪 Edge Case Testing (15/15 - 100% Pass Rate)
-- Health endpoint availability
-- Malformed JSON handling
-- Missing alert field rejection
-- Empty alert handling
-- Very long alerts (10KB)
-- Unicode character support
-- SQL injection protection
-- Multiple IOC extraction
-- Rapid sequential requests (20)
-- Dashboard metrics accuracy
-- Audit logging completeness
-- Incident persistence
-- Threat classification accuracy (4/4)
-- Concurrent requests (10/10)
-- Endpoint discovery
-
+curl -X POST http://47.77.199.98:5000/analyze -H "Content-Type: application/json" -d '{"alert": "Ransomware beacon from 10.0.0.77"}'
 
 ## 🏗️ Architecture
 
-![Architecture Diagram](architecture_diagram.svg)
+See architecture_diagram.svg for the full visual diagram.
 
-### System Components
+EDGE LAYER: SIEM Logs, IDS Alerts, Network Flow, User Input
+SENTINEL EDGE AGENT: Perception, Reasoning, MCP, Action, Memory
+ALIBABA CLOUD: Qwen Cloud API + ECS
+OUTPUT: JSON API, Dashboard, Audit Logs, Reports
 
-1. **Edge Layer** - Android/Termux deployment with graceful offline degradation
-2. **Perception Module** - IOC extraction and alert parsing
-3. **Reasoning Module** - 4-step agentic chain powered by Qwen Cloud API
-4. **MCP Integration** - Threat intelligence enrichment
-5. **Action Module** - Containment plan generation with human-in-the-loop approval
-6. **Memory Module** - SQLite persistent storage and campaign detection
+## 🔌 API Endpoints
 
-### Technology Stack
+| Endpoint | Method | Description |
+|---|---|---|
+| /health | GET | System status and module list |
+| /analyze | POST | Submit alert for full agentic analysis |
+| /dashboard | GET | Real-time metrics and incident stats |
+| /correlate | GET | Detect attack campaigns from incident history |
+| /incidents | GET | List all stored incidents |
+| /approve/id | POST | Human approval for pending actions |
+| /report/id | GET | Full forensic report for an incident |
 
-- **Backend:** Flask + Gunicorn (production)
-- **AI Provider:** Qwen Cloud API (DashScope International)
-- **Database:** SQLite
-- **Deployment:** Alibaba Cloud ECS (Ubuntu 22.04)
-- **Testing:** 15/15 edge case tests passing (100%)
+## 🛡️ Security Features
 
+- Rate Limiting — 30 requests per minute per IP
+- Input Sanitization — Blocks SQL and command injection patterns
+- Schema Validation — Rejects malformed payloads before AI processing
+- Audit Logging — Every request logged with full JSON audit trail
+- Offline Fallback — Smart heuristic analyzer when Qwen API is unavailable
 
+## 🧪 Test Results (15/15 — 100% Pass Rate)
+
+| Test | Result |
+|---|---|
+| Health endpoint | PASS |
+| Malformed JSON handling | PASS |
+| Missing alert field rejection | PASS |
+| Empty alert handling | PASS |
+| Very long alerts 10KB | PASS |
+| Unicode character support | PASS |
+| SQL injection protection | PASS |
+| Multiple IOC extraction | PASS |
+| Rapid sequential requests 20 | PASS |
+| Dashboard metrics accuracy | PASS |
+| Audit logging completeness | PASS |
+| Incident persistence | PASS |
+| Threat classification accuracy 4/4 | PASS |
+| Concurrent requests 10/10 | PASS |
+| Endpoint discovery | PASS |
 
 ## 🚀 Quick Start
 
-### Local Development (Android/Termux)
-```bash
-# Clone the repository
 git clone https://github.com/macbere/sentinel-edge.git
 cd sentinel-edge
-
-# Install dependencies
 pip install -r requirements.txt
-
-# Configure environment
 cp .env.template .env
-# Edit .env with your Qwen API key
-
-# Start the server
+Add your QWEN_API_KEY and ABUSEIPDB_API_KEY to .env
 ./start.sh --prod
-```
-
-### Cloud Deployment (Alibaba Cloud ECS)
-The application is deployed at: **http://47.77.199.98:5000**
-
-Test the live deployment:
-```bash
-# Health check
-curl http://47.77.199.98:5000/health
-
-# Analyze a threat
-curl -X POST http://47.77.199.98:5000/analyze   -H "Content-Type: application/json"   -d '{"alert": "Ransomware beacon from 10.0.0.77"}'
-```
-
-
 
 ## 🏆 Judging Criteria Alignment
 
 ### Innovation & AI Creativity (30%)
-- ✅ **Sophisticated Qwen API Use**: 4-step agentic reasoning chain (Classification → Tool Selection → Action Plan → Validation)
-- ✅ **MCP Integration**: Threat intelligence enrichment via Model Context Protocol
-- ✅ **Custom Skills**: IOC extraction, campaign detection, threat actor profiling
-- ✅ **Novel Engineering**: Edge-cloud hybrid architecture with graceful offline degradation
+- 4-step agentic reasoning chain with 4 sequential Qwen API calls per analysis
+- Real MCP integration with live AbuseIPDB threat intelligence lookup
+- Edge-cloud hybrid architecture with graceful offline degradation
+- Automated campaign detection using graph-based correlation engine
 
 ### Technical Depth & Engineering (30%)
-- ✅ **Modularity**: 5 core modules (perception, reasoning, action, memory, dashboard)
-- ✅ **Scalability**: Production-ready with Gunicorn (2 workers, 2 threads)
-- ✅ **Clean Code**: Comprehensive documentation, type hints, error handling
-- ✅ **Non-trivial Logic**: Multi-step reasoning, correlation engine, audit logging
+- Modular architecture with 8 independent modules
+- Production deployment with Gunicorn on Alibaba Cloud ECS
+- Non-trivial logic including correlation engine, audit system, offline analyzer
+- Error handling with timeouts, fallbacks, input validation at every layer
 
 ### Problem Value & Impact (25%)
-- ✅ **Real-world Relevance**: Autonomous cybersecurity incident response
-- ✅ **Scalability**: Runs on edge devices (Android) with cloud AI fallback
-- ✅ **Productization Potential**: REST API, dashboard, audit trails, human-in-the-loop
+- Real-world pain point — SOC teams spend hours on manual incident triage
+- Productization potential — REST API, dashboard, audit trails, HITL workflow
+- Scalable stateless API design with database-backed persistence
 
 ### Presentation & Documentation (15%)
-- ✅ **Demo Video**: 2-minute walkthrough (link above)
-- ✅ **Architecture Diagram**: Visual SVG and text-based diagrams
-- ✅ **Readable Docs**: Comprehensive README, code comments, deployment guide
+- Architecture diagram in SVG and text formats
+- Proof of Alibaba Cloud deployment in alibaba_cloud_proof.md
+- Comprehensive README with quick start guide
+- Demo video link above
 
+## 📁 Repository Structure
+
+app.py — Flask API server
+config.py — Environment configuration
+memory.py — SQLite persistent storage
+modules/perception.py — IOC extraction and alert parsing
+modules/reasoning.py — 4-step Qwen agentic chain
+modules/mcp_threat_intel.py — AbuseIPDB real threat intelligence
+modules/action.py — Containment execution and HITL
+modules/dashboard.py — Real-time metrics
+modules/correlation.py — Campaign detection engine
+modules/audit.py — Structured audit logging
+modules/security.py — Rate limiting and sanitization
+modules/offline_analyzer.py — Smart offline fallback
+requirements.txt
+Dockerfile
+alibaba_cloud_proof.md
+architecture_diagram.svg
+LICENSE
+
+MIT License — Copyright (c) 2026 Sentinel Edge

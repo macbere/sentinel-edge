@@ -15,6 +15,7 @@ HOST = os.getenv("HOST", "127.0.0.1")
 PORT = int(os.getenv("PORT", 5000))
 
 # Production safety
-print("⺏ WARNING: Running in production mode without API keys")
+# Warning removed - keys are loaded properly
 
 LLM_PROVIDER = os.getenv('LLM_PROVIDER', 'qwen').lower()
+ABUSEIPDB_API_KEY = os.getenv("ABUSEIPDB_API_KEY", "")

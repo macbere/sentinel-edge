@@ -55,3 +55,16 @@
 2026-06-08 08:44:55 | ERROR    | error | Request failed: POST /analyze | Status: 400 | Error: client_error | IP: 127.0.0.1
 2026-06-08 08:44:55 | ERROR    | error | Request failed: POST /analyze | Status: 400 | Error: client_error | IP: 127.0.0.1
 2026-06-08 08:44:55 | ERROR    | error | Request failed: POST /analyze | Status: 400 | Error: client_error | IP: 127.0.0.1
+2026-06-09 23:32:04 | ERROR    | error | Request failed: POST /analyze | Status: 400 | Error: client_error | IP: 127.0.0.1
+2026-06-09 23:32:04 | ERROR    | error | Request failed: POST /analyze | Status: 400 | Error: client_error | IP: 127.0.0.1
+2026-06-09 23:32:04 | ERROR    | error | Request failed: POST /analyze | Status: 400 | Error: client_error | IP: 127.0.0.1
+2026-06-09 23:39:38 | ERROR    | error | Request failed: POST /analyze | Status: 400 | Error: client_error | IP: 127.0.0.1
+2026-06-09 23:39:38 | ERROR    | error | Request failed: POST /analyze | Status: 400 | Error: client_error | IP: 127.0.0.1
+2026-06-09 23:39:38 | ERROR    | error | Request failed: POST /analyze | Status: 400 | Error: client_error | IP: 127.0.0.1
+2026-06-09 23:43:12 | ERROR    | error | Request failed: POST /analyze | Status: 400 | Error: client_error | IP: 127.0.0.1
+2026-06-09 23:43:12 | ERROR    | error | Request failed: POST /analyze | Status: 400 | Error: client_error | IP: 127.0.0.1
+2026-06-09 23:43:12 | ERROR    | error | Request failed: POST /analyze | Status: 400 | Error: client_error | IP: 127.0.0.1
+2026-06-09 23:53:15 | ERROR    | error | Request failed: GET / | Status: 404 | Error: client_error | IP: 127.0.0.1
+2026-06-09 23:53:15 | ERROR    | error | Request failed: GET /favicon.ico | Status: 404 | Error: client_error | IP: 127.0.0.1
+2026-06-09 23:55:37 | ERROR    | error | Request failed: GET /favicon.ico | Status: 404 | Error: client_error | IP: 127.0.0.1
+2026-06-10 00:02:01 | ERROR    | error | Request failed: GET /favicon.ico | Status: 404 | Error: client_error | IP: 127.0.0.1

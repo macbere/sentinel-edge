@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  sentinel-edge:
+    build: ..
+    ports:
+      - "5000:5000"
+    environment:
+      - LLM_PROVIDER=qwen
+      - QWEN_API_KEY=${QWEN_API_KEY}
+      - QWEN_BASE_URL=${QWEN_BASE_URL}
+      - QWEN_MODEL=${QWEN_MODEL}
+    restart: unless-stopped
+    volumes:
+      - ./data:/app/data

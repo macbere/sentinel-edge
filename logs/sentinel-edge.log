@@ -683,3 +683,329 @@ SyntaxError: unmatched '}'
 127.0.0.1 - - [08/Jun/2026:08:44:56 +0100] "GET /dashboard HTTP/1.1" 200 1375 "-" "python-requests/2.31.0"
 127.0.0.1 - - [08/Jun/2026:08:44:56 +0100] "GET /incidents HTTP/1.1" 200 7455 "-" "python-requests/2.31.0"
 127.0.0.1 - - [08/Jun/2026:08:44:56 +0100] "GET /audit HTTP/1.1" 200 364 "-" "python-requests/2.31.0"
+[2026-06-08 09:03:39 +0100] [7793] [CRITICAL] WORKER TIMEOUT (pid:7797)
+[2026-06-08 09:03:39 +0100] [7797] [INFO] Worker exiting (pid: 7797)
+[2026-06-09 23:13:50 +0100] [29630] [INFO] Starting gunicorn 26.0.0
+[2026-06-09 23:13:50 +0100] [29630] [INFO] Listening at: http://127.0.0.1:5000 (29630)
+[2026-06-09 23:13:50 +0100] [29630] [INFO] Using worker: gthread
+[2026-06-09 23:13:50 +0100] [29632] [INFO] Booting worker with pid: 29632
+[2026-06-09 23:13:50 +0100] [29633] [INFO] Booting worker with pid: 29633
+[2026-06-09 23:13:50 +0100] [29634] [INFO] Booting worker with pid: 29634
+[2026-06-09 23:13:50 +0100] [29635] [INFO] Booting worker with pid: 29635
+[2026-06-09 23:13:51 +0100] [29630] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [09/Jun/2026:23:14:21 +0100] "POST /analyze HTTP/1.1" 200 905 "-" "curl/8.20.0"
+[2026-06-09 23:21:01 +0100] [29630] [CRITICAL] WORKER TIMEOUT (pid:29632)
+[2026-06-09 23:21:01 +0100] [29632] [INFO] Worker exiting (pid: 29632)
+[2026-06-09 23:21:04 +0100] [29630] [ERROR] Worker (pid:29632) exited with code 1.
+[2026-06-09 23:21:06 +0100] [4814] [INFO] Booting worker with pid: 4814
+[2026-06-09 23:21:06 +0100] [29630] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+[2026-06-09 23:24:14 +0100] [29630] [INFO] Handling signal: term
+[2026-06-09 23:24:14 +0100] [29635] [INFO] Worker exiting (pid: 29635)
+[2026-06-09 23:24:14 +0100] [29634] [INFO] Worker exiting (pid: 29634)
+[2026-06-09 23:24:14 +0100] [4814] [INFO] Worker exiting (pid: 4814)
+[2026-06-09 23:24:14 +0100] [29633] [INFO] Worker exiting (pid: 29633)
+[2026-06-09 23:24:16 +0100] [29630] [INFO] Shutting down: Master
+[2026-06-09 23:24:17 +0100] [13745] [INFO] Starting gunicorn 26.0.0
+[2026-06-09 23:24:17 +0100] [13745] [INFO] Listening at: http://127.0.0.1:5000 (13745)
+[2026-06-09 23:24:17 +0100] [13745] [INFO] Using worker: gthread
+[2026-06-09 23:24:17 +0100] [13747] [INFO] Booting worker with pid: 13747
+[2026-06-09 23:24:17 +0100] [13749] [INFO] Booting worker with pid: 13749
+[2026-06-09 23:24:17 +0100] [13763] [INFO] Booting worker with pid: 13763
+[2026-06-09 23:24:17 +0100] [13767] [INFO] Booting worker with pid: 13767
+[2026-06-09 23:24:17 +0100] [13745] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [09/Jun/2026:23:25:17 +0100] "POST /analyze HTTP/1.1" 200 905 "-" "curl/8.20.0"
+[2026-06-09 23:30:14 +0100] [13745] [INFO] Handling signal: term
+[2026-06-09 23:30:15 +0100] [13763] [INFO] Worker exiting (pid: 13763)
+[2026-06-09 23:30:15 +0100] [13767] [INFO] Worker exiting (pid: 13767)
+[2026-06-09 23:30:15 +0100] [13747] [INFO] Worker exiting (pid: 13747)
+[2026-06-09 23:30:15 +0100] [13749] [INFO] Worker exiting (pid: 13749)
+[2026-06-09 23:30:16 +0100] [13745] [INFO] Shutting down: Master
+[2026-06-09 23:30:17 +0100] [24714] [INFO] Starting gunicorn 26.0.0
+[2026-06-09 23:30:17 +0100] [24714] [INFO] Listening at: http://127.0.0.1:5000 (24714)
+[2026-06-09 23:30:17 +0100] [24714] [INFO] Using worker: gthread
+[2026-06-09 23:30:17 +0100] [24716] [INFO] Booting worker with pid: 24716
+[2026-06-09 23:30:17 +0100] [24717] [INFO] Booting worker with pid: 24717
+[2026-06-09 23:30:17 +0100] [24718] [INFO] Booting worker with pid: 24718
+[2026-06-09 23:30:17 +0100] [24719] [INFO] Booting worker with pid: 24719
+[2026-06-09 23:30:17 +0100] [24714] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [09/Jun/2026:23:30:41 +0100] "POST /analyze HTTP/1.1" 200 650 "-" "curl/8.20.0"
+127.0.0.1 - - [09/Jun/2026:23:32:04 +0100] "GET /health HTTP/1.1" 200 126 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:32:04 +0100] "POST /analyze HTTP/1.1" 400 38 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:32:04 +0100] "POST /analyze HTTP/1.1" 400 42 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:32:04 +0100] "POST /analyze HTTP/1.1" 400 34 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:32:09 +0100] "POST /analyze HTTP/1.1" 200 646 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:32:11 +0100] "POST /analyze HTTP/1.1" 200 608 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:32:16 +0100] "POST /analyze HTTP/1.1" 200 554 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:32:19 +0100] "POST /analyze HTTP/1.1" 200 684 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:32:21 +0100] "POST /analyze HTTP/1.1" 200 413 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:32:24 +0100] "POST /analyze HTTP/1.1" 200 642 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:32:27 +0100] "POST /analyze HTTP/1.1" 200 513 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:32:30 +0100] "POST /analyze HTTP/1.1" 200 624 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:32:32 +0100] "POST /analyze HTTP/1.1" 200 413 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:32:35 +0100] "POST /analyze HTTP/1.1" 200 607 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:32:37 +0100] "POST /analyze HTTP/1.1" 200 629 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:32:40 +0100] "POST /analyze HTTP/1.1" 200 507 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:32:42 +0100] "POST /analyze HTTP/1.1" 200 413 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:32:45 +0100] "POST /analyze HTTP/1.1" 200 413 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:32:48 +0100] "POST /analyze HTTP/1.1" 200 491 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:32:50 +0100] "POST /analyze HTTP/1.1" 200 519 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:32:53 +0100] "POST /analyze HTTP/1.1" 200 491 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:32:56 +0100] "POST /analyze HTTP/1.1" 200 574 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:32:59 +0100] "POST /analyze HTTP/1.1" 200 519 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:01 +0100] "POST /analyze HTTP/1.1" 200 286 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:04 +0100] "POST /analyze HTTP/1.1" 200 491 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:06 +0100] "POST /analyze HTTP/1.1" 200 516 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:10 +0100] "POST /analyze HTTP/1.1" 200 574 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:12 +0100] "POST /analyze HTTP/1.1" 200 516 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:13 +0100] "GET /dashboard HTTP/1.1" 200 1327 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:16 +0100] "POST /analyze HTTP/1.1" 200 744 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:16 +0100] "GET /audit HTTP/1.1" 200 289 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:19 +0100] "POST /analyze HTTP/1.1" 200 656 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:19 +0100] "GET /incidents HTTP/1.1" 200 4834 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:22 +0100] "POST /analyze HTTP/1.1" 200 672 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:25 +0100] "POST /analyze HTTP/1.1" 200 625 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:28 +0100] "POST /analyze HTTP/1.1" 200 834 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:31 +0100] "POST /analyze HTTP/1.1" 200 710 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:34 +0100] "POST /analyze HTTP/1.1" 200 413 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:34 +0100] "POST /analyze HTTP/1.1" 200 473 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:34 +0100] "POST /analyze HTTP/1.1" 200 592 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:34 +0100] "POST /analyze HTTP/1.1" 200 459 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:34 +0100] "POST /analyze HTTP/1.1" 200 507 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:35 +0100] "POST /analyze HTTP/1.1" 200 707 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:36 +0100] "POST /analyze HTTP/1.1" 200 632 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:37 +0100] "POST /analyze HTTP/1.1" 200 645 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:37 +0100] "POST /analyze HTTP/1.1" 200 649 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:39 +0100] "POST /analyze HTTP/1.1" 200 531 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:39 +0100] "GET /health HTTP/1.1" 200 126 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:40 +0100] "GET /dashboard HTTP/1.1" 200 1327 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:40 +0100] "GET /incidents HTTP/1.1" 200 5158 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:40 +0100] "GET /audit HTTP/1.1" 200 315 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:33:55 +0100] "POST /analyze HTTP/1.1" 200 661 "-" "curl/8.20.0"
+127.0.0.1 - - [09/Jun/2026:23:33:59 +0100] "POST /analyze HTTP/1.1" 200 834 "-" "curl/8.20.0"
+127.0.0.1 - - [09/Jun/2026:23:34:02 +0100] "POST /analyze HTTP/1.1" 200 717 "-" "curl/8.20.0"
+127.0.0.1 - - [09/Jun/2026:23:36:19 +0100] "POST /analyze HTTP/1.1" 200 902 "-" "curl/8.20.0"
+127.0.0.1 - - [09/Jun/2026:23:36:31 +0100] "POST /analyze HTTP/1.1" 200 831 "-" "curl/8.20.0"
+[2026-06-09 23:39:07 +0100] [24714] [INFO] Handling signal: term
+[2026-06-09 23:39:07 +0100] [24716] [INFO] Worker exiting (pid: 24716)
+[2026-06-09 23:39:07 +0100] [24717] [INFO] Worker exiting (pid: 24717)
+[2026-06-09 23:39:07 +0100] [24718] [INFO] Worker exiting (pid: 24718)
+[2026-06-09 23:39:07 +0100] [24719] [INFO] Worker exiting (pid: 24719)
+[2026-06-09 23:39:08 +0100] [24714] [INFO] Shutting down: Master
+[2026-06-09 23:39:09 +0100] [30797] [INFO] Starting gunicorn 26.0.0
+[2026-06-09 23:39:09 +0100] [30797] [INFO] Listening at: http://127.0.0.1:5000 (30797)
+[2026-06-09 23:39:09 +0100] [30797] [INFO] Using worker: gthread
+[2026-06-09 23:39:09 +0100] [30798] [INFO] Booting worker with pid: 30798
+[2026-06-09 23:39:09 +0100] [30799] [INFO] Booting worker with pid: 30799
+[2026-06-09 23:39:09 +0100] [30800] [INFO] Booting worker with pid: 30800
+[2026-06-09 23:39:09 +0100] [30801] [INFO] Booting worker with pid: 30801
+[2026-06-09 23:39:09 +0100] [30797] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [09/Jun/2026:23:39:26 +0100] "POST /analyze HTTP/1.1" 200 751 "-" "curl/8.20.0"
+127.0.0.1 - - [09/Jun/2026:23:39:33 +0100] "POST /analyze HTTP/1.1" 200 653 "-" "curl/8.20.0"
+127.0.0.1 - - [09/Jun/2026:23:39:38 +0100] "GET /health HTTP/1.1" 200 126 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:39:38 +0100] "POST /analyze HTTP/1.1" 400 38 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:39:38 +0100] "POST /analyze HTTP/1.1" 400 42 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:39:38 +0100] "POST /analyze HTTP/1.1" 400 34 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:39:41 +0100] "POST /analyze HTTP/1.1" 200 633 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:39:45 +0100] "POST /analyze HTTP/1.1" 200 771 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:39:48 +0100] "POST /analyze HTTP/1.1" 200 610 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:39:52 +0100] "POST /analyze HTTP/1.1" 200 751 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:39:55 +0100] "POST /analyze HTTP/1.1" 200 979 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:39:59 +0100] "POST /analyze HTTP/1.1" 200 872 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:40:02 +0100] "POST /analyze HTTP/1.1" 200 1002 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:40:06 +0100] "POST /analyze HTTP/1.1" 200 851 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:40:09 +0100] "POST /analyze HTTP/1.1" 200 863 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:40:13 +0100] "POST /analyze HTTP/1.1" 200 640 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:40:16 +0100] "POST /analyze HTTP/1.1" 200 666 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:40:20 +0100] "POST /analyze HTTP/1.1" 200 915 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:40:23 +0100] "POST /analyze HTTP/1.1" 200 863 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:40:27 +0100] "POST /analyze HTTP/1.1" 200 986 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:40:30 +0100] "POST /analyze HTTP/1.1" 200 852 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:40:33 +0100] "POST /analyze HTTP/1.1" 200 596 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:40:36 +0100] "POST /analyze HTTP/1.1" 200 587 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:40:40 +0100] "POST /analyze HTTP/1.1" 200 911 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:40:43 +0100] "POST /analyze HTTP/1.1" 200 852 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:40:46 +0100] "POST /analyze HTTP/1.1" 200 840 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:40:50 +0100] "POST /analyze HTTP/1.1" 200 863 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:40:53 +0100] "POST /analyze HTTP/1.1" 200 903 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:40:56 +0100] "POST /analyze HTTP/1.1" 200 863 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:41:00 +0100] "POST /analyze HTTP/1.1" 200 891 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:41:00 +0100] "GET /dashboard HTTP/1.1" 200 1357 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:41:03 +0100] "POST /analyze HTTP/1.1" 200 721 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:41:04 +0100] "GET /audit HTTP/1.1" 200 314 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:41:08 +0100] "POST /analyze HTTP/1.1" 200 408 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:41:08 +0100] "GET /incidents HTTP/1.1" 200 6280 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:41:11 +0100] "POST /analyze HTTP/1.1" 200 654 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:41:17 +0100] "POST /analyze HTTP/1.1" 200 873 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:41:26 +0100] "POST /analyze HTTP/1.1" 200 767 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:41:26 +0100] "POST /analyze HTTP/1.1" 200 736 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:41:26 +0100] "POST /analyze HTTP/1.1" 200 768 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:41:26 +0100] "GET /health HTTP/1.1" 200 126 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:41:26 +0100] "POST /analyze HTTP/1.1" 200 744 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:41:26 +0100] "POST /analyze HTTP/1.1" 200 680 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:41:26 +0100] "POST /analyze HTTP/1.1" 200 1021 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:41:27 +0100] "POST /analyze HTTP/1.1" 200 1002 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:41:30 +0100] "POST /analyze HTTP/1.1" 200 621 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:41:30 +0100] "POST /analyze HTTP/1.1" 200 1033 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:41:30 +0100] "GET /dashboard HTTP/1.1" 200 1369 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:41:30 +0100] "GET /incidents HTTP/1.1" 200 6979 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:41:30 +0100] "GET /audit HTTP/1.1" 200 319 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:41:33 +0100] "POST /analyze HTTP/1.1" 200 1021 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:43:12 +0100] "GET /health HTTP/1.1" 200 126 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:43:12 +0100] "POST /analyze HTTP/1.1" 400 38 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:43:12 +0100] "POST /analyze HTTP/1.1" 400 42 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:43:12 +0100] "POST /analyze HTTP/1.1" 400 34 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:43:15 +0100] "POST /analyze HTTP/1.1" 200 624 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:43:19 +0100] "POST /analyze HTTP/1.1" 200 628 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:43:22 +0100] "POST /analyze HTTP/1.1" 200 696 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:43:25 +0100] "POST /analyze HTTP/1.1" 200 751 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:43:29 +0100] "POST /analyze HTTP/1.1" 200 979 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:43:32 +0100] "POST /analyze HTTP/1.1" 200 512 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:43:35 +0100] "POST /analyze HTTP/1.1" 200 911 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:43:40 +0100] "POST /analyze HTTP/1.1" 200 768 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:43:47 +0100] "POST /analyze HTTP/1.1" 200 766 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:43:54 +0100] "POST /analyze HTTP/1.1" 200 640 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:43:57 +0100] "POST /analyze HTTP/1.1" 200 891 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:44:01 +0100] "POST /analyze HTTP/1.1" 200 863 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:44:04 +0100] "POST /analyze HTTP/1.1" 200 915 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:44:09 +0100] "POST /analyze HTTP/1.1" 200 818 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:44:13 +0100] "POST /analyze HTTP/1.1" 200 850 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:44:18 +0100] "POST /analyze HTTP/1.1" 200 911 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:44:21 +0100] "POST /analyze HTTP/1.1" 200 596 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:44:25 +0100] "POST /analyze HTTP/1.1" 200 863 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:44:28 +0100] "POST /analyze HTTP/1.1" 200 567 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:44:32 +0100] "POST /analyze HTTP/1.1" 200 863 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:44:35 +0100] "POST /analyze HTTP/1.1" 200 863 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:44:38 +0100] "POST /analyze HTTP/1.1" 200 863 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:44:42 +0100] "POST /analyze HTTP/1.1" 200 863 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:44:45 +0100] "POST /analyze HTTP/1.1" 200 863 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:44:45 +0100] "GET /dashboard HTTP/1.1" 200 1359 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:44:48 +0100] "POST /analyze HTTP/1.1" 200 672 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:44:49 +0100] "GET /audit HTTP/1.1" 200 320 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:44:52 +0100] "POST /analyze HTTP/1.1" 200 408 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:44:52 +0100] "GET /incidents HTTP/1.1" 200 6156 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:44:55 +0100] "POST /analyze HTTP/1.1" 200 654 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:44:58 +0100] "POST /analyze HTTP/1.1" 200 717 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:45:02 +0100] "POST /analyze HTTP/1.1" 200 791 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:45:07 +0100] "POST /analyze HTTP/1.1" 200 761 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:45:10 +0100] "POST /analyze HTTP/1.1" 200 687 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:45:10 +0100] "POST /analyze HTTP/1.1" 200 668 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:45:10 +0100] "POST /analyze HTTP/1.1" 200 697 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:45:10 +0100] "POST /analyze HTTP/1.1" 200 1002 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:45:11 +0100] "POST /analyze HTTP/1.1" 200 1002 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:45:11 +0100] "POST /analyze HTTP/1.1" 200 747 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:45:11 +0100] "POST /analyze HTTP/1.1" 200 1097 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:45:14 +0100] "POST /analyze HTTP/1.1" 200 679 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:45:14 +0100] "POST /analyze HTTP/1.1" 200 687 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:45:15 +0100] "POST /analyze HTTP/1.1" 200 1055 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:45:15 +0100] "GET /health HTTP/1.1" 200 126 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:45:15 +0100] "GET /dashboard HTTP/1.1" 200 1375 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:45:15 +0100] "GET /incidents HTTP/1.1" 200 7079 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:45:15 +0100] "GET /audit HTTP/1.1" 200 320 "-" "python-requests/2.34.2"
+127.0.0.1 - - [09/Jun/2026:23:53:15 +0100] "GET / HTTP/1.1" 404 207 "-" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Mobile Safari/537.36"
+127.0.0.1 - - [09/Jun/2026:23:53:15 +0100] "GET /favicon.ico HTTP/1.1" 404 207 "http://127.0.0.1:5000/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Mobile Safari/537.36"
+127.0.0.1 - - [09/Jun/2026:23:55:01 +0100] "GET /health HTTP/1.1" 200 126 "-" "curl/8.20.0"
+127.0.0.1 - - [09/Jun/2026:23:55:37 +0100] "GET /favicon.ico HTTP/1.1" 404 207 "http://127.0.0.1:5000/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Mobile Safari/537.36"
+127.0.0.1 - - [09/Jun/2026:23:55:41 +0100] "GET /health HTTP/1.1" 200 126 "-" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Mobile Safari/537.36"
+[2026-06-09 23:56:52 +0100] [30797] [CRITICAL] WORKER TIMEOUT (pid:30798)
+[2026-06-09 23:56:52 +0100] [30798] [INFO] Worker exiting (pid: 30798)
+[2026-06-10 00:00:26 +0100] [18860] [INFO] Starting gunicorn 26.0.0
+[2026-06-10 00:00:26 +0100] [18860] [INFO] Listening at: http://127.0.0.1:5000 (18860)
+[2026-06-10 00:00:26 +0100] [18860] [INFO] Using worker: gthread
+[2026-06-10 00:00:26 +0100] [18940] [INFO] Booting worker with pid: 18940
+[2026-06-10 00:00:26 +0100] [18986] [INFO] Booting worker with pid: 18986
+[2026-06-10 00:00:26 +0100] [19003] [INFO] Booting worker with pid: 19003
+[2026-06-10 00:00:26 +0100] [19011] [INFO] Booting worker with pid: 19011
+[2026-06-10 00:00:26 +0100] [18860] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [10/Jun/2026:00:02:00 +0100] "GET /health HTTP/1.1" 200 126 "-" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Mobile Safari/537.36"
+127.0.0.1 - - [10/Jun/2026:00:02:01 +0100] "GET /favicon.ico HTTP/1.1" 404 207 "http://127.0.0.1:5000/health" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Mobile Safari/537.36"
+127.0.0.1 - - [10/Jun/2026:00:02:15 +0100] "GET /dashboard HTTP/1.1" 200 1375 "-" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Mobile Safari/537.36"
+127.0.0.1 - - [10/Jun/2026:00:02:54 +0100] "GET /incidents HTTP/1.1" 200 7079 "-" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Mobile Safari/537.36"
+127.0.0.1 - - [10/Jun/2026:00:03:24 +0100] "GET /correlate HTTP/1.1" 200 4244 "-" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Mobile Safari/537.36"
+[2026-06-10 15:24:20 +0100] [21053] [INFO] Starting gunicorn 26.0.0
+[2026-06-10 15:24:20 +0100] [21053] [INFO] Listening at: http://127.0.0.1:5000 (21053)
+[2026-06-10 15:24:20 +0100] [21053] [INFO] Using worker: gthread
+[2026-06-10 15:24:20 +0100] [21058] [INFO] Booting worker with pid: 21058
+[2026-06-10 15:24:20 +0100] [21060] [INFO] Booting worker with pid: 21060
+[2026-06-10 15:24:20 +0100] [21071] [INFO] Booting worker with pid: 21071
+[2026-06-10 15:24:20 +0100] [21073] [INFO] Booting worker with pid: 21073
+[2026-06-10 15:24:20 +0100] [21053] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [10/Jun/2026:15:24:43 +0100] "GET /health HTTP/1.1" 200 126 "-" "curl/8.20.0"
+[2026-06-10 15:31:17 +0100] [28325] [INFO] Starting gunicorn 26.0.0
+127.0.0.1 - - [10/Jun/2026:15:31:30 +0100] "GET /health HTTP/1.1" 200 126 "-" "curl/8.20.0"
+127.0.0.1 - - [10/Jun/2026:15:31:39 +0100] "POST /analyze HTTP/1.1" 200 590 "-" "curl/8.20.0"
+127.0.0.1 - - [10/Jun/2026:15:31:40 +0100] "GET /correlate HTTP/1.1" 200 4250 "-" "curl/8.20.0"
+127.0.0.1 - - [10/Jun/2026:15:31:40 +0100] "GET /dashboard HTTP/1.1" 200 1377 "-" "curl/8.20.0"
+[2026-06-10 21:15:44 +0100] [9170] [INFO] Starting gunicorn 26.0.0
+[2026-06-10 21:15:45 +0100] [9170] [INFO] Listening at: http://127.0.0.1:5000 (9170)
+[2026-06-10 21:15:45 +0100] [9170] [INFO] Using worker: gthread
+[2026-06-10 21:15:45 +0100] [9179] [INFO] Booting worker with pid: 9179
+[2026-06-10 21:15:45 +0100] [9180] [INFO] Booting worker with pid: 9180
+[2026-06-10 21:15:45 +0100] [9181] [INFO] Booting worker with pid: 9181
+[2026-06-10 21:15:45 +0100] [9182] [INFO] Booting worker with pid: 9182
+[2026-06-10 21:15:45 +0100] [9170] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [10/Jun/2026:21:15:54 +0100] "GET /dashboard HTTP/1.1" 200 1377 "-" "curl/8.20.0"
+[2026-06-10 21:37:57 +0100] [9170] [CRITICAL] WORKER TIMEOUT (pid:9179)
+[2026-06-10 21:37:57 +0100] [9179] [INFO] Worker exiting (pid: 9179)
+[2026-06-10 21:37:58 +0100] [9170] [ERROR] Worker (pid:9179) exited with code 1.
+[2026-06-10 21:37:58 +0100] [23029] [INFO] Booting worker with pid: 23029
+[2026-06-10 21:37:58 +0100] [9170] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+[2026-06-10 22:00:04 +0100] [32183] [INFO] Starting gunicorn 26.0.0
+[2026-06-10 22:00:04 +0100] [32183] [INFO] Listening at: http://127.0.0.1:5000 (32183)
+[2026-06-10 22:00:04 +0100] [32183] [INFO] Using worker: gthread
+[2026-06-10 22:00:04 +0100] [32185] [INFO] Booting worker with pid: 32185
+[2026-06-10 22:00:04 +0100] [32186] [INFO] Booting worker with pid: 32186
+[2026-06-10 22:00:04 +0100] [32187] [INFO] Booting worker with pid: 32187
+[2026-06-10 22:00:04 +0100] [32188] [INFO] Booting worker with pid: 32188
+[2026-06-10 22:00:04 +0100] [32183] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [10/Jun/2026:22:00:55 +0100] "POST /analyze HTTP/1.1" 200 2416 "-" "curl/8.20.0"
+127.0.0.1 - - [10/Jun/2026:22:03:10 +0100] "POST /analyze HTTP/1.1" 200 2382 "-" "curl/8.20.0"
+127.0.0.1 - - [10/Jun/2026:22:03:29 +0100] "POST /analyze HTTP/1.1" 200 2121 "-" "curl/8.20.0"
+127.0.0.1 - - [10/Jun/2026:22:03:44 +0100] "POST /analyze HTTP/1.1" 200 2186 "-" "curl/8.20.0"
+[2026-06-10 22:05:40 +0100] [32183] [INFO] Handling signal: term
+[2026-06-10 22:05:40 +0100] [32188] [INFO] Worker exiting (pid: 32188)
+[2026-06-10 22:05:40 +0100] [32185] [INFO] Worker exiting (pid: 32185)
+[2026-06-10 22:05:40 +0100] [32187] [INFO] Worker exiting (pid: 32187)
+[2026-06-10 22:05:40 +0100] [32186] [INFO] Worker exiting (pid: 32186)
+[2026-06-10 22:05:41 +0100] [32183] [INFO] Shutting down: Master
+[2026-06-10 22:05:42 +0100] [7318] [INFO] Starting gunicorn 26.0.0
+[2026-06-10 22:05:42 +0100] [7318] [INFO] Listening at: http://127.0.0.1:5000 (7318)
+[2026-06-10 22:05:42 +0100] [7318] [INFO] Using worker: gthread
+[2026-06-10 22:05:42 +0100] [7319] [INFO] Booting worker with pid: 7319
+[2026-06-10 22:05:42 +0100] [7320] [INFO] Booting worker with pid: 7320
+[2026-06-10 22:05:42 +0100] [7321] [INFO] Booting worker with pid: 7321
+[2026-06-10 22:05:42 +0100] [7322] [INFO] Booting worker with pid: 7322
+[2026-06-10 22:05:42 +0100] [7318] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [10/Jun/2026:22:06:09 +0100] "POST /analyze HTTP/1.1" 200 3008 "-" "curl/8.20.0"
+[2026-06-16 19:37:40 +0100] [7720] [INFO] Starting gunicorn 26.0.0
+[2026-06-22 20:35:30 +0100] [26363] [INFO] Starting gunicorn 26.0.0
+[2026-06-22 20:35:30 +0100] [26363] [INFO] Listening at: http://127.0.0.1:5000 (26363)
+[2026-06-22 20:35:30 +0100] [26363] [INFO] Using worker: gthread
+[2026-06-22 20:35:30 +0100] [26365] [INFO] Booting worker with pid: 26365
+[2026-06-22 20:35:30 +0100] [26366] [INFO] Booting worker with pid: 26366
+[2026-06-22 20:35:30 +0100] [26367] [INFO] Booting worker with pid: 26367
+[2026-06-22 20:35:30 +0100] [26368] [INFO] Booting worker with pid: 26368
+[2026-06-22 20:35:30 +0100] [26363] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [22/Jun/2026:20:36:26 +0100] "GET /health HTTP/1.1" 200 126 "-" "curl/8.20.0"
+127.0.0.1 - - [22/Jun/2026:20:37:26 +0100] "POST /analyze HTTP/1.1" 200 3228 "-" "curl/8.20.0"
+[2026-06-22 20:40:09 +0100] [26363] [CRITICAL] WORKER TIMEOUT (pid:26365)
+[2026-06-22 20:40:09 +0100] [26365] [INFO] Worker exiting (pid: 26365)
+[2026-06-22 20:50:32 +0100] [13634] [INFO] Starting gunicorn 26.0.0
+[2026-06-22 20:50:32 +0100] [13634] [INFO] Listening at: http://127.0.0.1:5000 (13634)
+[2026-06-22 20:50:32 +0100] [13634] [INFO] Using worker: gthread
+[2026-06-22 20:50:32 +0100] [13636] [INFO] Booting worker with pid: 13636
+[2026-06-22 20:50:32 +0100] [13637] [INFO] Booting worker with pid: 13637
+[2026-06-22 20:50:32 +0100] [13638] [INFO] Booting worker with pid: 13638
+[2026-06-22 20:50:32 +0100] [13639] [INFO] Booting worker with pid: 13639
+[2026-06-22 20:50:33 +0100] [13634] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [22/Jun/2026:20:51:30 +0100] "POST /analyze HTTP/1.1" 200 3240 "-" "curl/8.20.0"
+[2026-06-22 20:58:06 +0100] [13634] [CRITICAL] WORKER TIMEOUT (pid:13636)
+[2026-06-22 20:58:06 +0100] [13636] [INFO] Worker exiting (pid: 13636)
+[2026-06-22 20:58:08 +0100] [13634] [ERROR] Worker (pid:13636) exited with code 1.
+[2026-06-22 20:58:08 +0100] [17856] [INFO] Booting worker with pid: 17856
+[2026-06-22 20:58:08 +0100] [13634] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+[2026-06-22 20:58:12 +0100] [13634] [INFO] Handling signal: term
+[2026-06-22 20:58:12 +0100] [17856] [INFO] Worker exiting (pid: 17856)
+[2026-06-22 20:58:12 +0100] [13638] [INFO] Worker exiting (pid: 13638)
+[2026-06-22 20:58:12 +0100] [13639] [INFO] Worker exiting (pid: 13639)
+[2026-06-22 20:58:12 +0100] [13637] [INFO] Worker exiting (pid: 13637)
+[2026-06-22 20:58:13 +0100] [13634] [INFO] Shutting down: Master
