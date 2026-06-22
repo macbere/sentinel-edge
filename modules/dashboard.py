@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Enhanced Dashboard Module: Judge-ready monitoring for Track 5."""
+"""Enhanced Dashboard Module: Judge-ready monitoring for Track 4: Autopilot Agent."""
 import sqlite3
 import os
 import platform
@@ -69,7 +69,7 @@ def get_dashboard_data():
         "version": "1.0.0",
         "status": "online",
         "mode": "edge-cloud-hybrid",
-        "track": "Track 5: EdgeAgent (primary)",
+        "track": "Track 4: Autopilot Agent (primary)",
         "system": {
             "platform": platform.system(),
             "python_version": platform.python_version(),
@@ -100,8 +100,8 @@ def get_dashboard_data():
             "/report/<id>", "/approve/<id>", "/dashboard"
         ],
         "tracks": [
-            "Track 5: EdgeAgent (primary)",
+            "Track 4: Autopilot Agent (primary)",
             "Track 1: MemoryAgent (overlap)",
-            "Track 4: Autopilot Agent (overlap)"
+            "Track 4: Autopilot Agent (primary overlap)"
         ]
     }
