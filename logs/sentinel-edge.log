@@ -1103,3 +1103,18 @@ SyntaxError: unmatched '}'
 [2026-06-23 03:19:34 +0100] [14162] [ERROR] Worker (pid:16610) exited with code 1.
 [2026-06-23 03:19:35 +0100] [17552] [INFO] Booting worker with pid: 17552
 [2026-06-23 03:19:35 +0100] [14162] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+[2026-06-23 03:25:00 +0100] [14162] [CRITICAL] WORKER TIMEOUT (pid:14165)
+[2026-06-23 03:25:00 +0100] [14165] [INFO] Worker exiting (pid: 14165)
+[2026-06-23 03:25:01 +0100] [14162] [ERROR] Worker (pid:14165) exited with code 1.
+[2026-06-23 03:25:01 +0100] [18197] [INFO] Booting worker with pid: 18197
+[2026-06-23 03:25:02 +0100] [14162] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+[2026-06-23 03:28:22 +0100] [14162] [CRITICAL] WORKER TIMEOUT (pid:14167)
+[2026-06-23 03:28:22 +0100] [14167] [INFO] Worker exiting (pid: 14167)
+[2026-06-23 03:28:23 +0100] [14162] [ERROR] Worker (pid:14167) exited with code 1.
+[2026-06-23 03:28:23 +0100] [19642] [INFO] Booting worker with pid: 19642
+[2026-06-23 03:28:23 +0100] [14162] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+[2026-06-23 03:30:30 +0100] [14162] [CRITICAL] WORKER TIMEOUT (pid:14169)
+[2026-06-23 03:30:30 +0100] [14169] [INFO] Worker exiting (pid: 14169)
+[2026-06-23 03:30:31 +0100] [14162] [ERROR] Worker (pid:14169) exited with code 1.
+[2026-06-23 03:30:32 +0100] [20516] [INFO] Booting worker with pid: 20516
+[2026-06-23 03:30:32 +0100] [14162] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
