@@ -1,7 +1,7 @@
 # Alibaba Cloud Deployment Proof
 
 ## Live Public URL
-**http://47.77.199.98:5000**
+**http://47.77.199.98**
 
 ## Alibaba Cloud Services Used
 
@@ -25,9 +25,9 @@
 
 Run these commands to verify the deployment is live:
 
-curl http://47.77.199.98:5000/health
+curl http://47.77.199.98/health
 
-curl -X POST http://47.77.199.98:5000/analyze \
+curl -X POST http://47.77.199.98/analyze \
   -H "Content-Type: application/json" \
   -d '{"alert": "Ransomware beacon from 10.0.0.77"}'
 

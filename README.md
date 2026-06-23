@@ -42,7 +42,7 @@ Human Approval Gate — Incident Stored — Dashboard Updated
 
 ## ☁️ Alibaba Cloud Deployment
 
-Live URL: http://47.77.199.98:5000
+Live URL: http://47.77.199.98
 
 | Service | Usage |
 |---|---|
@@ -51,9 +51,9 @@ Live URL: http://47.77.199.98:5000
 
 Test the live deployment:
 
-curl http://47.77.199.98:5000/health
+curl http://47.77.199.98/health
 
-curl -X POST http://47.77.199.98:5000/analyze -H "Content-Type: application/json" -d '{"alert": "Ransomware beacon from 10.0.0.77"}'
+curl -X POST http://47.77.199.98/analyze -H "Content-Type: application/json" -d '{"alert": "Ransomware beacon from 10.0.0.77"}'
 
 ## 🏗️ Architecture
 
