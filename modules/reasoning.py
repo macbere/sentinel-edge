@@ -2,11 +2,11 @@
 Reasoning Module: Optimized 4-Step Agentic Chain for Threat Analysis
 
 Improvements over v1:
-- Timeout protection on every step
-- Faster prompts (shorter = faster Qwen response)
-- Step timing logged for transparency
-- Graceful degradation if any step fails
-- MCP enrichment runs in parallel with Step 2
+- MCP enrichment for IPs AND domains
+- Parallel MCP lookup thread
+- Faster prompts
+- Step timing logged
+- Graceful degradation
 """
 import requests
 import json
@@ -17,7 +17,6 @@ from modules.mcp_threat_intel import threat_intel_mcp
 
 
 def _call_qwen_step(system_prompt, user_prompt, timeout=25):
-    """Single Qwen API call with timing and timeout protection."""
     if not QWEN_API_KEY:
         return None
     headers = {
@@ -52,10 +51,15 @@ def _call_qwen_step(system_prompt, user_prompt, timeout=25):
         return None
 
 
-def _mcp_lookup_threaded(ip_address, result_container):
-    """Run MCP lookup in a thread so it doesn't block the chain."""
+def _mcp_lookup_threaded(iocs, result_container):
+    """Run full IOC enrichment in a thread."""
     try:
-        result_container["mcp"] = threat_intel_mcp.lookup_ip(ip_address)
+        results = []
+        for ip in iocs.get("ipv4", [])[:2]:
+            results.append(threat_intel_mcp.lookup_ip(ip))
+        for domain in iocs.get("domain", [])[:2]:
+            results.append(threat_intel_mcp.lookup_domain(domain))
+        result_container["mcp"] = results[0] if len(results) == 1 else results if results else None
     except Exception as e:
         result_container["mcp"] = None
 
@@ -66,17 +70,13 @@ def _smart_offline(alert_text):
 
 
 def analyze_with_chain(alert_text, max_retries=1):
-    """
-    Optimized 4-step agentic reasoning chain.
-    MCP lookup runs in parallel with Step 2 to save time.
-    """
     chain = []
     total_start = time.time()
 
     if LLM_PROVIDER != "qwen" or not QWEN_API_KEY:
         return _smart_offline(alert_text)
 
-    # ── STEP 1: Threat Classification ──────────────────────────────
+    # STEP 1: Threat Classification
     step1_sys = (
         'You are a threat classifier. Respond ONLY in JSON: '
         '{"threat_type":"string","severity":"low|medium|high|critical",'
@@ -94,25 +94,29 @@ def analyze_with_chain(alert_text, max_retries=1):
         "elapsed_ms": elapsed1
     })
 
-    # ── MCP LOOKUP (parallel with Step 2) ──────────────────────────
     iocs = step1_res.get("iocs", {})
-    ipv4_list = iocs.get("ipv4", [])
+    has_iocs = any(iocs.get(k) for k in ["ipv4", "domain"])
+
+    # Start MCP lookup in parallel thread
     mcp_container = {}
     mcp_thread = None
-
-    if ipv4_list:
+    if has_iocs:
         mcp_thread = threading.Thread(
             target=_mcp_lookup_threaded,
-            args=(ipv4_list[0], mcp_container)
+            args=(iocs, mcp_container)
         )
         mcp_thread.start()
 
-    # ── STEP 2: Tool Selection ──────────────────────────────────────
+    # STEP 2: Tool Selection
     step2_sys = (
         'You are a security tool selector. Respond ONLY in JSON: '
         '{"tools":["tool1","tool2"],"rationale":"brief reason"}'
     )
-    step2_input = f"Threat: {step1_res.get('threat_type')} | Severity: {step1_res.get('severity')} | Alert: {alert_text[:200]}"
+    step2_input = (
+        f"Threat: {step1_res.get('threat_type')} | "
+        f"Severity: {step1_res.get('severity')} | "
+        f"Alert: {alert_text[:200]}"
+    )
     step2_res = _call_qwen_step(step2_sys, step2_input)
     elapsed2 = step2_res.pop("_elapsed_ms", 0) if step2_res else 0
     chain.append({
@@ -122,37 +126,41 @@ def analyze_with_chain(alert_text, max_retries=1):
         "elapsed_ms": elapsed2
     })
 
-    # ── WAIT FOR MCP ────────────────────────────────────────────────
+    # Wait for MCP
     if mcp_thread:
         mcp_thread.join(timeout=10)
     mcp_enrichment = mcp_container.get("mcp")
 
     if mcp_enrichment:
-        chain.append({
-            "step": "mcp",
-            "name": "Threat Intelligence Lookup",
-            "tool": "threat_intelligence_lookup",
-            "input": {"ip": ipv4_list[0]},
-            "output": mcp_enrichment
-        })
+        enrichment_list = mcp_enrichment if isinstance(mcp_enrichment, list) else [mcp_enrichment]
+        for enrichment in enrichment_list:
+            chain.append({
+                "step": "mcp",
+                "name": f"Threat Intel: {enrichment.get('ioc_type','ioc').upper()} Lookup",
+                "tool": "threat_intelligence_lookup",
+                "input": {"ioc": enrichment.get("ioc_value")},
+                "output": enrichment
+            })
 
-    # ── STEP 3: Action Plan Generation ─────────────────────────────
+    # STEP 3: Action Plan Generation
     step3_sys = (
         'You are an incident responder. Respond ONLY in JSON: '
         '{"containment_steps":["step1","step2","step3"],"requires_human_approval":true}'
     )
     mcp_summary = ""
     if mcp_enrichment:
-        mcp_summary = (
-            f" | IP Abuse Score: {mcp_enrichment.get('abuse_confidence_score', 0)}%"
-            f" | Country: {mcp_enrichment.get('country', 'Unknown')}"
-            f" | Known Threats: {mcp_enrichment.get('known_threats', [])}"
-        )
+        items = mcp_enrichment if isinstance(mcp_enrichment, list) else [mcp_enrichment]
+        for item in items:
+            if item.get("ioc_type") == "ip":
+                mcp_summary += f" | IP {item.get('ioc_value')} abuse score: {item.get('abuse_confidence_score',0)}%"
+            elif item.get("ioc_type") == "domain":
+                mcp_summary += f" | Domain {item.get('ioc_value')} risk: {item.get('risk_level','unknown')}"
+
     step3_input = (
         f"Alert: {alert_text[:200]}"
         f" | Threat: {step1_res.get('threat_type')}"
         f" | Severity: {step1_res.get('severity')}"
-        f" | Tools: {step2_res.get('tools', []) if step2_res else []}"
+        f" | Tools: {step2_res.get('tools',[]) if step2_res else []}"
         f"{mcp_summary}"
     )
     step3_res = _call_qwen_step(step3_sys, step3_input)
@@ -164,14 +172,15 @@ def analyze_with_chain(alert_text, max_retries=1):
         "elapsed_ms": elapsed3
     })
 
-    # ── STEP 4: Confidence Validation ──────────────────────────────
+    # STEP 4: Confidence Validation
     step4_sys = (
         'You are a validator. Respond ONLY in JSON: '
         '{"confidence":0.0,"self_check":"one sentence validation"}'
     )
     step4_input = (
-        f"Threat: {step1_res.get('threat_type')} | Severity: {step1_res.get('severity')}"
-        f" | Plan: {step3_res.get('containment_steps', []) if step3_res else []}"
+        f"Threat: {step1_res.get('threat_type')} | "
+        f"Severity: {step1_res.get('severity')} | "
+        f"Plan: {step3_res.get('containment_steps',[]) if step3_res else []}"
     )
     step4_res = _call_qwen_step(step4_sys, step4_input)
     elapsed4 = step4_res.pop("_elapsed_ms", 0) if step4_res else 0
@@ -201,3 +210,11 @@ def analyze_with_chain(alert_text, max_retries=1):
 
 def analyze_with_retry(prompt, max_retries=2):
     return analyze_with_chain(prompt)
+
+
+def enrich_iocs(iocs):
+    """Enrich all IOC types using the expanded MCP module."""
+    try:
+        return threat_intel_mcp.enrich_all_iocs(iocs)
+    except Exception:
+        return []
