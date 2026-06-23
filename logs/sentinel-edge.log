@@ -1076,3 +1076,20 @@ SyntaxError: unmatched '}'
 [2026-06-23 03:03:54 +0100] [13274] [INFO] Booting worker with pid: 13274
 [2026-06-23 03:03:54 +0100] [13267] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
 127.0.0.1 - - [23/Jun/2026:03:04:13 +0100] "POST /analyze HTTP/1.1" 200 3166 "-" "curl/8.20.0"
+[2026-06-23 03:07:05 +0100] [13267] [INFO] Handling signal: term
+[2026-06-23 03:07:05 +0100] [13271] [INFO] Worker exiting (pid: 13271)
+[2026-06-23 03:07:05 +0100] [13272] [INFO] Worker exiting (pid: 13272)
+[2026-06-23 03:07:05 +0100] [13273] [INFO] Worker exiting (pid: 13273)
+[2026-06-23 03:07:05 +0100] [13274] [INFO] Worker exiting (pid: 13274)
+[2026-06-23 03:07:06 +0100] [13267] [INFO] Shutting down: Master
+[2026-06-23 03:07:11 +0100] [14162] [INFO] Starting gunicorn 26.0.0
+[2026-06-23 03:07:11 +0100] [14162] [INFO] Listening at: http://127.0.0.1:5000 (14162)
+[2026-06-23 03:07:11 +0100] [14162] [INFO] Using worker: gthread
+[2026-06-23 03:07:11 +0100] [14165] [INFO] Booting worker with pid: 14165
+[2026-06-23 03:07:11 +0100] [14166] [INFO] Booting worker with pid: 14166
+[2026-06-23 03:07:11 +0100] [14167] [INFO] Booting worker with pid: 14167
+[2026-06-23 03:07:11 +0100] [14169] [INFO] Booting worker with pid: 14169
+[2026-06-23 03:07:11 +0100] [14162] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [23/Jun/2026:03:07:18 +0100] "POST /approve/3 HTTP/1.1" 404 47 "-" "curl/8.20.0"
+127.0.0.1 - - [23/Jun/2026:03:08:29 +0100] "GET /incidents HTTP/1.1" 200 15951 "-" "curl/8.20.0"
+127.0.0.1 - - [23/Jun/2026:03:09:06 +0100] "POST /approve/526 HTTP/1.1" 200 898 "-" "curl/8.20.0"

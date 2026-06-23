@@ -75,15 +75,10 @@ def list_incidents():
 
 @app.route("/approve/<int:incident_id>", methods=["POST"])
 def approve_action(incident_id):
-    conn = sqlite3.connect("sentinel_memory.db")
-    conn.row_factory = sqlite3.Row
-    row = conn.execute("SELECT * FROM incidents WHERE id = ?", (incident_id,)).fetchone()
-    conn.close()
-    if not row:
-        return jsonify({"error": "Incident not found"}), 404
-    analysis = json.loads(row["analysis"])
-    steps = analysis.get("containment_steps", [])
-    result = execute_containment(incident_id, steps, require_approval=False)
+    from modules.action import approve_and_execute
+    result = approve_and_execute(incident_id)
+    if "error" in result:
+        return jsonify(result), 404
     return jsonify(result)
 
 @app.route("/report/<int:incident_id>", methods=["GET"])
