@@ -141,3 +141,8 @@ def dashboard():
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=True)
+
+@app.route("/", methods=["GET"])
+def index():
+    from flask import render_template
+    return render_template("index.html")

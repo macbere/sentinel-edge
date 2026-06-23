@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentinel Edge — Autonomous Cybersecurity Agent</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0a0e1a; color: #e2e8f0; min-height: 100vh; }
+  
+  /* Header */
+  .header { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); border-bottom: 1px solid #334155; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .logo-text h1 { font-size: 20px; font-weight: 700; color: #f1f5f9; }
+  .logo-text p { font-size: 11px; color: #94a3b8; }
+  .header-right { display: flex; align-items: center; gap: 16px; }
+  .status-badge { display: flex; align-items: center; gap: 6px; background: #052e16; border: 1px solid #16a34a; padding: 6px 12px; border-radius: 20px; font-size: 12px; color: #4ade80; }
+  .status-dot { width: 8px; height: 8px; background: #4ade80; border-radius: 50%; animation: pulse 2s infinite; }
+  .track-badge { background: #1e1b4b; border: 1px solid #6366f1; padding: 6px 12px; border-radius: 20px; font-size: 12px; color: #a5b4fc; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  /* Layout */
+  .container { max-width: 1400px; margin: 0 auto; padding: 24px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+  .grid-3 { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 24px; }
+
+  /* Cards */
+  .card { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 20px; }
+  .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .card-title { font-size: 14px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; }
+  .card-action { font-size: 12px; color: #6366f1; cursor: pointer; }
+
+  /* Metric Cards */
+  .metric-card { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 20px; }
+  .metric-value { font-size: 36px; font-weight: 800; margin: 8px 0 4px; }
+  .metric-label { font-size: 12px; color: #64748b; }
+  .metric-change { font-size: 12px; margin-top: 4px; }
+  .metric-icon { font-size: 24px; margin-bottom: 8px; }
+
+  /* Severity Colors */
+  .critical { color: #f87171; }
+  .high { color: #fb923c; }
+  .medium { color: #fbbf24; }
+  .low { color: #4ade80; }
+  .info { color: #60a5fa; }
+
+  .badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+  .badge-critical { background: #450a0a; color: #f87171; border: 1px solid #7f1d1d; }
+  .badge-high { background: #431407; color: #fb923c; border: 1px solid #7c2d12; }
+  .badge-medium { background: #422006; color: #fbbf24; border: 1px solid #78350f; }
+  .badge-low { background: #052e16; color: #4ade80; border: 1px solid #14532d; }
+  .badge-pending { background: #1e1b4b; color: #a5b4fc; border: 1px solid #312e81; }
+  .badge-executed { background: #052e16; color: #4ade80; border: 1px solid #14532d; }
+  .badge-qwen { background: #0c1a2e; color: #38bdf8; border: 1px solid #0369a1; }
+
+  /* Analyze Form */
+  .analyze-form { background: linear-gradient(135deg, #0f172a, #1e1b4b); border: 1px solid #312e81; border-radius: 12px; padding: 24px; margin-bottom: 24px; }
+  .analyze-title { font-size: 18px; font-weight: 700; color: #f1f5f9; margin-bottom: 6px; }
+  .analyze-subtitle { font-size: 13px; color: #64748b; margin-bottom: 20px; }
+  .input-row { display: flex; gap: 12px; }
+  .alert-input { flex: 1; background: #0a0e1a; border: 1px solid #334155; border-radius: 8px; padding: 12px 16px; color: #e2e8f0; font-size: 14px; outline: none; transition: border-color 0.2s; }
+  .alert-input:focus { border-color: #6366f1; }
+  .alert-input::placeholder { color: #475569; }
+  .analyze-btn { background: linear-gradient(135deg, #6366f1, #8b5cf6); border: none; color: white; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: opacity 0.2s; }
+  .analyze-btn:hover { opacity: 0.9; }
+  .analyze-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* Chain Visualization */
+  .chain-container { margin-top: 20px; display: none; }
+  .chain-steps { display: flex; align-items: flex-start; gap: 0; overflow-x: auto; padding-bottom: 8px; }
+  .chain-step { display: flex; flex-direction: column; align-items: center; min-width: 140px; }
+  .chain-step-box { background: #1e293b; border: 2px solid #334155; border-radius: 10px; padding: 12px; width: 130px; text-align: center; transition: all 0.3s; }
+  .chain-step-box.active { border-color: #6366f1; background: #1e1b4b; }
+  .chain-step-box.done { border-color: #4ade80; background: #052e16; }
+  .chain-step-box.mcp { border-color: #38bdf8; background: #0c1a2e; }
+  .chain-step-num { font-size: 11px; color: #64748b; margin-bottom: 4px; }
+  .chain-step-name { font-size: 12px; font-weight: 600; color: #e2e8f0; }
+  .chain-arrow { color: #334155; font-size: 20px; margin: 0 4px; padding-top: 20px; }
+  .chain-result { margin-top: 20px; background: #0a0e1a; border: 1px solid #1e293b; border-radius: 10px; padding: 16px; }
+  .result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+  .result-item { background: #0f172a; border-radius: 8px; padding: 12px; }
+  .result-item-label { font-size: 11px; color: #64748b; margin-bottom: 4px; }
+  .result-item-value { font-size: 14px; font-weight: 600; }
+  .containment-list { list-style: none; }
+  .containment-list li { display: flex; align-items: flex-start; gap: 8px; padding: 8px 0; border-bottom: 1px solid #1e293b; font-size: 13px; color: #cbd5e1; }
+  .containment-list li:last-child { border-bottom: none; }
+  .check-icon { color: #4ade80; font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+  .loading-chain { display: flex; align-items: center; gap: 8px; color: #64748b; font-size: 13px; padding: 16px 0; }
+  .spinner { width: 16px; height: 16px; border: 2px solid #334155; border-top-color: #6366f1; border-radius: 50%; animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Incidents Table */
+  .incidents-table { width: 100%; border-collapse: collapse; }
+  .incidents-table th { text-align: left; padding: 10px 12px; font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #1e293b; }
+  .incidents-table td { padding: 12px; font-size: 13px; border-bottom: 1px solid #0f172a; vertical-align: middle; }
+  .incidents-table tr:hover td { background: #0f172a; }
+  .alert-text { max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #cbd5e1; }
+  .approve-btn { background: #052e16; border: 1px solid #16a34a; color: #4ade80; padding: 4px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; transition: all 0.2s; }
+  .approve-btn:hover { background: #16a34a; color: white; }
+  .view-btn { background: #0c1a2e; border: 1px solid #0369a1; color: #38bdf8; padding: 4px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; margin-right: 6px; transition: all 0.2s; }
+  .view-btn:hover { background: #0369a1; color: white; }
+
+  /* Campaign Card */
+  .campaign-card { background: linear-gradient(135deg, #0f172a, #1a0a2e); border: 1px solid #581c87; border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+  .campaign-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+  .campaign-id { font-size: 13px; color: #a78bfa; font-weight: 600; }
+  .kill-chain { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; margin: 12px 0; }
+  .kill-chain-step { background: #1e1b4b; border: 1px solid #4338ca; color: #a5b4fc; padding: 4px 10px; border-radius: 4px; font-size: 11px; }
+  .kill-chain-arrow { color: #6366f1; font-size: 14px; }
+  .ioc-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .ioc-tag { background: #0a0e1a; border: 1px solid #334155; color: #94a3b8; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-family: monospace; }
+  .ioc-tag.ip { border-color: #7f1d1d; color: #f87171; }
+  .ioc-tag.user { border-color: #78350f; color: #fb923c; }
+  .ioc-tag.file { border-color: #713f12; color: #fbbf24; }
+
+  /* MCP Badge */
+  .mcp-result { background: #0c1a2e; border: 1px solid #0369a1; border-radius: 8px; padding: 12px; margin-top: 12px; }
+  .mcp-header { font-size: 11px; color: #38bdf8; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .mcp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .mcp-item { font-size: 12px; }
+  .mcp-item span { color: #64748b; }
+
+  /* Stats bar */
+  .stat-bar { background: #1e293b; border-radius: 4px; height: 6px; margin-top: 6px; overflow: hidden; }
+  .stat-bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+
+  /* Modal */
+  .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+  .modal.open { display: flex; }
+  .modal-content { background: #0f172a; border: 1px solid #334155; border-radius: 16px; padding: 24px; max-width: 700px; width: 100%; max-height: 80vh; overflow-y: auto; }
+  .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .modal-close { background: none; border: none; color: #64748b; font-size: 24px; cursor: pointer; }
+  .json-view { background: #0a0e1a; border: 1px solid #1e293b; border-radius: 8px; padding: 16px; font-family: monospace; font-size: 12px; color: #94a3b8; overflow-x: auto; white-space: pre-wrap; word-break: break-all; }
+
+  /* Threat chart */
+  .threat-bars { display: flex; flex-direction: column; gap: 10px; }
+  .threat-bar-item { display: flex; flex-direction: column; gap: 4px; }
+  .threat-bar-label { display: flex; justify-content: space-between; font-size: 12px; }
+  .threat-bar-name { color: #cbd5e1; }
+  .threat-bar-count { color: #64748b; }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 4px; background: #0a0e1a; border-radius: 8px; padding: 4px; margin-bottom: 16px; }
+  .tab { padding: 8px 16px; border-radius: 6px; font-size: 13px; cursor: pointer; color: #64748b; transition: all 0.2s; border: none; background: none; }
+  .tab.active { background: #1e293b; color: #e2e8f0; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .input-row { flex-direction: column; }
+    .result-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  .refresh-time { font-size: 11px; color: #475569; }
+  .section-title { font-size: 16px; font-weight: 700; color: #f1f5f9; margin-bottom: 4px; }
+  .section-sub { font-size: 12px; color: #64748b; margin-bottom: 16px; }
+  .empty-state { text-align: center; padding: 40px; color: #475569; }
+  .empty-icon { font-size: 40px; margin-bottom: 12px; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="logo">
+    <div class="logo-icon">🛡️</div>
+    <div class="logo-text">
+      <h1>Sentinel Edge</h1>
+      <p>Autonomous Cybersecurity Incident Response Agent</p>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="track-badge">🏆 Track 4: Autopilot Agent</span>
+    <div class="status-badge">
+      <div class="status-dot"></div>
+      <span id="system-status">Online</span>
+    </div>
+    <span class="refresh-time" id="last-refresh">--</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Live Analyze Form -->
+  <div class="analyze-form">
+    <div class="analyze-title">🔍 Live Threat Analysis</div>
+    <div class="analyze-subtitle">Submit a security alert and watch the 4-step Qwen agentic reasoning chain execute in real time</div>
+    <div class="input-row">
+      <input class="alert-input" id="alert-input" type="text" placeholder="e.g. Ransomware beacon from 185.220.101.45 targeting finance-db server..." />
+      <button class="analyze-btn" id="analyze-btn" onclick="runAnalysis()">⚡ Analyze Threat</button>
+    </div>
+    <div class="chain-container" id="chain-container">
+      <div class="loading-chain" id="chain-loading">
+        <div class="spinner"></div>
+        <span id="chain-status">Initializing 4-step reasoning chain...</span>
+      </div>
+      <div id="chain-visual" style="display:none">
+        <div class="chain-steps" id="chain-steps"></div>
+        <div class="chain-result" id="chain-result"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Metric Cards -->
+  <div class="grid-4">
+    <div class="metric-card">
+      <div class="metric-icon">📊</div>
+      <div class="metric-label">Total Incidents</div>
+      <div class="metric-value critical" id="total-incidents">--</div>
+      <div class="metric-change" style="color:#64748b">All time</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-icon">🤖</div>
+      <div class="metric-label">Qwen Analyses</div>
+      <div class="metric-value info" id="qwen-analyses">--</div>
+      <div class="metric-change" style="color:#64748b">Real API calls</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-icon">⏳</div>
+      <div class="metric-label">Pending Approval</div>
+      <div class="metric-value medium" id="pending-approval">--</div>
+      <div class="metric-change" style="color:#64748b">Human-in-the-loop</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-icon">🎯</div>
+      <div class="metric-label">Campaigns Detected</div>
+      <div class="metric-value" style="color:#a78bfa" id="campaigns-count">--</div>
+      <div class="metric-change" style="color:#64748b">APT kill chains</div>
+    </div>
+  </div>
+
+  <!-- Incidents + Threats -->
+  <div class="grid-3">
+    <!-- Incidents Table -->
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="section-title">Recent Incidents</div>
+          <div class="section-sub">Click View to see full reasoning chain</div>
+        </div>
+        <span class="card-action" onclick="loadIncidents()">↻ Refresh</span>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="incidents-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Alert</th>
+              <th>Severity</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="incidents-tbody">
+            <tr><td colspan="5" class="empty-state">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Threat Distribution -->
+    <div class="card">
+      <div class="card-header">
+        <div class="section-title">Threat Distribution</div>
+      </div>
+      <div class="threat-bars" id="threat-bars">
+        <div class="empty-state"><div class="empty-icon">📊</div>Loading...</div>
+      </div>
+      <div style="margin-top:20px">
+        <div class="card-title" style="margin-bottom:12px">AI Provider Split</div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px">
+          <span>🤖 Qwen Cloud</span><span id="qwen-pct" class="info">--</span>
+        </div>
+        <div class="stat-bar"><div class="stat-bar-fill" id="qwen-bar" style="background:#6366f1;width:0%"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;margin-top:10px;margin-bottom:6px">
+          <span>⚡ Offline Fallback</span><span id="offline-pct" class="medium">--</span>
+        </div>
+        <div class="stat-bar"><div class="stat-bar-fill" id="offline-bar" style="background:#fbbf24;width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Campaign Correlation -->
+  <div class="card" style="margin-bottom:24px">
+    <div class="card-header">
+      <div>
+        <div class="section-title">🎯 APT Campaign Correlation Engine</div>
+        <div class="section-sub">Automatically groups related incidents into coordinated attack campaigns</div>
+      </div>
+      <span class="card-action" onclick="loadCampaigns()">↻ Refresh</span>
+    </div>
+    <div id="campaigns-container">
+      <div class="empty-state"><div class="empty-icon">🔍</div>Loading campaigns...</div>
+    </div>
+  </div>
+
+  <!-- System Info -->
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header"><div class="section-title">☁️ Deployment Info</div></div>
+      <div style="display:flex;flex-direction:column;gap:12px" id="deployment-info">
+        <div style="display:flex;justify-content:space-between;font-size:13px;padding:8px 0;border-bottom:1px solid #1e293b">
+          <span style="color:#64748b">Cloud Provider</span><span>Alibaba Cloud ECS</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;padding:8px 0;border-bottom:1px solid #1e293b">
+          <span style="color:#64748b">Public IP</span><span style="font-family:monospace;color:#4ade80">47.77.199.98:5000</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;padding:8px 0;border-bottom:1px solid #1e293b">
+          <span style="color:#64748b">AI Model</span><span style="color:#38bdf8">qwen-max</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;padding:8px 0;border-bottom:1px solid #1e293b">
+          <span style="color:#64748b">MCP Tool</span><span style="color:#38bdf8">AbuseIPDB Live</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;padding:8px 0;border-bottom:1px solid #1e293b">
+          <span style="color:#64748b">Uptime</span><span id="uptime" style="color:#4ade80">--</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;padding:8px 0">
+          <span style="color:#64748b">Platform</span><span id="platform">--</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="section-title">🔌 API Endpoints</div></div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;align-items:center;gap:10px;padding:8px;background:#0a0e1a;border-radius:6px">
+          <span style="background:#052e16;color:#4ade80;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600">GET</span>
+          <span style="font-family:monospace;font-size:12px;color:#94a3b8">/health</span>
+          <span style="font-size:11px;color:#475569;margin-left:auto">System status</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:8px;background:#0a0e1a;border-radius:6px">
+          <span style="background:#1e1b4b;color:#a5b4fc;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600">POST</span>
+          <span style="font-family:monospace;font-size:12px;color:#94a3b8">/analyze</span>
+          <span style="font-size:11px;color:#475569;margin-left:auto">4-step AI chain</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:8px;background:#0a0e1a;border-radius:6px">
+          <span style="background:#052e16;color:#4ade80;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600">GET</span>
+          <span style="font-family:monospace;font-size:12px;color:#94a3b8">/correlate</span>
+          <span style="font-size:11px;color:#475569;margin-left:auto">APT detection</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:8px;background:#0a0e1a;border-radius:6px">
+          <span style="background:#052e16;color:#4ade80;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600">GET</span>
+          <span style="font-family:monospace;font-size:12px;color:#94a3b8">/dashboard</span>
+          <span style="font-size:11px;color:#475569;margin-left:auto">Live metrics</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:8px;background:#0a0e1a;border-radius:6px">
+          <span style="background:#052e16;color:#4ade80;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600">GET</span>
+          <span style="font-family:monospace;font-size:12px;color:#94a3b8">/incidents</span>
+          <span style="font-size:11px;color:#475569;margin-left:auto">Incident list</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:8px;background:#0a0e1a;border-radius:6px">
+          <span style="background:#1e1b4b;color:#a5b4fc;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600">POST</span>
+          <span style="font-family:monospace;font-size:12px;color:#94a3b8">/approve/&lt;id&gt;</span>
+          <span style="font-size:11px;color:#475569;margin-left:auto">HITL approval</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Incident Detail Modal -->
+<div class="modal" id="incident-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div>
+        <div class="section-title" id="modal-title">Incident Details</div>
+        <div class="section-sub" id="modal-sub"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+const API = '';
+
+async function fetchJSON(url) {
+  try {
+    const r = await fetch(url);
+    return await r.json();
+  } catch(e) {
+    return null;
+  }
+}
+
+async function postJSON(url, body) {
+  try {
+    const r = await fetch(url, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body)
+    });
+    return await r.json();
+  } catch(e) {
+    return null;
+  }
+}
+
+function getSeverityFromAnalysis(analysis) {
+  try {
+    const a = typeof analysis === 'string' ? JSON.parse(analysis) : analysis;
+    return a.severity || 'low';
+  } catch { return 'low'; }
+}
+
+function getThreatType(analysis) {
+  try {
+    const a = typeof analysis === 'string' ? JSON.parse(analysis) : analysis;
+    return a.threat_type || 'unknown';
+  } catch { return 'unknown'; }
+}
+
+async function loadDashboard() {
+  const data = await fetchJSON(API + '/dashboard');
+  if (!data) return;
+  document.getElementById('total-incidents').textContent = data.metrics?.total_incidents ?? '--';
+  document.getElementById('qwen-analyses').textContent = data.ai_provider_stats?.qwen_analyses ?? '--';
+  document.getElementById('pending-approval').textContent = data.metrics?.pending_approval ?? '--';
+  document.getElementById('uptime').textContent = data.system?.uptime ?? '--';
+  document.getElementById('platform').textContent = data.system?.platform + ' / Python ' + data.system?.python_version;
+  document.getElementById('last-refresh').textContent = 'Refreshed ' + new Date().toLocaleTimeString();
+
+  const total = data.metrics?.total_incidents || 1;
+  const qwen = data.ai_provider_stats?.qwen_analyses || 0;
+  const offline = data.ai_provider_stats?.offline_fallbacks || 0;
+  const qpct = Math.round(qwen/total*100);
+  const opct = Math.round(offline/total*100);
+  document.getElementById('qwen-pct').textContent = qpct + '%';
+  document.getElementById('offline-pct').textContent = opct + '%';
+  document.getElementById('qwen-bar').style.width = qpct + '%';
+  document.getElementById('offline-bar').style.width = opct + '%';
+
+  const colors = {ransomware_beacon:'#f87171',brute_force_attack:'#fb923c',privilege_escalation:'#f87171',unauthorized_access:'#fbbf24',network_scan:'#4ade80',phishing_attempt:'#fbbf24',Ransomware:'#f87171',sql_injection:'#fb923c'};
+  const threats = data.top_threats || [];
+  const maxCount = Math.max(...threats.map(t=>t.count), 1);
+  document.getElementById('threat-bars').innerHTML = threats.map(t => `
+    <div class="threat-bar-item">
+      <div class="threat-bar-label">
+        <span class="threat-bar-name">${t.type.replace(/_/g,' ')}</span>
+        <span class="threat-bar-count">${t.count}</span>
+      </div>
+      <div class="stat-bar"><div class="stat-bar-fill" style="background:${colors[t.type]||'#6366f1'};width:${Math.round(t.count/maxCount*100)}%"></div></div>
+    </div>
+  `).join('');
+}
+
+async function loadIncidents() {
+  const data = await fetchJSON(API + '/incidents?limit=20');
+  if (!data || !Array.isArray(data)) return;
+  const tbody = document.getElementById('incidents-tbody');
+  if (data.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="5" class="empty-state"><div class="empty-icon">✅</div>No incidents yet</td></tr>';
+    return;
+  }
+  tbody.innerHTML = data.map(inc => {
+    const sev = getSeverityFromAnalysis(inc.analysis);
+    const threat = getThreatType(inc.analysis);
+    const isApproved = inc.status === 'executed';
+    return `
+      <tr>
+        <td style="font-family:monospace;color:#64748b">#${inc.id}</td>
+        <td><div class="alert-text" title="${inc.alert_type}">${inc.alert_type}</div>
+            <div style="font-size:11px;color:#475569;margin-top:2px">${threat.replace(/_/g,' ')}</div></td>
+        <td><span class="badge badge-${sev}">${sev}</span></td>
+        <td><span class="badge badge-${inc.status}">${inc.status}</span></td>
+        <td>
+          <button class="view-btn" onclick="viewIncident(${inc.id})">View Chain</button>
+          ${!isApproved ? `<button class="approve-btn" onclick="approveIncident(${inc.id}, this)">Approve</button>` : ''}
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+async function loadCampaigns() {
+  const data = await fetchJSON(API + '/correlate');
+  document.getElementById('campaigns-count').textContent = data?.campaigns_detected ?? '--';
+  const container = document.getElementById('campaigns-container');
+  if (!data || data.campaigns_detected === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">🔍</div>No campaigns detected in last 24 hours. Submit more alerts to build correlation data.</div>';
+    return;
+  }
+  container.innerHTML = data.campaigns.map(c => {
+    const steps = c.attack_pattern.split(' -> ');
+    const iocs = c.threat_actor_profile?.known_iocs || {};
+    return `
+      <div class="campaign-card">
+        <div class="campaign-header">
+          <div>
+            <div class="campaign-id">🎯 ${c.campaign_id}</div>
+            <div style="font-size:12px;color:#64748b;margin-top:4px">${c.incident_count} incidents · ${c.time_span} · Correlation: ${c.avg_correlation_score}</div>
+          </div>
+          <span class="badge badge-${c.severity}">${c.severity}</span>
+        </div>
+        <div style="font-size:12px;color:#94a3b8;margin-bottom:8px">Attack Pattern (Kill Chain)</div>
+        <div class="kill-chain">
+          ${steps.map((s,i) => `<span class="kill-chain-step">${s}</span>${i<steps.length-1?'<span class="kill-chain-arrow">→</span>':''}`).join('')}
+        </div>
+        <div style="font-size:12px;color:#94a3b8;margin-top:12px;margin-bottom:6px">Threat Actor: <span style="color:#a78bfa">${c.threat_actor_profile?.actor_id}</span></div>
+        <div class="ioc-grid">
+          ${(iocs.ipv4||[]).map(ip=>`<span class="ioc-tag ip">📡 ${ip}</span>`).join('')}
+          ${(iocs.username||[]).map(u=>`<span class="ioc-tag user">👤 ${u}</span>`).join('')}
+          ${(iocs.filepath||[]).map(f=>`<span class="ioc-tag file">📁 ${f}</span>`).join('')}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+async function viewIncident(id) {
+  const data = await fetchJSON(API + `/report/${id}`);
+  if (!data) return;
+  const a = data.analysis;
+  document.getElementById('modal-title').textContent = `Incident #${id} — ${a.threat_type || 'Unknown'}`;
+  document.getElementById('modal-sub').textContent = data.timestamp;
+
+  const chain = a.reasoning_chain || [];
+  const mcp = a.mcp_enrichment;
+
+  let html = `
+    <div class="result-grid" style="margin-bottom:16px">
+      <div class="result-item"><div class="result-item-label">Severity</div><div class="result-item-value ${a.severity}">${a.severity || '--'}</div></div>
+      <div class="result-item"><div class="result-item-label">Confidence</div><div class="result-item-value info">${((a.confidence||0)*100).toFixed(0)}%</div></div>
+      <div class="result-item"><div class="result-item-label">Provider</div><div class="result-item-value" style="color:#38bdf8">${a.provider || '--'}</div></div>
+    </div>
+  `;
+
+  if (chain.length > 0) {
+    html += `<div style="font-size:13px;font-weight:600;color:#94a3b8;margin-bottom:10px">4-Step Reasoning Chain</div>`;
+    html += chain.map(step => `
+      <div style="background:#0a0e1a;border:1px solid ${step.step==='mcp'?'#0369a1':'#1e293b'};border-radius:8px;padding:12px;margin-bottom:8px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="background:${step.step==='mcp'?'#0c1a2e':'#1e293b'};color:${step.step==='mcp'?'#38bdf8':'#a5b4fc'};padding:2px 8px;border-radius:4px;font-size:11px">
+            ${step.step==='mcp'?'MCP':'Step '+step.step}
+          </span>
+          <span style="font-size:13px;font-weight:600;color:#e2e8f0">${step.name}</span>
+        </div>
+        <div class="json-view">${JSON.stringify(step.output, null, 2)}</div>
+      </div>
+    `).join('');
+  }
+
+  if (mcp) {
+    html += `
+      <div class="mcp-result">
+        <div class="mcp-header">🔌 AbuseIPDB Threat Intelligence (Live)</div>
+        <div class="mcp-grid">
+          <div class="mcp-item"><span>IP: </span>${mcp.ip}</div>
+          <div class="mcp-item"><span>Score: </span>${mcp.abuse_confidence_score}%</div>
+          <div class="mcp-item"><span>Country: </span>${mcp.country || 'Unknown'}</div>
+          <div class="mcp-item"><span>Source: </span><span style="color:#4ade80">${mcp.source}</span></div>
+        </div>
+      </div>
+    `;
+  }
+
+  if ((a.containment_steps||[]).length > 0) {
+    html += `
+      <div style="margin-top:16px">
+        <div style="font-size:13px;font-weight:600;color:#94a3b8;margin-bottom:8px">Containment Steps</div>
+        <ul class="containment-list">
+          ${a.containment_steps.map(s=>`<li><span class="check-icon">✓</span>${s}</li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  document.getElementById('modal-body').innerHTML = html;
+  document.getElementById('incident-modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('incident-modal').classList.remove('open');
+}
+
+async function approveIncident(id, btn) {
+  btn.disabled = true;
+  btn.textContent = 'Approving...';
+  const result = await postJSON(API + `/approve/${id}`, {});
+  if (result) {
+    btn.textContent = '✓ Approved';
+    btn.style.background = '#052e16';
+    btn.style.color = '#4ade80';
+    setTimeout(loadIncidents, 1000);
+  } else {
+    btn.textContent = 'Failed';
+    btn.disabled = false;
+  }
+}
+
+async function runAnalysis() {
+  const alert = document.getElementById('alert-input').value.trim();
+  if (!alert) return;
+  const btn = document.getElementById('analyze-btn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Analyzing...';
+
+  const container = document.getElementById('chain-container');
+  const loading = document.getElementById('chain-loading');
+  const visual = document.getElementById('chain-visual');
+  container.style.display = 'block';
+  loading.style.display = 'flex';
+  visual.style.display = 'none';
+
+  const steps = ['Threat Classification', 'MCP Threat Intel', 'Tool Selection', 'Action Plan', 'Confidence Validation'];
+  let stepIdx = 0;
+  const interval = setInterval(() => {
+    if (stepIdx < steps.length) {
+      document.getElementById('chain-status').textContent = `Step ${stepIdx+1}: ${steps[stepIdx]}...`;
+      stepIdx++;
+    }
+  }, 3000);
+
+  const result = await postJSON(API + '/analyze', {alert});
+  clearInterval(interval);
+  loading.style.display = 'none';
+
+  if (!result) {
+    document.getElementById('chain-status').textContent = 'Analysis failed. Please try again.';
+    loading.style.display = 'flex';
+    btn.disabled = false;
+    btn.textContent = '⚡ Analyze Threat';
+    return;
+  }
+
+  const chain = result.reasoning_chain || [];
+  const stepsHTML = chain.map((step, i) => `
+    <div class="chain-step">
+      <div class="chain-step-box ${step.step==='mcp'?'mcp':'done'}">
+        <div class="chain-step-num">${step.step==='mcp'?'MCP':'Step '+step.step}</div>
+        <div class="chain-step-name">${step.name}</div>
+      </div>
+    </div>
+    ${i < chain.length-1 ? '<div class="chain-arrow">→</div>' : ''}
+  `).join('');
+  document.getElementById('chain-steps').innerHTML = stepsHTML;
+
+  const sev = result.severity || 'medium';
+  const mcp = result.mcp_enrichment;
+  document.getElementById('chain-result').innerHTML = `
+    <div class="result-grid">
+      <div class="result-item"><div class="result-item-label">Threat Type</div><div class="result-item-value ${sev}">${result.threat_type||'Unknown'}</div></div>
+      <div class="result-item"><div class="result-item-label">Severity</div><div class="result-item-value ${sev}">${sev}</div></div>
+      <div class="result-item"><div class="result-item-label">Confidence</div><div class="result-item-value info">${((result.confidence||0)*100).toFixed(0)}%</div></div>
+    </div>
+    ${mcp ? `<div class="mcp-result"><div class="mcp-header">🔌 AbuseIPDB Live Result</div><div class="mcp-grid"><div class="mcp-item"><span>IP: </span>${mcp.ip}</div><div class="mcp-item"><span>Abuse Score: </span>${mcp.abuse_confidence_score}%</div><div class="mcp-item"><span>Country: </span>${mcp.country||'Unknown'}</div><div class="mcp-item"><span>Source: </span><span style="color:#4ade80">${mcp.source}</span></div></div></div>` : ''}
+    <div style="margin-top:14px">
+      <div style="font-size:12px;color:#64748b;margin-bottom:8px">Containment Steps</div>
+      <ul class="containment-list">
+        ${(result.containment_steps||[]).map(s=>`<li><span class="check-icon">✓</span>${s}</li>`).join('')}
+      </ul>
+    </div>
+    <div style="margin-top:10px;font-size:12px;color:#64748b">
+      ${result.requires_human_approval ? '⚠️ Human approval required before execution' : '✅ Auto-execution authorized'}
+      · Incident #${result.incident_id}
+    </div>
+  `;
+
+  visual.style.display = 'block';
+  btn.disabled = false;
+  btn.textContent = '⚡ Analyze Threat';
+  loadDashboard();
+  loadIncidents();
+}
+
+document.getElementById('alert-input').addEventListener('keypress', e => {
+  if (e.key === 'Enter') runAnalysis();
+});
+
+async function init() {
+  await Promise.all([loadDashboard(), loadIncidents(), loadCampaigns()]);
+  setInterval(() => { loadDashboard(); loadIncidents(); loadCampaigns(); }, 30000);
+}
+
+init();
+</script>
+</body>
+</html>
