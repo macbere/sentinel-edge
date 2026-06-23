@@ -1,21 +1,24 @@
-# Environment and secrets
+# Environment variables - NEVER commit these
 .env
-.env.bak
 
-# Runtime files
-.uptime_marker
-*.db
-*.db-journal
-*.db-wal
-*.db-shm
+# Database files
+sentinel_memory.db
+sentinel_memory.db-shm
+sentinel_memory.db-wal
 
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
-*.so
+*.pyc
 venv/
 env/
+.Python
+
+# Logs
+logs/*.log
+logs/*.pid
+*.pid
 
 # IDE
 .vscode/
@@ -27,8 +30,12 @@ env/
 .DS_Store
 Thumbs.db
 
-# Temporary scripts
-fix_*.py
+# Test artifacts
+.pytest_cache/
+htmlcov/
+.coverage
 
-# Gunicorn
-*.pid
+# Build
+dist/
+build/
+*.egg-info/
