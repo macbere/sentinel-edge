@@ -1040,3 +1040,23 @@ SyntaxError: unmatched '}'
 [2026-06-23 02:45:10 +0100] [1997] [INFO] Booting worker with pid: 1997
 [2026-06-23 02:45:10 +0100] [1992] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
 127.0.0.1 - - [23/Jun/2026:02:45:17 +0100] "GET / HTTP/1.1" 200 35083 "-" "curl/8.20.0"
+[2026-06-23 02:57:15 +0100] [1992] [INFO] Handling signal: term
+[2026-06-23 02:57:15 +0100] [1994] [INFO] Worker exiting (pid: 1994)
+[2026-06-23 02:57:15 +0100] [1997] [INFO] Worker exiting (pid: 1997)
+[2026-06-23 02:57:15 +0100] [1995] [INFO] Worker exiting (pid: 1995)
+[2026-06-23 02:57:15 +0100] [1996] [INFO] Worker exiting (pid: 1996)
+[2026-06-23 02:57:16 +0100] [1992] [INFO] Shutting down: Master
+[2026-06-23 02:57:20 +0100] [11359] [INFO] Starting gunicorn 26.0.0
+[2026-06-23 02:57:20 +0100] [11359] [INFO] Listening at: http://127.0.0.1:5000 (11359)
+[2026-06-23 02:57:20 +0100] [11359] [INFO] Using worker: gthread
+[2026-06-23 02:57:20 +0100] [11360] [INFO] Booting worker with pid: 11360
+[2026-06-23 02:57:20 +0100] [11361] [INFO] Booting worker with pid: 11361
+[2026-06-23 02:57:20 +0100] [11362] [INFO] Booting worker with pid: 11362
+[2026-06-23 02:57:20 +0100] [11363] [INFO] Booting worker with pid: 11363
+[2026-06-23 02:57:20 +0100] [11359] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [23/Jun/2026:02:57:47 +0100] "POST /analyze HTTP/1.1" 200 3621 "-" "curl/8.20.0"
+[2026-06-23 02:58:57 +0100] [11359] [CRITICAL] WORKER TIMEOUT (pid:11360)
+[2026-06-23 02:58:57 +0100] [11360] [INFO] Worker exiting (pid: 11360)
+[2026-06-23 02:58:58 +0100] [11359] [ERROR] Worker (pid:11360) exited with code 1.
+[2026-06-23 02:58:58 +0100] [12264] [INFO] Booting worker with pid: 12264
+[2026-06-23 02:58:58 +0100] [11359] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl

@@ -586,3 +586,4 @@
 2026-06-22 21:40:25 | INFO     | access | ❡ GET /health | Status: 200 | Duration: 1.50ms | IP: 127.0.0.1 | User: anonymous
 2026-06-22 21:40:42 | INFO     | access | ❡ GET /health | Status: 200 | Duration: 0.34ms | IP: 127.0.0.1 | User: anonymous
 2026-06-23 02:45:17 | INFO     | access | ❡ GET / | Status: 200 | Duration: 23.15ms | IP: 127.0.0.1 | User: anonymous
+2026-06-23 02:57:47 | INFO     | access | ❡ POST /analyze | Status: 200 | Duration: 20331.21ms | IP: 127.0.0.1 | User: anonymous
