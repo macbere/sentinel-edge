@@ -69,7 +69,7 @@ Type=simple
 User=root
 WorkingDirectory=/root/sentinel-edge
 EnvironmentFile=/root/sentinel-edge/.env
-ExecStart=/root/sentinel-edge/venv/bin/gunicorn --bind 0.0.0.0:5000 --workers 2 --threads 2 --timeout 120 app:app
+ExecStart=/root/sentinel-edge/venv/bin/gunicorn --bind 0.0.0.0:5000 --workers 5 --threads 4 --worker-class gthread --keep-alive 5 --max-requests 1000 --max-requests-jitter 50 --timeout 120 app:app
 Restart=always
 RestartSec=5
 Architecture
