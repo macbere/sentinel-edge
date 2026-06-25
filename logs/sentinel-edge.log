@@ -1187,3 +1187,19 @@ SyntaxError: unmatched '}'
 [2026-06-23 09:40:36 +0100] [3503] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
 [2026-06-23 09:40:36 +0100] [25302] [INFO] Booting worker with pid: 25302
 [2026-06-23 10:02:51 +0100] [3503] [CRITICAL] WORKER TIMEOUT (pid:22482)
+[2026-06-25 19:38:46 +0100] [17546] [INFO] Starting gunicorn 26.0.0
+[2026-06-25 19:38:46 +0100] [17546] [INFO] Listening at: http://127.0.0.1:5000 (17546)
+[2026-06-25 19:38:46 +0100] [17546] [INFO] Using worker: gthread
+[2026-06-25 19:38:46 +0100] [17548] [INFO] Booting worker with pid: 17548
+[2026-06-25 19:38:47 +0100] [17555] [INFO] Booting worker with pid: 17555
+[2026-06-25 19:38:47 +0100] [17556] [INFO] Booting worker with pid: 17556
+[2026-06-25 19:38:47 +0100] [17557] [INFO] Booting worker with pid: 17557
+[2026-06-25 19:38:47 +0100] [17546] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [25/Jun/2026:19:38:53 +0100] "GET /chain/91 HTTP/1.1" 404 31 "-" "curl/8.20.0"
+127.0.0.1 - - [25/Jun/2026:19:39:34 +0100] "GET /incidents?limit=3 HTTP/1.1" 200 2626 "-" "curl/8.20.0"
+127.0.0.1 - - [25/Jun/2026:19:40:06 +0100] "GET /chain/685 HTTP/1.1" 200 1550 "-" "curl/8.20.0"
+[2026-06-25 19:41:29 +0100] [17546] [CRITICAL] WORKER TIMEOUT (pid:17548)
+[2026-06-25 19:41:29 +0100] [17548] [INFO] Worker exiting (pid: 17548)
+[2026-06-25 19:41:31 +0100] [17546] [ERROR] Worker (pid:17548) exited with code 1.
+[2026-06-25 19:41:31 +0100] [27480] [INFO] Booting worker with pid: 27480
+[2026-06-25 19:41:31 +0100] [17546] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl

@@ -468,7 +468,7 @@ async function loadIncidents() {
         <td><span class="badge badge-${sev}">${sev}</span></td>
         <td><span class="badge badge-${inc.status}">${inc.status}</span></td>
         <td>
-          <button class="view-btn" onclick="viewIncident(${inc.id})">View Chain</button>
+          <a href="/chain/view/${inc.id}" class="view-btn" style="text-decoration:none;display:inline-block;text-align:center;">View Chain</a>
           ${!isApproved ? `<button class="approve-btn" onclick="approveIncident(${inc.id}, this)">Approve</button>` : ''}
         </td>
       </tr>

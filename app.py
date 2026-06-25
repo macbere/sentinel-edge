@@ -141,3 +141,18 @@ if __name__ == "__main__":
 def index():
     from flask import render_template
     return render_template("index.html")
+
+
+@app.route("/chain/<int:incident_id>", methods=["GET"])
+def chain_view(incident_id):
+    from modules.chain_view import get_chain_view
+    data = get_chain_view(incident_id)
+    if not data:
+        return jsonify({"error": "Incident not found"}), 404
+    return jsonify(data)
+
+
+@app.route("/chain/view/<int:incident_id>", methods=["GET"])
+def chain_view_page(incident_id):
+    from flask import render_template
+    return render_template("chain.html")

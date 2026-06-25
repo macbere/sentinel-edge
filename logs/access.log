@@ -610,3 +610,6 @@
 2026-06-23 08:15:19 | INFO     | access | ❡ POST /approve/540 | Status: 200 | Duration: 12.19ms | IP: 127.0.0.1 | User: anonymous
 2026-06-23 08:15:19 | INFO     | access | ❡ GET /incidents | Status: 200 | Duration: 3.73ms | IP: 127.0.0.1 | User: anonymous
 2026-06-23 08:15:19 | INFO     | access | ❡ GET /report/540 | Status: 200 | Duration: 5.24ms | IP: 127.0.0.1 | User: anonymous
+2026-06-25 19:38:53 | INFO     | access | ❡ GET /chain/91 | Status: 404 | Duration: 11.16ms | IP: 127.0.0.1 | User: anonymous
+2026-06-25 19:39:34 | INFO     | access | ❡ GET /incidents | Status: 200 | Duration: 33.77ms | IP: 127.0.0.1 | User: anonymous
+2026-06-25 19:40:06 | INFO     | access | ❡ GET /chain/685 | Status: 200 | Duration: 126.06ms | IP: 127.0.0.1 | User: anonymous

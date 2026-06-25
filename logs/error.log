@@ -72,3 +72,4 @@
 2026-06-23 08:15:18 | ERROR    | error | Request failed: POST /analyze | Status: 400 | Error: client_error | IP: 127.0.0.1
 2026-06-23 08:15:18 | ERROR    | error | Request failed: POST /analyze | Status: 400 | Error: client_error | IP: 127.0.0.1
 2026-06-23 08:15:18 | ERROR    | error | Request failed: POST /analyze | Status: 400 | Error: client_error | IP: 127.0.0.1
+2026-06-25 19:38:53 | ERROR    | error | Request failed: GET /chain/91 | Status: 404 | Error: client_error | IP: 127.0.0.1
