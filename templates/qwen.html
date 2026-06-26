@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Qwen — Sentinel Edge</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0a0e1a; color: #e2e8f0; min-height: 100vh; }
+  .header { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); border-bottom: 1px solid #334155; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo-icon { width: 36px; height: 36px; background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .logo h1 { font-size: 18px; font-weight: 700; color: #f1f5f9; }
+  .logo p { font-size: 11px; color: #94a3b8; }
+  .back-btn { background: #1e293b; border: 1px solid #334155; color: #94a3b8; padding: 8px 16px; border-radius: 8px; font-size: 13px; cursor: pointer; text-decoration: none; }
+  .container { max-width: 900px; margin: 0 auto; padding: 24px; }
+  .page-title { font-size: 28px; font-weight: 800; color: #f1f5f9; margin-bottom: 8px; text-align: center; }
+  .page-sub { font-size: 14px; color: #64748b; text-align: center; margin-bottom: 32px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+  .card { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 20px; }
+  .card-title { font-size: 13px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+  .metric-big { font-size: 42px; font-weight: 800; margin: 8px 0 4px; }
+  .metric-label { font-size: 12px; color: #64748b; }
+  .metric-icon { font-size: 28px; margin-bottom: 8px; }
+  .info-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #1e293b; font-size: 13px; }
+  .info-row:last-child { border-bottom: none; }
+  .info-key { color: #64748b; }
+  .info-val { font-weight: 600; color: #e2e8f0; }
+  .chain-diagram { background: #0a0e1a; border: 1px solid #1e293b; border-radius: 10px; padding: 20px; }
+  .chain-step { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #0f172a; }
+  .chain-step:last-child { border-bottom: none; }
+  .step-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .step-info { flex: 1; }
+  .step-name { font-size: 13px; font-weight: 600; color: #e2e8f0; }
+  .step-desc { font-size: 11px; color: #64748b; margin-top: 2px; }
+  .step-badge { font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+  .badge-qwen { background: #1e1b4b; color: #a5b4fc; border: 1px solid #4338ca; }
+  .badge-mcp { background: #0c1a2e; color: #38bdf8; border: 1px solid #0369a1; }
+  .badge-local { background: #052e16; color: #4ade80; border: 1px solid #14532d; }
+  .progress-bar { background: #1e293b; border-radius: 4px; height: 8px; margin-top: 8px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
+  .fallback-box { background: linear-gradient(135deg, #052e16, #0f172a); border: 1px solid #16a34a; border-radius: 10px; padding: 20px; margin-bottom: 24px; }
+  .fallback-title { font-size: 15px; font-weight: 700; color: #4ade80; margin-bottom: 12px; }
+  .fallback-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #cbd5e1; padding: 4px 0; }
+  .check { color: #4ade80; }
+  .qwen-logo { text-align: center; padding: 20px 0; }
+  .qwen-logo-text { font-size: 48px; font-weight: 900; background: linear-gradient(135deg, #6366f1, #8b5cf6, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .qwen-tagline { font-size: 13px; color: #64748b; margin-top: 4px; }
+  .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; }
+  .stat-label { font-size: 12px; color: #64748b; }
+  .stat-val { font-size: 14px; font-weight: 700; }
+  @media (max-width: 600px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo">
+    <div class="logo-icon">🛡️</div>
+    <div>
+      <h1>Sentinel Edge</h1>
+      <p>Qwen AI Intelligence Panel</p>
+    </div>
+  </div>
+  <a href="/" class="back-btn">← Dashboard</a>
+</div>
+
+<div class="container">
+  <div class="page-title">🤖 Why Qwen?</div>
+  <div class="page-sub">How Qwen Cloud powers every decision in Sentinel Edge</div>
+
+  <div class="qwen-logo">
+    <div class="qwen-logo-text">Qwen</div>
+    <div class="qwen-tagline">qwen-max — Advanced Reasoning Model by Alibaba Cloud</div>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="metric-icon">🧠</div>
+      <div class="metric-label">Total Qwen Analyses</div>
+      <div class="metric-big" style="color:#a5b4fc" id="qwen-total">--</div>
+      <div class="metric-label">Real API calls made</div>
+    </div>
+    <div class="card">
+      <div class="metric-icon">⚡</div>
+      <div class="metric-label">API Calls Per Analysis</div>
+      <div class="metric-big" style="color:#38bdf8">4</div>
+      <div class="metric-label">Sequential reasoning steps</div>
+    </div>
+    <div class="card">
+      <div class="metric-icon">🎯</div>
+      <div class="metric-label">Qwen Usage Rate</div>
+      <div class="metric-big" style="color:#4ade80" id="qwen-rate">--</div>
+      <div class="metric-label">Of all analyses</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:24px">
+    <div class="card-title">4-Step Qwen Reasoning Chain</div>
+    <div class="chain-diagram">
+      <div class="chain-step">
+        <div class="step-icon" style="background:#1e1b4b">🔍</div>
+        <div class="step-info">
+          <div class="step-name">Step 1 — Threat Classification</div>
+          <div class="step-desc">Qwen identifies threat type, severity level, and extracts all IOCs from raw alert text</div>
+        </div>
+        <span class="step-badge badge-qwen">Qwen API</span>
+      </div>
+      <div class="chain-step">
+        <div class="step-icon" style="background:#0c1a2e">🔌</div>
+        <div class="step-info">
+          <div class="step-name">MCP — AbuseIPDB Enrichment</div>
+          <div class="step-desc">Real-time threat intelligence lookup for extracted IP addresses — runs in parallel</div>
+        </div>
+        <span class="step-badge badge-mcp">Live API</span>
+      </div>
+      <div class="chain-step">
+        <div class="step-icon" style="background:#1e1b4b">🔧</div>
+        <div class="step-info">
+          <div class="step-name">Step 2 — Tool Selection</div>
+          <div class="step-desc">Qwen selects optimal security tools based on threat type and MCP enrichment data</div>
+        </div>
+        <span class="step-badge badge-qwen">Qwen API</span>
+      </div>
+      <div class="chain-step">
+        <div class="step-icon" style="background:#1e1b4b">📋</div>
+        <div class="step-info">
+          <div class="step-name">Step 3 — Action Plan Generation</div>
+          <div class="step-desc">Qwen generates specific containment steps using classification + MCP intelligence</div>
+        </div>
+        <span class="step-badge badge-qwen">Qwen API</span>
+      </div>
+      <div class="chain-step">
+        <div class="step-icon" style="background:#052e16">✅</div>
+        <div class="step-info">
+          <div class="step-name">Step 4 — Confidence Validation</div>
+          <div class="step-desc">Qwen self-validates its own output and assigns a confidence score 0.0 to 1.0</div>
+        </div>
+        <span class="step-badge badge-qwen">Qwen API</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Qwen Model Configuration</div>
+      <div class="info-row"><span class="info-key">Model</span><span class="info-val" style="color:#a5b4fc">qwen-max</span></div>
+      <div class="info-row"><span class="info-key">Provider</span><span class="info-val">Alibaba Cloud DashScope</span></div>
+      <div class="info-row"><span class="info-key">Endpoint</span><span class="info-val" style="font-size:11px;font-family:monospace">dashscope-intl.aliyuncs.com</span></div>
+      <div class="info-row"><span class="info-key">Temperature</span><span class="info-val">0.1 (deterministic)</span></div>
+      <div class="info-row"><span class="info-key">Max Tokens</span><span class="info-val">500 per step</span></div>
+      <div class="info-row"><span class="info-key">Response Format</span><span class="info-val">JSON (structured)</span></div>
+      <div class="info-row"><span class="info-key">Timeout</span><span class="info-val">25s per step</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Performance Metrics</div>
+      <div class="stat-row">
+        <span class="stat-label">Avg chain time</span>
+        <span class="stat-val" style="color:#38bdf8">~8-10 seconds</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="background:#6366f1;width:45%"></div></div>
+      <div class="stat-row" style="margin-top:12px">
+        <span class="stat-label">Step 1 Classification</span>
+        <span class="stat-val" style="color:#a5b4fc">~2-3s</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="background:#8b5cf6;width:25%"></div></div>
+      <div class="stat-row" style="margin-top:12px">
+        <span class="stat-label">Step 2 Tool Selection</span>
+        <span class="stat-val" style="color:#a5b4fc">~2s</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="background:#8b5cf6;width:20%"></div></div>
+      <div class="stat-row" style="margin-top:12px">
+        <span class="stat-label">Step 3 Action Plan</span>
+        <span class="stat-val" style="color:#a5b4fc">~2-3s</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="background:#8b5cf6;width:25%"></div></div>
+      <div class="stat-row" style="margin-top:12px">
+        <span class="stat-label">Step 4 Validation</span>
+        <span class="stat-val" style="color:#a5b4fc">~1-2s</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="background:#4ade80;width:15%"></div></div>
+    </div>
+  </div>
+
+  <div class="fallback-box">
+    <div class="fallback-title">✅ Graceful Degradation — What Happens When Qwen Is Unavailable</div>
+    <div class="fallback-item"><span class="check">✓</span>Offline heuristic analyzer activates automatically</div>
+    <div class="fallback-item"><span class="check">✓</span>Keyword-based threat classification covers 9 threat types</div>
+    <div class="fallback-item"><span class="check">✓</span>IOC extraction continues using regex patterns</div>
+    <div class="fallback-item"><span class="check">✓</span>Pre-built containment playbooks provide immediate response</div>
+    <div class="fallback-item"><span class="check">✓</span>Response marked as offline_smart in provider field</div>
+    <div class="fallback-item"><span class="check">✓</span>Zero downtime — system never stops responding</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Why Qwen Over Other Models</div>
+    <div class="info-row"><span class="info-key">JSON Mode</span><span class="info-val" style="color:#4ade80">Native structured output — no parsing errors</span></div>
+    <div class="info-row"><span class="info-key">Reasoning Depth</span><span class="info-val" style="color:#4ade80">Multi-step chain with self-validation</span></div>
+    <div class="info-row"><span class="info-key">Context Window</span><span class="info-val" style="color:#4ade80">Large enough for full incident context</span></div>
+    <div class="info-row"><span class="info-key">Alibaba Cloud</span><span class="info-val" style="color:#4ade80">Native integration — same infrastructure</span></div>
+    <div class="info-row"><span class="info-key">Cost Efficiency</span><span class="info-val" style="color:#4ade80">Optimized prompts keep tokens minimal</span></div>
+    <div class="info-row"><span class="info-key">Deterministic</span><span class="info-val" style="color:#4ade80">Temperature 0.1 ensures consistent decisions</span></div>
+  </div>
+</div>
+
+<script>
+async function load() {
+  try {
+    const r = await fetch('/dashboard');
+    const d = await r.json();
+    const total = d.metrics?.total_incidents || 1;
+    const qwen = d.ai_provider_stats?.qwen_analyses || 0;
+    document.getElementById('qwen-total').textContent = qwen;
+    document.getElementById('qwen-rate').textContent = Math.round(qwen/total*100) + '%';
+  } catch(e) {}
+}
+load();
+</script>
+</body>
+</html>

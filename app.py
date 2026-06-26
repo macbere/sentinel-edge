@@ -156,3 +156,64 @@ def chain_view(incident_id):
 def chain_view_page(incident_id):
     from flask import render_template
     return render_template("chain.html")
+
+
+@app.route("/qwen", methods=["GET"])
+def qwen_page():
+    from flask import render_template
+    return render_template("qwen.html")
+
+
+@app.route("/demo", methods=["GET"])
+def demo_page():
+    from flask import render_template
+    return render_template("demo.html")
+
+
+@app.route("/demo/run", methods=["POST"])
+def demo_run():
+    import json as _json
+    scenario = request.get_json(silent=True) or {}
+    scenario_type = scenario.get("scenario", "ransomware")
+
+    scenarios = {
+        "ransomware": "Critical ransomware beacon detected from Tor exit node 185.220.101.45 targeting finance-db server — encryption started on 2847 files",
+        "phishing": "Spear phishing email from spoofed domain payroll-update.net targeting HR director sarah.johnson with malicious PDF attachment Q4_Salary_Adjustment.pdf",
+        "insider": "Insider threat detected — employee james.wilson downloaded 8.3GB proprietary source code to personal USB drive at 2:47 AM outside business hours",
+        "malware": "Malware execution detected — trojan svchost32.exe installed via malicious Word macro in finance_report_q3.docm sent to accounting team",
+        "credential": "Credential theft — 247 brute force SSH attempts from 185.220.101.45 followed by successful unauthorized login to finance-db-server admin account",
+        "exfiltration": "Data exfiltration alert — 4.7GB of encrypted financial records being transferred to C2 server 91.108.56.130 via HTTPS port 443"
+    }
+
+    alert = scenarios.get(scenario_type, scenarios["ransomware"])
+
+    from modules.reasoning import analyze_with_chain
+    from memory import save_incident
+    from modules.action import execute_containment
+
+    analysis = analyze_with_chain(alert)
+    threat_type = analysis.get("threat_type", "unknown")
+    incident_id = save_incident(threat_type, _json.dumps(analysis))
+    analysis["incident_id"] = incident_id
+
+    if "containment_steps" in analysis:
+        execute_containment(incident_id, analysis["containment_steps"], analysis.get("requires_human_approval", True))
+
+    return _json.dumps({
+        "success": True,
+        "incident_id": incident_id,
+        "scenario": scenario_type,
+        "alert": alert,
+        "threat_type": analysis.get("threat_type"),
+        "severity": analysis.get("severity"),
+        "confidence": analysis.get("confidence"),
+        "containment_steps": analysis.get("containment_steps", []),
+        "mcp_enrichment": analysis.get("mcp_enrichment"),
+        "chain_url": f"/chain/view/{incident_id}"
+    }), 200, {"Content-Type": "application/json"}
+
+
+@app.route("/judge", methods=["GET"])
+def judge_page():
+    from flask import render_template
+    return render_template("judge.html")

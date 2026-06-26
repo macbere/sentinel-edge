@@ -1203,3 +1203,102 @@ SyntaxError: unmatched '}'
 [2026-06-25 19:41:31 +0100] [17546] [ERROR] Worker (pid:17548) exited with code 1.
 [2026-06-25 19:41:31 +0100] [27480] [INFO] Booting worker with pid: 27480
 [2026-06-25 19:41:31 +0100] [17546] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+[2026-06-25 19:43:11 +0100] [17546] [CRITICAL] WORKER TIMEOUT (pid:17555)
+[2026-06-25 19:43:11 +0100] [17555] [INFO] Worker exiting (pid: 17555)
+[2026-06-25 19:43:13 +0100] [17546] [ERROR] Worker (pid:17555) exited with code 1.
+[2026-06-25 19:43:13 +0100] [451] [INFO] Booting worker with pid: 451
+[2026-06-25 19:43:13 +0100] [17546] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+[2026-06-25 19:43:17 +0100] [17546] [INFO] Handling signal: term
+[2026-06-25 19:43:17 +0100] [451] [INFO] Worker exiting (pid: 451)
+[2026-06-25 19:43:17 +0100] [17556] [INFO] Worker exiting (pid: 17556)
+[2026-06-25 19:43:17 +0100] [27480] [INFO] Worker exiting (pid: 27480)
+[2026-06-25 19:43:17 +0100] [17557] [INFO] Worker exiting (pid: 17557)
+[2026-06-25 19:43:19 +0100] [17546] [INFO] Shutting down: Master
+[2026-06-25 19:43:23 +0100] [2396] [INFO] Starting gunicorn 26.0.0
+[2026-06-25 19:43:23 +0100] [2396] [INFO] Listening at: http://127.0.0.1:5000 (2396)
+[2026-06-25 19:43:23 +0100] [2396] [INFO] Using worker: gthread
+[2026-06-25 19:43:23 +0100] [2398] [INFO] Booting worker with pid: 2398
+[2026-06-25 19:43:23 +0100] [2399] [INFO] Booting worker with pid: 2399
+[2026-06-25 19:43:23 +0100] [2400] [INFO] Booting worker with pid: 2400
+[2026-06-25 19:43:23 +0100] [2401] [INFO] Booting worker with pid: 2401
+[2026-06-25 19:43:23 +0100] [2396] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [25/Jun/2026:19:43:30 +0100] "GET /chain/view/685 HTTP/1.1" 200 14020 "-" "curl/8.20.0"
+[2026-06-25 19:56:09 +0100] [2396] [INFO] Handling signal: term
+[2026-06-25 19:56:09 +0100] [2399] [INFO] Worker exiting (pid: 2399)
+[2026-06-25 19:56:09 +0100] [2398] [INFO] Worker exiting (pid: 2398)
+[2026-06-25 19:56:09 +0100] [2400] [INFO] Worker exiting (pid: 2400)
+[2026-06-25 19:56:09 +0100] [2401] [INFO] Worker exiting (pid: 2401)
+[2026-06-25 19:56:10 +0100] [2396] [INFO] Shutting down: Master
+[2026-06-25 19:56:14 +0100] [23816] [INFO] Starting gunicorn 26.0.0
+[2026-06-25 19:56:14 +0100] [23816] [INFO] Listening at: http://127.0.0.1:5000 (23816)
+[2026-06-25 19:56:14 +0100] [23816] [INFO] Using worker: gthread
+[2026-06-25 19:56:14 +0100] [23817] [INFO] Booting worker with pid: 23817
+[2026-06-25 19:56:14 +0100] [23818] [INFO] Booting worker with pid: 23818
+[2026-06-25 19:56:14 +0100] [23819] [INFO] Booting worker with pid: 23819
+[2026-06-25 19:56:14 +0100] [23820] [INFO] Booting worker with pid: 23820
+[2026-06-25 19:56:14 +0100] [23816] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [25/Jun/2026:19:56:21 +0100] "GET /chain/view/685 HTTP/1.1" 200 14020 "-" "curl/8.20.0"
+[2026-06-25 20:00:53 +0100] [23816] [CRITICAL] WORKER TIMEOUT (pid:23818)
+[2026-06-25 20:00:53 +0100] [23818] [INFO] Worker exiting (pid: 23818)
+[2026-06-26 07:15:57 +0100] [17575] [INFO] Starting gunicorn 26.0.0
+[2026-06-26 07:15:57 +0100] [17575] [INFO] Listening at: http://127.0.0.1:5000 (17575)
+[2026-06-26 07:15:57 +0100] [17575] [INFO] Using worker: gthread
+[2026-06-26 07:15:57 +0100] [17577] [INFO] Booting worker with pid: 17577
+[2026-06-26 07:15:57 +0100] [17578] [INFO] Booting worker with pid: 17578
+[2026-06-26 07:15:57 +0100] [17579] [INFO] Booting worker with pid: 17579
+[2026-06-26 07:15:57 +0100] [17581] [INFO] Booting worker with pid: 17581
+[2026-06-26 07:15:57 +0100] [17575] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [26/Jun/2026:07:16:04 +0100] "GET /qwen HTTP/1.1" 200 13009 "-" "curl/8.20.0"
+[2026-06-26 07:18:28 +0100] [17575] [CRITICAL] WORKER TIMEOUT (pid:17577)
+[2026-06-26 07:18:28 +0100] [17577] [INFO] Worker exiting (pid: 17577)
+[2026-06-26 07:18:29 +0100] [17575] [ERROR] Worker (pid:17577) exited with code 1.
+[2026-06-26 07:18:29 +0100] [19486] [INFO] Booting worker with pid: 19486
+[2026-06-26 07:18:29 +0100] [17575] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+[2026-06-26 07:19:18 +0100] [17575] [INFO] Handling signal: term
+[2026-06-26 07:19:18 +0100] [19486] [INFO] Worker exiting (pid: 19486)
+[2026-06-26 07:19:18 +0100] [17581] [INFO] Worker exiting (pid: 17581)
+[2026-06-26 07:19:18 +0100] [17578] [INFO] Worker exiting (pid: 17578)
+[2026-06-26 07:19:18 +0100] [17579] [INFO] Worker exiting (pid: 17579)
+[2026-06-26 07:19:19 +0100] [17575] [INFO] Shutting down: Master
+[2026-06-26 07:19:23 +0100] [20453] [INFO] Starting gunicorn 26.0.0
+[2026-06-26 07:19:23 +0100] [20453] [INFO] Listening at: http://127.0.0.1:5000 (20453)
+[2026-06-26 07:19:23 +0100] [20453] [INFO] Using worker: gthread
+[2026-06-26 07:19:23 +0100] [20454] [INFO] Booting worker with pid: 20454
+[2026-06-26 07:19:23 +0100] [20455] [INFO] Booting worker with pid: 20455
+[2026-06-26 07:19:23 +0100] [20456] [INFO] Booting worker with pid: 20456
+[2026-06-26 07:19:23 +0100] [20457] [INFO] Booting worker with pid: 20457
+[2026-06-26 07:19:23 +0100] [20453] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [26/Jun/2026:07:19:30 +0100] "GET /demo HTTP/1.1" 200 14208 "-" "curl/8.20.0"
+[2026-06-26 07:21:30 +0100] [20453] [CRITICAL] WORKER TIMEOUT (pid:20455)
+[2026-06-26 07:21:30 +0100] [20455] [INFO] Worker exiting (pid: 20455)
+[2026-06-26 07:21:31 +0100] [20453] [ERROR] Worker (pid:20455) exited with code 1.
+[2026-06-26 07:21:31 +0100] [21359] [INFO] Booting worker with pid: 21359
+[2026-06-26 07:21:31 +0100] [20453] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+[2026-06-26 12:18:45 +0100] [19956] [INFO] Starting gunicorn 26.0.0
+[2026-06-26 12:18:45 +0100] [19956] [INFO] Listening at: http://127.0.0.1:5000 (19956)
+[2026-06-26 12:18:45 +0100] [19956] [INFO] Using worker: gthread
+[2026-06-26 12:18:45 +0100] [19958] [INFO] Booting worker with pid: 19958
+[2026-06-26 12:18:45 +0100] [19962] [INFO] Booting worker with pid: 19962
+[2026-06-26 12:18:46 +0100] [19963] [INFO] Booting worker with pid: 19963
+[2026-06-26 12:18:46 +0100] [19964] [INFO] Booting worker with pid: 19964
+[2026-06-26 12:18:46 +0100] [19956] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [26/Jun/2026:12:18:52 +0100] "GET /judge HTTP/1.1" 200 18186 "-" "curl/8.20.0"
+[2026-06-26 12:20:24 +0100] [19956] [INFO] Handling signal: term
+[2026-06-26 12:20:24 +0100] [19962] [INFO] Worker exiting (pid: 19962)
+[2026-06-26 12:20:24 +0100] [19964] [INFO] Worker exiting (pid: 19964)
+[2026-06-26 12:20:24 +0100] [19958] [INFO] Worker exiting (pid: 19958)
+[2026-06-26 12:20:24 +0100] [19963] [INFO] Worker exiting (pid: 19963)
+[2026-06-26 12:20:25 +0100] [19956] [INFO] Shutting down: Master
+[2026-06-26 12:20:29 +0100] [23270] [INFO] Starting gunicorn 26.0.0
+[2026-06-26 12:20:29 +0100] [23270] [INFO] Listening at: http://127.0.0.1:5000 (23270)
+[2026-06-26 12:20:29 +0100] [23270] [INFO] Using worker: gthread
+[2026-06-26 12:20:29 +0100] [23271] [INFO] Booting worker with pid: 23271
+[2026-06-26 12:20:29 +0100] [23302] [INFO] Booting worker with pid: 23302
+[2026-06-26 12:20:29 +0100] [23304] [INFO] Booting worker with pid: 23304
+[2026-06-26 12:20:29 +0100] [23305] [INFO] Booting worker with pid: 23305
+[2026-06-26 12:20:29 +0100] [23270] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [26/Jun/2026:12:20:36 +0100] "GET /health HTTP/1.1" 200 126 "-" "curl/8.20.0"
+127.0.0.1 - - [26/Jun/2026:12:20:36 +0100] "GET /demo HTTP/1.1" 200 14208 "-" "curl/8.20.0"
+127.0.0.1 - - [26/Jun/2026:12:20:36 +0100] "GET /qwen HTTP/1.1" 200 13009 "-" "curl/8.20.0"
+127.0.0.1 - - [26/Jun/2026:12:20:36 +0100] "GET /judge HTTP/1.1" 200 18186 "-" "curl/8.20.0"
+127.0.0.1 - - [26/Jun/2026:12:20:36 +0100] "GET /chain/685 HTTP/1.1" 200 1550 "-" "curl/8.20.0"

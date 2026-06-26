@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo Mode — Sentinel Edge</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0a0e1a; color: #e2e8f0; min-height: 100vh; }
+  .header { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); border-bottom: 1px solid #334155; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo-icon { width: 36px; height: 36px; background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .logo h1 { font-size: 18px; font-weight: 700; color: #f1f5f9; }
+  .logo p { font-size: 11px; color: #94a3b8; }
+  .back-btn { background: #1e293b; border: 1px solid #334155; color: #94a3b8; padding: 8px 16px; border-radius: 8px; font-size: 13px; text-decoration: none; }
+  .container { max-width: 900px; margin: 0 auto; padding: 24px; }
+  .page-title { font-size: 28px; font-weight: 800; color: #f1f5f9; margin-bottom: 8px; text-align: center; }
+  .page-sub { font-size: 14px; color: #64748b; text-align: center; margin-bottom: 32px; }
+  .scenarios { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 32px; }
+  .scenario-card { background: #0f172a; border: 2px solid #1e293b; border-radius: 12px; padding: 16px; cursor: pointer; transition: all 0.2s; text-align: center; }
+  .scenario-card:hover { border-color: #6366f1; background: #1e1b4b; transform: translateY(-2px); }
+  .scenario-card.selected { border-color: #6366f1; background: #1e1b4b; }
+  .scenario-icon { font-size: 32px; margin-bottom: 8px; }
+  .scenario-name { font-size: 13px; font-weight: 700; color: #f1f5f9; margin-bottom: 4px; }
+  .scenario-desc { font-size: 11px; color: #64748b; }
+  .run-btn { width: 100%; background: linear-gradient(135deg, #6366f1, #8b5cf6); border: none; color: white; padding: 16px; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; margin-bottom: 32px; transition: opacity 0.2s; }
+  .run-btn:hover { opacity: 0.9; }
+  .run-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .progress-container { display: none; background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 24px; margin-bottom: 24px; }
+  .progress-title { font-size: 15px; font-weight: 700; color: #f1f5f9; margin-bottom: 16px; }
+  .progress-steps { display: flex; flex-direction: column; gap: 8px; }
+  .progress-step { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; background: #0a0e1a; font-size: 13px; transition: all 0.3s; }
+  .progress-step.active { background: #1e1b4b; border: 1px solid #6366f1; }
+  .progress-step.done { background: #052e16; border: 1px solid #16a34a; }
+  .progress-step.pending { opacity: 0.4; }
+  .step-dot { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
+  .dot-pending { background: #1e293b; color: #475569; }
+  .dot-active { background: #6366f1; color: white; animation: pulse 1s infinite; }
+  .dot-done { background: #16a34a; color: white; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+  .result-container { display: none; background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 24px; }
+  .result-title { font-size: 18px; font-weight: 700; color: #f1f5f9; margin-bottom: 20px; }
+  .result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+  .result-item { background: #0a0e1a; border-radius: 8px; padding: 12px; text-align: center; }
+  .result-label { font-size: 10px; color: #64748b; text-transform: uppercase; margin-bottom: 6px; }
+  .result-value { font-size: 18px; font-weight: 800; }
+  .critical { color: #f87171; } .high { color: #fb923c; } .medium { color: #fbbf24; } .low { color: #4ade80; }
+  .alert-box { background: #0a0e1a; border: 1px solid #334155; border-radius: 8px; padding: 12px; margin-bottom: 16px; font-size: 13px; color: #cbd5e1; line-height: 1.5; }
+  .steps-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+  .step-item { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: #cbd5e1; padding: 8px 12px; background: #0a0e1a; border-radius: 6px; }
+  .check { color: #4ade80; flex-shrink: 0; }
+  .mcp-box { background: #0c1a2e; border: 1px solid #0369a1; border-radius: 8px; padding: 12px; margin-bottom: 20px; }
+  .mcp-title { font-size: 12px; color: #38bdf8; font-weight: 600; margin-bottom: 8px; }
+  .mcp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; font-size: 12px; }
+  .mcp-item span { color: #64748b; }
+  .action-btns { display: flex; gap: 12px; }
+  .chain-btn { flex: 1; background: #1e1b4b; border: 1px solid #6366f1; color: #a5b4fc; padding: 12px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; text-align: center; }
+  .again-btn { flex: 1; background: #0f172a; border: 1px solid #334155; color: #94a3b8; padding: 12px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .timer { font-size: 13px; color: #64748b; text-align: center; margin-bottom: 16px; }
+  .timer span { color: #38bdf8; font-weight: 700; }
+  @media (max-width: 600px) { .scenarios { grid-template-columns: repeat(2, 1fr); } .result-grid { grid-template-columns: repeat(2, 1fr); } .action-btns { flex-direction: column; } }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo">
+    <div class="logo-icon">🛡️</div>
+    <div>
+      <h1>Sentinel Edge</h1>
+      <p>Live Demo Mode</p>
+    </div>
+  </div>
+  <a href="/" class="back-btn">← Dashboard</a>
+</div>
+
+<div class="container">
+  <div class="page-title">⚡ Live Attack Demo</div>
+  <div class="page-sub">Select an attack scenario and watch Sentinel Edge respond autonomously in real time</div>
+
+  <div class="scenarios">
+    <div class="scenario-card selected" onclick="select(this,'ransomware')">
+      <div class="scenario-icon">🔐</div>
+      <div class="scenario-name">Ransomware</div>
+      <div class="scenario-desc">Tor-based beacon targeting finance DB</div>
+    </div>
+    <div class="scenario-card" onclick="select(this,'phishing')">
+      <div class="scenario-icon">🎣</div>
+      <div class="scenario-name">Phishing</div>
+      <div class="scenario-desc">Spear phishing targeting HR director</div>
+    </div>
+    <div class="scenario-card" onclick="select(this,'insider')">
+      <div class="scenario-icon">👤</div>
+      <div class="scenario-name">Insider Threat</div>
+      <div class="scenario-desc">Employee data exfiltration via USB</div>
+    </div>
+    <div class="scenario-card" onclick="select(this,'malware')">
+      <div class="scenario-icon">🦠</div>
+      <div class="scenario-name">Malware</div>
+      <div class="scenario-desc">Trojan via malicious Word macro</div>
+    </div>
+    <div class="scenario-card" onclick="select(this,'credential')">
+      <div class="scenario-icon">🔑</div>
+      <div class="scenario-name">Credential Theft</div>
+      <div class="scenario-desc">Brute force then unauthorized login</div>
+    </div>
+    <div class="scenario-card" onclick="select(this,'exfiltration')">
+      <div class="scenario-icon">📤</div>
+      <div class="scenario-name">Data Exfiltration</div>
+      <div class="scenario-desc">4.7GB transfer to C2 server</div>
+    </div>
+  </div>
+
+  <button class="run-btn" id="run-btn" onclick="runDemo()">⚡ Launch Attack Simulation</button>
+
+  <div class="progress-container" id="progress-container">
+    <div class="progress-title">🧠 Sentinel Edge Responding...</div>
+    <div class="timer">Elapsed: <span id="timer">0</span>s</div>
+    <div class="progress-steps">
+      <div class="progress-step pending" id="ps-1">
+        <div class="step-dot dot-pending" id="pd-1">1</div>
+        <div>Alert received — Perception module extracting IOCs</div>
+      </div>
+      <div class="progress-step pending" id="ps-2">
+        <div class="step-dot dot-pending" id="pd-2">2</div>
+        <div>Qwen AI — Step 1: Threat Classification</div>
+      </div>
+      <div class="progress-step pending" id="ps-3">
+        <div class="step-dot dot-pending" id="pd-3">🔌</div>
+        <div>AbuseIPDB MCP — Real-time threat intelligence lookup</div>
+      </div>
+      <div class="progress-step pending" id="ps-4">
+        <div class="step-dot dot-pending" id="pd-4">3</div>
+        <div>Qwen AI — Step 2: Security Tool Selection</div>
+      </div>
+      <div class="progress-step pending" id="ps-5">
+        <div class="step-dot dot-pending" id="pd-5">4</div>
+        <div>Qwen AI — Step 3: Containment Plan Generation</div>
+      </div>
+      <div class="progress-step pending" id="ps-6">
+        <div class="step-dot dot-pending" id="pd-6">5</div>
+        <div>Qwen AI — Step 4: Confidence Validation</div>
+      </div>
+      <div class="progress-step pending" id="ps-7">
+        <div class="step-dot dot-pending" id="pd-7">✓</div>
+        <div>Incident stored — Awaiting human approval</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="result-container" id="result-container">
+    <div class="result-title">✅ Analysis Complete</div>
+    <div class="result-grid">
+      <div class="result-item">
+        <div class="result-label">Threat Type</div>
+        <div class="result-value" style="font-size:13px;color:#a5b4fc" id="r-threat"></div>
+      </div>
+      <div class="result-item">
+        <div class="result-label">Severity</div>
+        <div class="result-value" id="r-severity"></div>
+      </div>
+      <div class="result-item">
+        <div class="result-label">Confidence</div>
+        <div class="result-value" style="color:#38bdf8" id="r-confidence"></div>
+      </div>
+    </div>
+    <div class="alert-box" id="r-alert"></div>
+    <div style="font-size:12px;color:#64748b;margin-bottom:8px">Containment Steps Generated by Qwen AI</div>
+    <div class="steps-list" id="r-steps"></div>
+    <div class="mcp-box" id="r-mcp" style="display:none">
+      <div class="mcp-title">🔌 AbuseIPDB Threat Intelligence</div>
+      <div class="mcp-grid" id="r-mcp-grid"></div>
+    </div>
+    <div class="action-btns">
+      <a class="chain-btn" id="r-chain-link" href="#">🔍 View Full AI Decision Chain</a>
+      <button class="again-btn" onclick="reset()">↻ Run Another Scenario</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let selectedScenario = 'ransomware';
+let timerInterval;
+let elapsed = 0;
+
+function select(el, scenario) {
+  document.querySelectorAll('.scenario-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedScenario = scenario;
+}
+
+function startTimer() {
+  elapsed = 0;
+  timerInterval = setInterval(() => {
+    elapsed++;
+    document.getElementById('timer').textContent = elapsed;
+  }, 1000);
+}
+
+function setStep(n, status) {
+  const ps = document.getElementById(`ps-${n}`);
+  const pd = document.getElementById(`pd-${n}`);
+  ps.className = `progress-step ${status}`;
+  pd.className = `step-dot dot-${status}`;
+}
+
+async function runDemo() {
+  const btn = document.getElementById('run-btn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Running simulation...';
+
+  document.getElementById('progress-container').style.display = 'block';
+  document.getElementById('result-container').style.display = 'none';
+  startTimer();
+
+  for (let i = 1; i <= 7; i++) setStep(i, 'pending');
+
+  setStep(1, 'active');
+  await sleep(800);
+  setStep(1, 'done');
+
+  setStep(2, 'active');
+  await sleep(1000);
+
+  const response = fetch('/demo/run', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({scenario: selectedScenario})
+  });
+
+  setStep(3, 'active');
+  await sleep(2000);
+  setStep(2, 'done');
+  setStep(3, 'done');
+
+  setStep(4, 'active');
+  await sleep(2000);
+  setStep(4, 'done');
+
+  setStep(5, 'active');
+  await sleep(2000);
+  setStep(5, 'done');
+
+  setStep(6, 'active');
+
+  const r = await response;
+  const data = await r.json();
+
+  clearInterval(timerInterval);
+  setStep(6, 'done');
+  setStep(7, 'active');
+  await sleep(500);
+  setStep(7, 'done');
+
+  showResult(data);
+  btn.disabled = false;
+  btn.textContent = '⚡ Launch Attack Simulation';
+}
+
+function showResult(data) {
+  document.getElementById('result-container').style.display = 'block';
+  document.getElementById('r-threat').textContent = (data.threat_type||'').replace(/_/g,' ');
+  const sevEl = document.getElementById('r-severity');
+  sevEl.textContent = data.severity || '--';
+  sevEl.className = `result-value ${data.severity}`;
+  document.getElementById('r-confidence').textContent = `${((data.confidence||0)*100).toFixed(0)}%`;
+  document.getElementById('r-alert').textContent = data.alert;
+  document.getElementById('r-chain-link').href = data.chain_url;
+
+  const stepsList = document.getElementById('r-steps');
+  stepsList.innerHTML = (data.containment_steps||[]).map(s =>
+    `<div class="step-item"><span class="check">✓</span>${s}</div>`
+  ).join('');
+
+  const mcp = data.mcp_enrichment;
+  if (mcp) {
+    document.getElementById('r-mcp').style.display = 'block';
+    document.getElementById('r-mcp-grid').innerHTML = `
+      <div class="mcp-item"><span>IP: </span>${mcp.ip || mcp.ioc_value || 'N/A'}</div>
+      <div class="mcp-item"><span>Abuse Score: </span><span style="color:${(mcp.abuse_confidence_score||0)>80?'#f87171':'#4ade80'}">${mcp.abuse_confidence_score||0}%</span></div>
+      <div class="mcp-item"><span>Country: </span>${mcp.country||'N/A'}</div>
+      <div class="mcp-item"><span>Source: </span><span style="color:#4ade80">${mcp.source||'N/A'}</span></div>
+    `;
+  }
+}
+
+function reset() {
+  document.getElementById('progress-container').style.display = 'none';
+  document.getElementById('result-container').style.display = 'none';
+  clearInterval(timerInterval);
+  for (let i = 1; i <= 7; i++) setStep(i, 'pending');
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+</script>
+</body>
+</html>

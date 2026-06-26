@@ -613,3 +613,13 @@
 2026-06-25 19:38:53 | INFO     | access | ❡ GET /chain/91 | Status: 404 | Duration: 11.16ms | IP: 127.0.0.1 | User: anonymous
 2026-06-25 19:39:34 | INFO     | access | ❡ GET /incidents | Status: 200 | Duration: 33.77ms | IP: 127.0.0.1 | User: anonymous
 2026-06-25 19:40:06 | INFO     | access | ❡ GET /chain/685 | Status: 200 | Duration: 126.06ms | IP: 127.0.0.1 | User: anonymous
+2026-06-25 19:43:30 | INFO     | access | ❡ GET /chain/view/685 | Status: 200 | Duration: 15.87ms | IP: 127.0.0.1 | User: anonymous
+2026-06-25 19:56:21 | INFO     | access | ❡ GET /chain/view/685 | Status: 200 | Duration: 16.17ms | IP: 127.0.0.1 | User: anonymous
+2026-06-26 07:16:04 | INFO     | access | ❡ GET /qwen | Status: 200 | Duration: 13.70ms | IP: 127.0.0.1 | User: anonymous
+2026-06-26 07:19:30 | INFO     | access | ❡ GET /demo | Status: 200 | Duration: 15.82ms | IP: 127.0.0.1 | User: anonymous
+2026-06-26 12:18:52 | INFO     | access | ❡ GET /judge | Status: 200 | Duration: 15.88ms | IP: 127.0.0.1 | User: anonymous
+2026-06-26 12:20:36 | INFO     | access | ❡ GET /health | Status: 200 | Duration: 0.50ms | IP: 127.0.0.1 | User: anonymous
+2026-06-26 12:20:36 | INFO     | access | ❡ GET /demo | Status: 200 | Duration: 13.85ms | IP: 127.0.0.1 | User: anonymous
+2026-06-26 12:20:36 | INFO     | access | ❡ GET /qwen | Status: 200 | Duration: 8.98ms | IP: 127.0.0.1 | User: anonymous
+2026-06-26 12:20:36 | INFO     | access | ❡ GET /judge | Status: 200 | Duration: 15.06ms | IP: 127.0.0.1 | User: anonymous
+2026-06-26 12:20:36 | INFO     | access | ❡ GET /chain/685 | Status: 200 | Duration: 6.09ms | IP: 127.0.0.1 | User: anonymous
