@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metrics — Sentinel Edge</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0a0e1a; color: #e2e8f0; min-height: 100vh; }
+  .header { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); border-bottom: 1px solid #334155; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo-icon { width: 36px; height: 36px; background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .logo h1 { font-size: 18px; font-weight: 700; color: #f1f5f9; }
+  .logo p { font-size: 11px; color: #94a3b8; }
+  .back-btn { background: #1e293b; border: 1px solid #334155; color: #94a3b8; padding: 8px 16px; border-radius: 8px; font-size: 13px; text-decoration: none; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+  .page-title { font-size: 24px; font-weight: 800; color: #f1f5f9; margin-bottom: 6px; }
+  .page-sub { font-size: 13px; color: #64748b; margin-bottom: 28px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 20px; }
+  .card { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 20px; }
+  .card-title { font-size: 13px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+  .chart-wrap { position: relative; height: 220px; }
+  .metric-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #1e293b; font-size: 13px; }
+  .metric-row:last-child { border-bottom: none; }
+  .metric-key { color: #94a3b8; }
+  .metric-val { font-weight: 700; }
+  .stat-big { font-size: 36px; font-weight: 800; margin: 8px 0 4px; }
+  .stat-label { font-size: 11px; color: #64748b; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
+  .stat-card { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 16px; }
+  .loading { color: #475569; font-size: 13px; text-align: center; padding: 20px; }
+  @media (max-width: 768px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo">
+    <div class="logo-icon">📊</div>
+    <div>
+      <h1>Sentinel Edge</h1>
+      <p>Metrics & Analytics</p>
+    </div>
+  </div>
+  <a href="/" class="back-btn">← Dashboard</a>
+</div>
+
+<div class="container">
+  <div class="page-title">📊 Security Metrics</div>
+  <div class="page-sub">Real-time analytics from your incident database</div>
+
+  <div class="grid-4">
+    <div class="stat-card">
+      <div class="stat-label">Total Incidents</div>
+      <div class="stat-big" style="color:#f87171" id="m-total">--</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Qwen Analyses</div>
+      <div class="stat-big" style="color:#a5b4fc" id="m-qwen">--</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Critical Incidents</div>
+      <div class="stat-big" style="color:#fb923c" id="m-critical">--</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Pending Approval</div>
+      <div class="stat-big" style="color:#fbbf24" id="m-pending">--</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Threat Type Distribution</div>
+      <div class="chart-wrap"><canvas id="chart-threats"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Severity Distribution</div>
+      <div class="chart-wrap"><canvas id="chart-severity"></canvas></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">AI Provider Usage</div>
+      <div class="chart-wrap"><canvas id="chart-provider"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Approval Queue Status</div>
+      <div class="chart-wrap"><canvas id="chart-approval"></canvas></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:20px">
+    <div class="card-title">Top 10 Threat Types — Detail</div>
+    <div id="threat-detail"><div class="loading">Loading...</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Recent Activity — Last 10 Incidents</div>
+    <div id="recent-detail"><div class="loading">Loading...</div></div>
+  </div>
+</div>
+
+<script>
+const CHART_DEFAULTS = {
+  plugins: { legend: { labels: { color: '#94a3b8', font: { size: 11 } } } },
+  scales: { x: { ticks: { color: '#64748b' }, grid: { color: '#1e293b' } }, y: { ticks: { color: '#64748b' }, grid: { color: '#1e293b' } } }
+};
+
+async function load() {
+  const [dash, inc] = await Promise.all([
+    fetch('/dashboard').then(r => r.json()),
+    fetch('/incidents?limit=100').then(r => r.json())
+  ]);
+
+  const total = dash.metrics?.total_incidents || 0;
+  const qwen = dash.ai_provider_stats?.qwen_analyses || 0;
+  const pending = dash.metrics?.pending_approval || 0;
+
+  document.getElementById('m-total').textContent = total;
+  document.getElementById('m-qwen').textContent = qwen;
+  document.getElementById('m-pending').textContent = pending;
+
+  // Count severity from incidents
+  const sevCount = { critical: 0, high: 0, medium: 0, low: 0 };
+  const provCount = { qwen: 0, offline_smart: 0 };
+  const threatCount = {};
+  const approvalCount = { pending: 0, executed: 0 };
+
+  inc.forEach(i => {
+    try {
+      const a = typeof i.analysis === 'string' ? JSON.parse(i.analysis) : i.analysis;
+      const sev = a.severity || 'low';
+      if (sev in sevCount) sevCount[sev]++;
+      const prov = a.provider || 'unknown';
+      if (prov === 'qwen') provCount.qwen++;
+      else provCount.offline_smart++;
+      const threat = (a.threat_type || 'unknown').replace(/_/g,' ');
+      threatCount[threat] = (threatCount[threat] || 0) + 1;
+    } catch(e) {}
+    if (i.status === 'executed') approvalCount.executed++;
+    else approvalCount.pending++;
+  });
+
+  document.getElementById('m-critical').textContent = sevCount.critical;
+
+  // Threat chart
+  const topThreats = Object.entries(threatCount).sort((a,b) => b[1]-a[1]).slice(0,6);
+  new Chart(document.getElementById('chart-threats'), {
+    type: 'bar',
+    data: {
+      labels: topThreats.map(t => t[0]),
+      datasets: [{ data: topThreats.map(t => t[1]), backgroundColor: ['#f87171','#fb923c','#fbbf24','#4ade80','#38bdf8','#a5b4fc'], borderRadius: 4 }]
+    },
+    options: { ...CHART_DEFAULTS, plugins: { legend: { display: false } }, responsive: true, maintainAspectRatio: false }
+  });
+
+  // Severity chart
+  new Chart(document.getElementById('chart-severity'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Critical', 'High', 'Medium', 'Low'],
+      datasets: [{ data: [sevCount.critical, sevCount.high, sevCount.medium, sevCount.low], backgroundColor: ['#f87171','#fb923c','#fbbf24','#4ade80'], borderWidth: 0 }]
+    },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: '#94a3b8' } } } }
+  });
+
+  // Provider chart
+  new Chart(document.getElementById('chart-provider'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Qwen Cloud', 'Offline Smart'],
+      datasets: [{ data: [provCount.qwen, provCount.offline_smart], backgroundColor: ['#6366f1','#fbbf24'], borderWidth: 0 }]
+    },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: '#94a3b8' } } } }
+  });
+
+  // Approval chart
+  new Chart(document.getElementById('chart-approval'), {
+    type: 'bar',
+    data: {
+      labels: ['Pending Approval', 'Executed'],
+      datasets: [{ data: [approvalCount.pending, approvalCount.executed], backgroundColor: ['#fbbf24','#4ade80'], borderRadius: 4 }]
+    },
+    options: { ...CHART_DEFAULTS, plugins: { legend: { display: false } }, responsive: true, maintainAspectRatio: false }
+  });
+
+  // Threat detail table
+  const allThreats = Object.entries(threatCount).sort((a,b) => b[1]-a[1]).slice(0,10);
+  const maxCount = allThreats[0]?.[1] || 1;
+  document.getElementById('threat-detail').innerHTML = allThreats.map(([name, count]) => `
+    <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid #1e293b">
+      <div style="width:140px;font-size:12px;color:#94a3b8;flex-shrink:0">${name}</div>
+      <div style="flex:1;background:#1e293b;border-radius:4px;height:8px;overflow:hidden">
+        <div style="background:#6366f1;height:100%;width:${Math.round(count/maxCount*100)}%;border-radius:4px"></div>
+      </div>
+      <div style="font-size:13px;font-weight:700;color:#e2e8f0;width:30px;text-align:right">${count}</div>
+    </div>
+  `).join('');
+
+  // Recent incidents
+  const recent = inc.slice(0,10);
+  document.getElementById('recent-detail').innerHTML = `
+    <table style="width:100%;border-collapse:collapse;font-size:12px">
+      <tr style="color:#64748b;border-bottom:1px solid #1e293b">
+        <th style="text-align:left;padding:6px">ID</th>
+        <th style="text-align:left;padding:6px">Alert</th>
+        <th style="text-align:left;padding:6px">Severity</th>
+        <th style="text-align:left;padding:6px">Provider</th>
+        <th style="text-align:left;padding:6px">Status</th>
+      </tr>
+      ${recent.map(i => {
+        let sev = 'low', prov = 'unknown';
+        try { const a = JSON.parse(i.analysis); sev = a.severity||'low'; prov = a.provider||'unknown'; } catch(e) {}
+        const colors = { critical:'#f87171', high:'#fb923c', medium:'#fbbf24', low:'#4ade80' };
+        return `<tr style="border-bottom:1px solid #0f172a">
+          <td style="padding:8px;color:#64748b">#${i.id}</td>
+          <td style="padding:8px;color:#cbd5e1;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${i.alert_type}</td>
+          <td style="padding:8px"><span style="color:${colors[sev]||'#94a3b8'};font-weight:600">${sev}</span></td>
+          <td style="padding:8px;color:#a5b4fc">${prov}</td>
+          <td style="padding:8px;color:${i.status==='executed'?'#4ade80':'#fbbf24'}">${i.status}</td>
+        </tr>`;
+      }).join('')}
+    </table>`;
+}
+
+load();
+</script>
+</body>
+</html>

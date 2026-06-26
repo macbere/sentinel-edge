@@ -217,3 +217,61 @@ def demo_run():
 def judge_page():
     from flask import render_template
     return render_template("judge.html")
+
+
+@app.route("/metrics", methods=["GET"])
+def metrics_page():
+    from flask import render_template
+    return render_template("metrics.html")
+
+
+@app.route("/dashboard/evidence", methods=["GET"])
+def dashboard_evidence():
+    import time as _time
+    conn = sqlite3.connect("sentinel_memory.db")
+    conn.row_factory = sqlite3.Row
+    total = conn.execute("SELECT COUNT(*) FROM incidents").fetchone()[0]
+    qwen = conn.execute("SELECT COUNT(*) FROM incidents WHERE analysis LIKE '%\"provider\": \"qwen\"%'").fetchone()[0]
+    offline = conn.execute("SELECT COUNT(*) FROM incidents WHERE analysis LIKE '%offline_smart%'").fetchone()[0]
+    pending = conn.execute("SELECT COUNT(*) FROM incidents WHERE status='pending'").fetchone()[0]
+    executed = conn.execute("SELECT COUNT(*) FROM incidents WHERE status='executed'").fetchone()[0]
+    last = conn.execute("SELECT * FROM incidents ORDER BY id DESC LIMIT 1").fetchone()
+    conn.close()
+    last_incident = None
+    last_chain = []
+    if last:
+        try:
+            a = json.loads(last["analysis"])
+            last_incident = {"id": last["id"], "provider": a.get("provider","unknown"), "timestamp": last["timestamp"], "threat_type": a.get("threat_type","unknown"), "confidence": a.get("confidence", 0)}
+            last_chain = a.get("reasoning_chain", [])
+        except Exception:
+            pass
+    cloud_reachable = False
+    try:
+        import requests as _req
+        r = _req.get("https://dashscope-intl.aliyuncs.com", timeout=5)
+        cloud_reachable = True
+    except Exception:
+        pass
+    return jsonify({
+        "provider": {"name": "Qwen Cloud", "model": os.getenv("QWEN_MODEL","qwen-max"), "mode": "cloud" if os.getenv("QWEN_API_KEY") else "offline", "api_key_set": bool(os.getenv("QWEN_API_KEY"))},
+        "analyses": {"total": total, "qwen": qwen, "offline": offline},
+        "approval": {"pending": pending, "executed": executed},
+        "last_incident": last_incident,
+        "last_chain": last_chain,
+        "system": {"flask": "online", "db_connected": True, "cloud_reachable": cloud_reachable, "qwen_api_key": bool(os.getenv("QWEN_API_KEY"))}
+    })
+
+
+@app.route("/simulate/failure", methods=["POST"])
+def simulate_failure():
+    mode = (request.get_json(silent=True) or {}).get("mode", "")
+    if mode == "cloud_down":
+        os.environ["QWEN_API_KEY"] = ""
+        os.environ["LLM_PROVIDER"] = "offline"
+        return jsonify({"status": "simulated", "mode": "cloud_down", "message": "Qwen API key cleared — system will use offline fallback"})
+    elif mode == "cloud_restore":
+        from dotenv import load_dotenv
+        load_dotenv(override=True)
+        return jsonify({"status": "simulated", "mode": "cloud_restore", "message": "Environment restored from .env — Qwen API active"})
+    return jsonify({"error": "Invalid mode. Use cloud_down or cloud_restore"}), 400

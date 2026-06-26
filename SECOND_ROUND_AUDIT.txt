@@ -1,0 +1,154 @@
+=== SENTINEL EDGE SECOND ROUND AUDIT ===
+Generated: Fri Jun 26 12:30:57 WAT 2026
+
+=== SECTION 1: SYSTEM ===
+/data/data/com.termux/files/home/sentinel-edge
+Python 3.13.13
+
+=== SECTION 2: LIVE HEALTH ===
+{"agent":"Sentinel Edge","mode":"edge-cloud-hybrid","modules":["perception","reasoning","action","memory"],"status":"online"}
+
+=== SECTION 3: ENDPOINT INVENTORY ===
+./app.py:@app.route("/health", methods=["GET"])
+./app.py:@app.route("/analyze", methods=["POST"])
+./app.py:@app.route("/incidents", methods=["GET"])
+./app.py:@app.route("/approve/<int:incident_id>", methods=["POST"])
+./app.py:@app.route("/report/<int:incident_id>", methods=["GET"])
+./app.py:@app.route("/audit", methods=["GET"])
+./app.py:@app.route("/correlate", methods=["GET"])
+./app.py:@app.route("/dashboard", methods=["GET"])
+./app.py:@app.route("/", methods=["GET"])
+./app.py:@app.route("/chain/<int:incident_id>", methods=["GET"])
+./app.py:@app.route("/chain/view/<int:incident_id>", methods=["GET"])
+./app.py:@app.route("/qwen", methods=["GET"])
+./app.py:@app.route("/demo", methods=["GET"])
+./app.py:@app.route("/demo/run", methods=["POST"])
+./app.py:@app.route("/judge", methods=["GET"])
+
+=== SECTION 4: DEMO CAPABILITY ===
+demo unavailable
+
+=== SECTION 5: JUDGE PAGE ===
+judge unavailable
+
+=== SECTION 6: QWEN EVIDENCE ===
+
+=== SECTION 7: LIVE THREAT TEST ===
+No command -d found, did you mean:
+ Command dd in package coreutils
+ Command ed in package ed
+ Command fd in package fd
+ Command ld in package lld
+ Command pd in package proot-distro
+ Command sd in package sd
+No command -d found, did you mean:
+ Command dd in package coreutils
+ Command ed in package ed
+ Command fd in package fd
+ Command ld in package lld
+ Command pd in package proot-distro
+ Command sd in package sd
+
+=== SECTION 8: INCIDENT SAMPLE ===
+[{"alert_type":"Brute force attack on database direct connection 10000 attempts against MySQL port 3306 from 45.33.32.156","analysis":"{\"threat_type\": \"brute_force_attack\", \"severity\": \"high\", \"provider\": \"qwen\", \"confidence\": 0.95, \"iocs\": {\"ipv4\": [\"45.33.32.156\"], \"domain\": [], \"username\": [\"root\", \"admin\", \"mysql\"], \"filepath\": []}, \"containment_steps\": [\"Block 45.33.32.156 at firewall\", \"Restrict MySQL to app server IPs only\", \"Enable MySQL audit logging\", \"Change all database passwords\"], \"requires_human_approval\": true, \"reasoning\": \"Automated detection of brute_force_attack severity high\", \"mcp_enrichment\": {\"ip\": \"45.33.32.156\", \"abuse_confidence_score\": 46, \"is_tor\": false, \"country\": \"US\", \"source\": \"abuseipdb_live\"}}","id":685,"status":"pending","timestamp":"2026-06-23T06:46:46.144209"},{"alert_type":"Malicious cron job added to production server executing reverse shell to 185.220.101.45 every 5 minutes","analysis":"{\"threat_type\": \"malware_execution\", \"severity\": \"critical\", \"provider\": \"qwen\", \"confidence\": 0.9, \"iocs\": {\"ipv4\": [\"185.220.101.45\"], \"domain\": [], \"username\": [], \"filepath\": [\"/etc/cron.d/backdoor\", \"/tmp/revshell.sh\"]}, \"containment_steps\": [\"Remove malicious cron job\", \"Kill all reverse shell processes\", \"Block 185.220.101.45\", \"Audit all cron jobs across infrastructure\"], \"requires_human_approval\": true, \"reasoning\": \"Automated detection of malware_execution severity critical\", \"mcp_enrichment\": {\"ip\": \"185.220.101.45\", \"abuse_confidence_score\": 100, \"is_tor\": true, \"country\": \"US\", \"source\": \"abuseipdb_live\"}}","id":684,"status":"pending","timestamp":"2026-06-22T22:54:46.144117"},{"alert_type":"Account takeover customer account 847291 accessed from 5 different countries in 2 hours impossible travel","analysis":"{\"threat_type\": \"unauthorized_access\", \"severity\": \"high\", \"provider\": \"qwen\", \"confidence\": 0.83, \"iocs\": {\"ipv4\": [\"185.220.101.45\", \"91.108.56.130\"], \"domain\": [], \"username\": [\"customer_847291\"], \"filepath\": []}, \"containment_steps\": [\"Terminate all active sessions\", \"Force password reset\", \"Enable MFA\", \"Notify customer of compromise\"], \"requires_human_approval\": true, \"reasoning\": \"Automated detection of unauthorized_access severity high\", \"mcp_enrichment\": {\"ip\": \"185.220.101.45\", \"abuse_confidence_score\": 100, \"is_tor\": true, \"country\": \"CN\", \"source\": \"abuseipdb_live\"}}","id":683,"status":"pending","timestamp":"2026-06-22T14:46:46.144028"},{"alert_type":"Sensitive data found in public GitHub repository employee accidentally committed database credentials","analysis":"{\"threat_type\": \"unauthorized_access\", \"severity\": \"critical\", \"provider\": \"qwen\", \"confidence\": 0.92, \"iocs\": {\"ipv4\": [], \"domain\": [\"github.com\"], \"username\": [\"dev.mike\"], \"filepath\": [\"config/database.yml\"]}, \"containment_steps\": [\"Revoke exposed credentials immediately\", \"Remove sensitive data from repo history\", \"Rotate all database passwords\", \"Implement pre-commit hooks\"], \"requires_human_approval\": true, \"reasoning\": \"Automated detection of unauthorized_access severity critical\", \"mcp_enrichment\": {\"domain\": \"github.com\", \"risk_level\": \"high\", \"source\": \"sentinel_domain_analyzer\"}}","id":682,"status":"pending","timestamp":"2026-06-22T08:53:46.143938"},{"alert_type":"Certificate pinning bypass detected mobile app traffic intercepted API keys exposed in transit","analysis":"{\"threat_type\": \"unauthorized_access\", \"severity\": \"high\", \"provider\": \"qwen\", \"confidence\": 0.95, \"iocs\": {\"ipv4\": [\"192.168.1.100\"], \"domain\": [\"api.company.com\"], \"username\": [], \"filepath\": []}, \"containment_steps\": [\"Revoke exposed API keys\", \"Implement proper certificate pinning\", \"Alert mobile security team\", \"Audit all intercepted API calls\"], \"requires_human_approval\": true, \"reasoning\": \"Automated detection of unauthorized_access severity high\", \"mcp_enrichment\": {\"ip\": \"192.168.1.100\", \"abuse_confidence_score\": 49, \"is_tor\": false, \"country\": \"US\", \"source\": \"abuseipdb_live\"}}","id":681,"status":"pending","timestamp":"2026-06-21T21:01:46.143850"},{"alert_type":"Fake helpdesk call attacker impersonating IT support convinced employee to install AnyDesk on workstation","analysis":"{\"threat_type\": \"malware_execution\", \"severity\": \"high\", \"provider\": \"qwen\", \"confidence\": 0.83, \"iocs\": {\"ipv4\": [], \"domain\": [], \"username\": [\"sales.user33\"], \"filepath\": [\"C:\\\\Program Files\\\\AnyDesk\\\\AnyDesk.exe\"]}, \"containment_steps\": [\"Uninstall AnyDesk immediately\", \"Revoke remote session\", \"Educate employee on vishing\", \"Review what attacker accessed\"], \"requires_human_approval\": true, \"reasoning\": \"Automated detection of malware_execution severity high\", \"mcp_enrichment\": null}","id":680,"status":"pending","timestamp":"2026-06-21T04:33:46.143759"},{"alert_type":"Cryptographic weakness MD5 used for password hashing in legacy auth rainbow table attack feasible","analysis":"{\"threat_type\": \"unauthorized_access\", \"severity\": \"high\", \"provider\": \"qwen\", \"confidence\": 0.98, \"iocs\": {\"ipv4\": [], \"domain\": [], \"username\": [], \"filepath\": [\"/var/www/legacy/auth/hash.php\"]}, \"containment_steps\": [\"Migrate to bcrypt immediately\", \"Force password reset for all users\", \"Audit for compromised accounts\", \"Deprecate legacy auth system\"], \"requires_human_approval\": true, \"reasoning\": \"Automated detection of unauthorized_access severity high\", \"mcp_enrichment\": null}","id":679,"status":"pending","timestamp":"2026-06-15T10:02:46.143681"},{"alert_type":"OAuth token AnalyticsPro app granted excessive permissions reading all employee emails and calendars","analysis":"{\"threat_type\": \"unauthorized_access\", \"severity\": \"high\", \"provider\": \"qwen\", \"confidence\": 0.85, \"iocs\": {\"ipv4\": [], \"domain\": [\"analyticspro.io\"], \"username\": [], \"filepath\": []}, \"containment_steps\": [\"Revoke AnalyticsPro token\", \"Audit all OAuth apps\", \"Implement permission review\", \"Alert affected employees\"], \"requires_human_approval\": true, \"reasoning\": \"Automated detection of unauthorized_access severity high\", \"mcp_enrichment\": {\"domain\": \"analyticspro.io\", \"risk_level\": \"medium\", \"source\": \"sentinel_domain_analyzer\"}}","id":678,"status":"pending","timestamp":"2026-06-21T23:39:46.143605"},{"alert_type":"Exposed admin panel without authentication full CMS access available to anyone on the internet","analysis":"{\"threat_type\": \"unauthorized_access\", \"severity\": \"critical\", \"provider\": \"qwen\", \"confidence\": 0.97, \"iocs\": {\"ipv4\": [], \"domain\": [\"admin.company.com\"], \"username\": [], \"filepath\": []}, \"containment_steps\": [\"Enable authentication on admin panel\", \"Restrict to VPN\", \"Audit CMS changes\", \"Rotate admin credentials\"], \"requires_human_approval\": true, \"reasoning\": \"Automated detection of unauthorized_access severity critical\", \"mcp_enrichment\": {\"domain\": \"admin.company.com\", \"risk_level\": \"high\", \"source\": \"sentinel_domain_analyzer\"}}","id":677,"status":"pending","timestamp":"2026-06-22T15:54:46.143523"},{"alert_type":"Database admin exported entire customer table 2.1M records at 11:47 PM outside normal business hours","analysis":"{\"threat_type\": \"data_exfiltration\", \"severity\": \"critical\", \"provider\": \"qwen\", \"confidence\": 0.92, \"iocs\": {\"ipv4\": [], \"domain\": [], \"username\": [\"db.admin\"], \"filepath\": [\"/tmp/customer_export_full.csv\"]}, \"containment_steps\": [\"Suspend db.admin account\", \"Secure exported CSV\", \"Investigate legitimacy\", \"Notify DPO of potential breach\"], \"requires_human_approval\": true, \"reasoning\": \"Automated detection of data_exfiltration severity critical\", \"mcp_enrichment\": null}","id":676,"status":"pending","timestamp":"2026-06-20T00:22:46.143440"}]
+
+=== SECTION 9: CHAIN VIEW ===
+chain unavailable
+
+=== SECTION 10: DASHBOARD METRICS ===
+{"agent":"Sentinel Edge","ai_provider_stats":{"offline_fallbacks":0,"qwen_analyses":70,"resilience_rate":"0.0% offline capable"},"endpoints":["/health","/analyze","/incidents","/report/<id>","/approve/<id>","/dashboard"],"metrics":{"avg_response_time":"<0.5s (benchmarked)","executed":0,"pending_approval":70,"total_incidents":70},"mode":"edge-cloud-hybrid","recent_incidents":[{"id":685,"status":"pending","timestamp":"2026-06-23T06:46:46.144209","type":"Brute force attack on database direct connection 10000 attempts against MySQL port 3306 from 45.33.32.156"},{"id":684,"status":"pending","timestamp":"2026-06-22T22:54:46.144117","type":"Malicious cron job added to production server executing reverse shell to 185.220.101.45 every 5 minutes"},{"id":683,"status":"pending","timestamp":"2026-06-22T14:46:46.144028","type":"Account takeover customer account 847291 accessed from 5 different countries in 2 hours impossible travel"},{"id":682,"status":"pending","timestamp":"2026-06-22T08:53:46.143938","type":"Sensitive data found in public GitHub repository employee accidentally committed database credentials"},{"id":681,"status":"pending","timestamp":"2026-06-21T21:01:46.143850","type":"Certificate pinning bypass detected mobile app traffic intercepted API keys exposed in transit"}],"status":"online","system":{"memory_db_size_kb":348,"platform":"Android","python_version":"3.13.13","uptime":"396h 57m"},"top_threats":[{"count":22,"type":"unauthorized_access"},{"count":21,"type":"malware_execution"},{"count":6,"type":"phishing_attempt"},{"count":5,"type":"brute_force_attack"},{"count":5,"type":"data_exfiltration"}],"track":"Track 4: Autopilot Agent (primary)","tracks":["Track 4: Autopilot Agent (primary)","Track 1: MemoryAgent (overlap)","Track 4: Autopilot Agent (primary overlap)"],"version":"1.0.0"}
+
+=== SECTION 11: TEST STATUS ===
+No command pytest found, did you mean:
+ Command aatest in package aalib
+ Command ctest in package cmake
+ Command test in package coreutils
+ Command stest in package dmenu from the x11-repo repository
+ Command shtest in package mesa-demos from the x11-repo repository
+ Command bltest in package nss-utils
+ Command dltest in package unixodbc
+ Command vttest in package vttest
+
+=== SECTION 12: RECENT COMMITS ===
+cd6d393 feat: complete 7-phase upgrade - demo mode, judge panel, qwen panel, chain view, nav links
+c8565e3 feat: Phase 2 complete - AI Decision Chain page with full step visualization and approve button
+08208fd perf: upgrade to 5 workers x 4 threads gthread - 20 concurrent capacity
+e3ec434 chore: add database seeding script for rich incident data
+c27a6c7 chore: remove diagnostic and temporary files from repo
+54a244f docs: add comprehensive API documentation
+d3d89b1 docs: add SECURITY.md and CONTRIBUTING.md for production maturity
+a1b1236 chore: update gitignore to protect sensitive files and clean repo
+e079273 feat: add production nginx config with security headers and gzip compression
+ed745a8 feat: production Dockerfile, docker-compose, pinned requirements
+2f18f19 feat: configure Nginx reverse proxy on port 80, update all URLs to clean port 80
+b18cc6a chore: update env template with AbuseIPDB key requirement
+
+=== SECTION 13: SECURITY CHECK ===
+
+=== SECTION 14: FINAL FILES ===
+
+=== AUDIT COMPLETE ===
+./templates/index.html:  .badge-qwen { background: #0c1a2e; color: #38bdf8; border: 1px solid #0369a1; }
+./templates/index.html:    <a href="/qwen" style="background:#0c1a2e;border:1px solid #0369a1;color:#38bdf8;padding:6px 12px;border-radius:8px;font-size:12px;text-decoration:none;font-weight:600;">🤖 Qwen</a>
+./templates/index.html:      <div class="metric-value info" id="qwen-analyses">--</div>
+./templates/index.html:          <span>🤖 Qwen Cloud</span><span id="qwen-pct" class="info">--</span>
+./templates/index.html:        <div class="stat-bar"><div class="stat-bar-fill" id="qwen-bar" style="background:#6366f1;width:0%"></div></div>
+./templates/index.html:          <span style="color:#64748b">AI Model</span><span style="color:#38bdf8">qwen-max</span>
+./templates/index.html:  document.getElementById('qwen-analyses').textContent = data.ai_provider_stats?.qwen_analyses ?? '--';
+./templates/index.html:  const qwen = data.ai_provider_stats?.qwen_analyses || 0;
+./templates/index.html:  const qpct = Math.round(qwen/total*100);
+./templates/index.html:  document.getElementById('qwen-pct').textContent = qpct + '%';
+./templates/index.html:  document.getElementById('qwen-bar').style.width = qpct + '%';
+./templates/qwen.html:  .badge-qwen { background: #1e1b4b; color: #a5b4fc; border: 1px solid #4338ca; }
+./templates/qwen.html:  .qwen-logo { text-align: center; padding: 20px 0; }
+./templates/qwen.html:  .qwen-logo-text { font-size: 48px; font-weight: 900; background: linear-gradient(135deg, #6366f1, #8b5cf6, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+./templates/qwen.html:  .qwen-tagline { font-size: 13px; color: #64748b; margin-top: 4px; }
+./templates/qwen.html:  <div class="qwen-logo">
+./templates/qwen.html:    <div class="qwen-logo-text">Qwen</div>
+./templates/qwen.html:    <div class="qwen-tagline">qwen-max — Advanced Reasoning Model by Alibaba Cloud</div>
+./templates/qwen.html:      <div class="metric-big" style="color:#a5b4fc" id="qwen-total">--</div>
+./templates/qwen.html:      <div class="metric-big" style="color:#4ade80" id="qwen-rate">--</div>
+./templates/qwen.html:        <span class="step-badge badge-qwen">Qwen API</span>
+./templates/qwen.html:        <span class="step-badge badge-qwen">Qwen API</span>
+./templates/qwen.html:        <span class="step-badge badge-qwen">Qwen API</span>
+./templates/qwen.html:        <span class="step-badge badge-qwen">Qwen API</span>
+./templates/qwen.html:      <div class="info-row"><span class="info-key">Model</span><span class="info-val" style="color:#a5b4fc">qwen-max</span></div>
+./templates/qwen.html:    const qwen = d.ai_provider_stats?.qwen_analyses || 0;
+./templates/qwen.html:    document.getElementById('qwen-total').textContent = qwen;
+./templates/qwen.html:    document.getElementById('qwen-rate').textContent = Math.round(qwen/total*100) + '%';
+./templates/judge.html:        <div class="evidence-item"><span class="ev-icon">✓</span>Dashboard tracks offline_fallbacks separately from qwen_analyses</div>
+./app.py:@app.route("/qwen", methods=["GET"])
+./app.py:def qwen_page():
+./app.py:    return render_template("qwen.html")
+./qwen_client.py:def ask_qwen(prompt: str, system_prompt: str = None) -> dict:
+./config.py:QWEN_MODEL = os.getenv("QWEN_MODEL", "qwen-max")
+./config.py:LLM_PROVIDER = os.getenv('LLM_PROVIDER', 'qwen').lower()
+./.env:# LLM Provider Selection: qwen | offline
+./.env:LLM_PROVIDER=qwen
+./.env:QWEN_MODEL=qwen-max
+./.git/COMMIT_EDITMSG:feat: complete 7-phase upgrade - demo mode, judge panel, qwen panel, chain view, nav links
+./.git/logs/HEAD:c8565e3f39db2390b78db972d51d490e48b16409 cd6d3933f1cb62cec70bcd1494fbcc11b357bd1b Macdonald <macdonaldbereiweriso@gmail.com> 1782472874 +0100	commit: feat: complete 7-phase upgrade - demo mode, judge panel, qwen panel, chain view, nav links
+./.git/logs/refs/heads/main:c8565e3f39db2390b78db972d51d490e48b16409 cd6d3933f1cb62cec70bcd1494fbcc11b357bd1b Macdonald <macdonaldbereiweriso@gmail.com> 1782472874 +0100	commit: feat: complete 7-phase upgrade - demo mode, judge panel, qwen panel, chain view, nav links
+./deploy/docker-compose.prod.yml:      - LLM_PROVIDER=qwen
+./seed.py:    analysis = json.dumps({"threat_type": threat, "severity": sev, "provider": "qwen", "confidence": confidence, "iocs": {"ipv4": ipv4, "domain": domains, "username": users, "filepath": files}, "containment_steps": steps if steps else ["Investigate and contain","Alert security team","Document incident"], "requires_human_approval": sev in ["high","critical"], "reasoning": f"Automated detection of {threat} severity {sev}", "mcp_enrichment": mcp})
+./modules/reasoning.py:def _call_qwen_step(system_prompt, user_prompt, timeout=25):
+./modules/reasoning.py:    if LLM_PROVIDER != "qwen" or not QWEN_API_KEY:
+./modules/reasoning.py:    step1_res = _call_qwen_step(step1_sys, f"Classify: {alert_text}")
+./modules/reasoning.py:    step2_res = _call_qwen_step(step2_sys, step2_input)
+./modules/reasoning.py:    step3_res = _call_qwen_step(step3_sys, step3_input)
+./modules/reasoning.py:    step4_res = _call_qwen_step(step4_sys, step4_input)
+./modules/reasoning.py:        "provider": "qwen",
+./modules/dashboard.py:    qwen_count = 0
+./modules/dashboard.py:            if p == "qwen":
+./modules/dashboard.py:                qwen_count += 1
+./modules/dashboard.py:            "qwen_analyses": qwen_count,
+./API.md:- ai_provider_stats.qwen_analyses: Real Qwen API call count
+./.env.template:LLM_PROVIDER=qwen
+./.env.template:QWEN_MODEL=qwen-max
+./activate_qwen.sh:    echo "❌ Usage: ./activate_qwen.sh YOUR_QWEN_API_KEY"
+./activate_qwen.sh:sed -i.bak "s/^LLM_PROVIDER=.*/LLM_PROVIDER=qwen/" .env
+./alibaba_cloud_proof.md:- **Model:** qwen-max
+./alibaba_cloud_proof.md:def _call_qwen_step(system_prompt, user_prompt):
+./alibaba_cloud_proof.md:QWEN_MODEL = os.getenv("QWEN_MODEL", "qwen-max")
+./architecture_diagram.txt:│  │  • Model: qwen-max                                                       │  │
+./architecture_diagram.svg:  <text x="325" y="655" font-family="Arial" font-size="12" text-anchor="middle">Model: qwen-max</text>

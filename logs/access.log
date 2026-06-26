@@ -623,3 +623,14 @@
 2026-06-26 12:20:36 | INFO     | access | ❡ GET /qwen | Status: 200 | Duration: 8.98ms | IP: 127.0.0.1 | User: anonymous
 2026-06-26 12:20:36 | INFO     | access | ❡ GET /judge | Status: 200 | Duration: 15.06ms | IP: 127.0.0.1 | User: anonymous
 2026-06-26 12:20:36 | INFO     | access | ❡ GET /chain/685 | Status: 200 | Duration: 6.09ms | IP: 127.0.0.1 | User: anonymous
+2026-06-26 12:30:57 | INFO     | access | ❡ GET /health | Status: 200 | Duration: 9.80ms | IP: 127.0.0.1 | User: anonymous
+2026-06-26 12:30:59 | INFO     | access | ❡ GET /incidents | Status: 200 | Duration: 22.95ms | IP: 127.0.0.1 | User: anonymous
+2026-06-26 12:31:00 | INFO     | access | ❡ GET /dashboard | Status: 200 | Duration: 23.19ms | IP: 127.0.0.1 | User: anonymous
+2026-06-26 14:05:08 | INFO     | access | ❡ GET /health | Status: 200 | Duration: 0.44ms | IP: 127.0.0.1 | User: anonymous
+2026-06-26 14:06:00 | INFO     | access | ❡ POST /analyze | Status: 200 | Duration: 24954.78ms | IP: 127.0.0.1 | User: anonymous
+2026-06-26 14:08:48 | INFO     | access | ❡ GET /dashboard | Status: 200 | Duration: 33.51ms | IP: 127.0.0.1 | User: anonymous
+2026-06-27 00:01:08 | INFO     | access | ❡ GET /health | Status: 200 | Duration: 0.50ms | IP: 127.0.0.1 | User: anonymous
+2026-06-27 00:06:38 | INFO     | access | ❡ GET /metrics | Status: 200 | Duration: 14.52ms | IP: 127.0.0.1 | User: anonymous
+2026-06-27 00:06:49 | INFO     | access | ❡ GET /dashboard/evidence | Status: 200 | Duration: 10428.99ms | IP: 127.0.0.1 | User: anonymous
+2026-06-27 00:06:49 | INFO     | access | ❡ POST /simulate/failure | Status: 200 | Duration: 0.60ms | IP: 127.0.0.1 | User: anonymous
+2026-06-27 00:06:49 | INFO     | access | ❡ POST /simulate/failure | Status: 200 | Duration: 5.41ms | IP: 127.0.0.1 | User: anonymous
