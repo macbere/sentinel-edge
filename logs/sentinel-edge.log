@@ -1339,3 +1339,21 @@ SyntaxError: unmatched '}'
 127.0.0.1 - - [27/Jun/2026:00:06:49 +0100] "GET /dashboard/evidence HTTP/1.1" 200 1806 "-" "curl/8.21.0"
 127.0.0.1 - - [27/Jun/2026:00:06:49 +0100] "POST /simulate/failure HTTP/1.1" 200 116 "-" "curl/8.21.0"
 127.0.0.1 - - [27/Jun/2026:00:06:49 +0100] "POST /simulate/failure HTTP/1.1" 200 112 "-" "curl/8.21.0"
+[2026-06-27 00:06:57 +0100] [28635] [INFO] Handling signal: term
+[2026-06-27 00:06:57 +0100] [28637] [INFO] Worker exiting (pid: 28637)
+[2026-06-27 00:06:57 +0100] [28638] [INFO] Worker exiting (pid: 28638)
+[2026-06-27 00:06:57 +0100] [28639] [INFO] Worker exiting (pid: 28639)
+[2026-06-27 00:06:57 +0100] [28636] [INFO] Worker exiting (pid: 28636)
+[2026-06-27 00:06:57 +0100] [28635] [INFO] Shutting down: Master
+[2026-06-27 00:07:01 +0100] [28733] [INFO] Starting gunicorn 26.0.0
+[2026-06-27 00:07:01 +0100] [28733] [INFO] Listening at: http://127.0.0.1:5000 (28733)
+[2026-06-27 00:07:01 +0100] [28733] [INFO] Using worker: gthread
+[2026-06-27 00:07:01 +0100] [28734] [INFO] Booting worker with pid: 28734
+[2026-06-27 00:07:01 +0100] [28735] [INFO] Booting worker with pid: 28735
+[2026-06-27 00:07:01 +0100] [28736] [INFO] Booting worker with pid: 28736
+[2026-06-27 00:07:02 +0100] [28737] [INFO] Booting worker with pid: 28737
+[2026-06-27 00:07:02 +0100] [28733] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [27/Jun/2026:00:07:08 +0100] "GET /metrics HTTP/1.1" 200 10702 "-" "curl/8.21.0"
+127.0.0.1 - - [27/Jun/2026:00:07:09 +0100] "GET /dashboard/evidence HTTP/1.1" 200 1806 "-" "curl/8.21.0"
+127.0.0.1 - - [27/Jun/2026:00:07:09 +0100] "POST /simulate/failure HTTP/1.1" 200 116 "-" "curl/8.21.0"
+127.0.0.1 - - [27/Jun/2026:00:07:09 +0100] "POST /simulate/failure HTTP/1.1" 200 112 "-" "curl/8.21.0"

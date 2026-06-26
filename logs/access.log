@@ -634,3 +634,7 @@
 2026-06-27 00:06:49 | INFO     | access | ❡ GET /dashboard/evidence | Status: 200 | Duration: 10428.99ms | IP: 127.0.0.1 | User: anonymous
 2026-06-27 00:06:49 | INFO     | access | ❡ POST /simulate/failure | Status: 200 | Duration: 0.60ms | IP: 127.0.0.1 | User: anonymous
 2026-06-27 00:06:49 | INFO     | access | ❡ POST /simulate/failure | Status: 200 | Duration: 5.41ms | IP: 127.0.0.1 | User: anonymous
+2026-06-27 00:07:08 | INFO     | access | ❡ GET /metrics | Status: 200 | Duration: 11.53ms | IP: 127.0.0.1 | User: anonymous
+2026-06-27 00:07:09 | INFO     | access | ❡ GET /dashboard/evidence | Status: 200 | Duration: 1008.93ms | IP: 127.0.0.1 | User: anonymous
+2026-06-27 00:07:09 | INFO     | access | ❡ POST /simulate/failure | Status: 200 | Duration: 1.26ms | IP: 127.0.0.1 | User: anonymous
+2026-06-27 00:07:09 | INFO     | access | ❡ POST /simulate/failure | Status: 200 | Duration: 4.13ms | IP: 127.0.0.1 | User: anonymous
