@@ -421,7 +421,8 @@ function getThreatType(analysis) {
 }
 
 async function loadDashboard() {
-  document.getElementById('threat-bars').innerHTML = '';
+  const tbElInit = document.getElementById('threat-bars');
+  if (tbElInit) tbElInit.innerHTML = '';
   const data = await fetchJSON(API + '/dashboard');
   if (!data) return;
   document.getElementById('total-incidents').textContent = data.metrics?.total_incidents ?? '--';
