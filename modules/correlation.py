@@ -265,7 +265,7 @@ class CorrelationEngine:
                 primary_ip = all_iocs.get('ipv4', ['Unknown'])[0] if all_iocs.get('ipv4') else 'Unknown'
 
                 campaigns.append({
-                    "campaign_id": f"campaign_{campaign_incidents[0]['timestamp'][:10]}_{campaign_ids[0]}",
+                    "campaign_id": _make_campaign_name(list(set(threat_types)), campaign_incidents[0]['timestamp'][:10], campaign_ids[0]),
                     "incident_ids": campaign_ids,
                     "incident_count": len(campaign_ids),
                     "avg_correlation_score": round(avg_correlation, 2),
@@ -290,6 +290,27 @@ class CorrelationEngine:
         return campaigns
 
 
+
+
+def _make_campaign_name(threat_types, date, first_id):
+    campaign_labels = {
+        "ransomware_beacon": "Ransomware-Extortion",
+        "brute_force_attack": "BruteForce-Intrusion",
+        "privilege_escalation": "PrivEsc-Takeover",
+        "unauthorized_access": "Unauthorized-Access",
+        "network_scan": "Recon-Sweep",
+        "phishing_attempt": "Phishing-Campaign",
+        "malware_execution": "Malware-Deployment",
+        "data_exfiltration": "Data-Theft",
+        "sql_injection": "SQLi-Attack",
+        "lateral_movement": "LateralMove-Spread",
+        "ddos_attack": "DDoS-Disruption",
+        "credential_theft": "Credential-Theft",
+        "insider_threat": "Insider-Threat",
+    }
+    labels = [campaign_labels.get(t) for t in threat_types if campaign_labels.get(t)]
+    prefix = labels[0] if labels else "APT-Operation"
+    return f"APT-{prefix}-{date}"
 
 def _make_actor_id(tactics, primary_ip):
     tactic_names = {
