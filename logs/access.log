@@ -662,3 +662,5 @@
 2026-06-27 06:16:50 | INFO     | access | ❡ GET /dashboard | Status: 200 | Duration: 17.76ms | IP: 127.0.0.1 | User: anonymous
 2026-06-27 06:16:50 | INFO     | access | ❡ GET /dashboard | Status: 200 | Duration: 15.31ms | IP: 127.0.0.1 | User: anonymous
 2026-06-27 06:16:50 | INFO     | access | ❡ GET /dashboard | Status: 200 | Duration: 18.65ms | IP: 127.0.0.1 | User: anonymous
+2026-06-27 06:53:11 | INFO     | access | ❡ GET /correlate | Status: 200 | Duration: 45.69ms | IP: 127.0.0.1 | User: anonymous
+2026-06-27 06:53:11 | INFO     | access | ❡ GET /incidents | Status: 200 | Duration: 5.69ms | IP: 127.0.0.1 | User: anonymous

@@ -1394,3 +1394,39 @@ SyntaxError: unmatched '}'
 127.0.0.1 - - [27/Jun/2026:06:16:50 +0100] "GET /dashboard HTTP/1.1" 200 1677 "-" "python-requests/2.34.2"
 127.0.0.1 - - [27/Jun/2026:06:16:50 +0100] "GET /dashboard HTTP/1.1" 200 1677 "-" "python-requests/2.34.2"
 127.0.0.1 - - [27/Jun/2026:06:16:50 +0100] "GET /dashboard HTTP/1.1" 200 1677 "-" "python-requests/2.34.2"
+[2026-06-27 06:20:47 +0100] [20147] [CRITICAL] WORKER TIMEOUT (pid:20149)
+[2026-06-27 06:20:47 +0100] [20149] [INFO] Worker exiting (pid: 20149)
+[2026-06-27 06:20:49 +0100] [20147] [ERROR] Worker (pid:20149) exited with code 1.
+[2026-06-27 06:20:49 +0100] [21544] [INFO] Booting worker with pid: 21544
+[2026-06-27 06:20:49 +0100] [20147] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+[2026-06-27 06:32:17 +0100] [20147] [CRITICAL] WORKER TIMEOUT (pid:20150)
+[2026-06-27 06:32:17 +0100] [20150] [INFO] Worker exiting (pid: 20150)
+[2026-06-27 06:32:18 +0100] [20147] [ERROR] Worker (pid:20150) exited with code 1.
+[2026-06-27 06:32:18 +0100] [25633] [INFO] Booting worker with pid: 25633
+[2026-06-27 06:32:18 +0100] [20147] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+[2026-06-27 06:33:54 +0100] [20147] [CRITICAL] WORKER TIMEOUT (pid:20151)
+[2026-06-27 06:33:54 +0100] [20151] [INFO] Worker exiting (pid: 20151)
+[2026-06-27 06:33:56 +0100] [20147] [ERROR] Worker (pid:20151) exited with code 1.
+[2026-06-27 06:33:56 +0100] [26634] [INFO] Booting worker with pid: 26634
+[2026-06-27 06:33:56 +0100] [20147] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+[2026-06-27 06:50:25 +0100] [20147] [CRITICAL] WORKER TIMEOUT (pid:20152)
+[2026-06-27 06:50:25 +0100] [20152] [INFO] Worker exiting (pid: 20152)
+[2026-06-27 06:50:26 +0100] [20147] [ERROR] Worker (pid:20152) exited with code 1.
+[2026-06-27 06:50:26 +0100] [4212] [INFO] Booting worker with pid: 4212
+[2026-06-27 06:50:26 +0100] [20147] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+[2026-06-27 06:52:59 +0100] [20147] [INFO] Handling signal: term
+[2026-06-27 06:52:59 +0100] [4212] [INFO] Worker exiting (pid: 4212)
+[2026-06-27 06:52:59 +0100] [25633] [INFO] Worker exiting (pid: 25633)
+[2026-06-27 06:52:59 +0100] [26634] [INFO] Worker exiting (pid: 26634)
+[2026-06-27 06:52:59 +0100] [21544] [INFO] Worker exiting (pid: 21544)
+[2026-06-27 06:53:00 +0100] [20147] [INFO] Shutting down: Master
+[2026-06-27 06:53:04 +0100] [4490] [INFO] Starting gunicorn 26.0.0
+[2026-06-27 06:53:04 +0100] [4490] [INFO] Listening at: http://127.0.0.1:5000 (4490)
+[2026-06-27 06:53:04 +0100] [4490] [INFO] Using worker: gthread
+[2026-06-27 06:53:04 +0100] [4491] [INFO] Booting worker with pid: 4491
+[2026-06-27 06:53:04 +0100] [4492] [INFO] Booting worker with pid: 4492
+[2026-06-27 06:53:04 +0100] [4493] [INFO] Booting worker with pid: 4493
+[2026-06-27 06:53:04 +0100] [4494] [INFO] Booting worker with pid: 4494
+[2026-06-27 06:53:04 +0100] [4490] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [27/Jun/2026:06:53:11 +0100] "GET /correlate?hours=168 HTTP/1.1" 200 3242 "-" "curl/8.21.0"
+127.0.0.1 - - [27/Jun/2026:06:53:11 +0100] "GET /incidents?limit=50 HTTP/1.1" 200 44896 "-" "curl/8.21.0"
