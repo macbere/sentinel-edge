@@ -245,6 +245,14 @@
         </div>
         <button onclick="loadIncidents()" style="background:none;border:1px solid #334155;color:#6366f1;padding:4px 10px;border-radius:6px;font-size:12px;cursor:pointer;">↻ Refresh</button>
       </div>
+      <div style="display:flex;gap:6px;align-items:center;margin-bottom:10px;flex-wrap:wrap">
+        <span style="font-size:12px;color:#64748b">Show:</span>
+        <button onclick="showRows(50)" id="rows-50" style="background:#1e293b;border:1px solid #6366f1;color:#6366f1;padding:3px 10px;border-radius:6px;font-size:12px;cursor:pointer;">50</button>
+        <button onclick="showRows(100)" id="rows-100" style="background:none;border:1px solid #334155;color:#64748b;padding:3px 10px;border-radius:6px;font-size:12px;cursor:pointer;">100</button>
+        <button onclick="showRows(200)" id="rows-200" style="background:none;border:1px solid #334155;color:#64748b;padding:3px 10px;border-radius:6px;font-size:12px;cursor:pointer;">200</button>
+        <button onclick="showRows(500)" id="rows-500" style="background:none;border:1px solid #334155;color:#64748b;padding:3px 10px;border-radius:6px;font-size:12px;cursor:pointer;">500</button>
+        <a href="/incidents-all" style="margin-left:auto;font-size:12px;color:#6366f1;text-decoration:none;border:1px solid #334155;padding:3px 10px;border-radius:6px;">View All with Filters →</a>
+      </div>
       <div style="overflow-x:auto">
         <table class="incidents-table">
           <thead>
@@ -439,7 +447,7 @@ async function loadDashboard() {
   const colors = {ransomware_beacon:'#f87171',brute_force_attack:'#fb923c',privilege_escalation:'#f87171',unauthorized_access:'#fbbf24',network_scan:'#4ade80',phishing_attempt:'#fbbf24',Ransomware:'#f87171',sql_injection:'#fb923c'};
   const threats = data.top_threats || [];
   const maxCount = Math.max(...threats.map(t=>t.count), 1);
-  document.getElementById('threat-bars').innerHTML = threats.map(t => `
+  const tbEl = document.getElementById('threat-bars'); if(tbEl) tbEl.innerHTML = threats.map(t => `
     <div class="threat-bar-item">
       <div class="threat-bar-label">
         <span class="threat-bar-name">${t.type.replace(/_/g,' ')}</span>
@@ -451,9 +459,38 @@ async function loadDashboard() {
 }
 
 async function loadIncidents() {
-  const data = await fetchJSON(API + '/incidents?limit=50');
+  const refreshBtn = document.querySelector('[onclick="loadIncidents()"]');
+  if (refreshBtn) { refreshBtn.textContent = '⏳'; refreshBtn.disabled = true; }
+  const data = await fetchJSON(API + '/incidents?limit=500');
+  if (refreshBtn) { refreshBtn.textContent = '↻ Refresh'; refreshBtn.disabled = false; }
   if (!data || !Array.isArray(data)) return;
+  data.sort((a,b) => {
+    if (a.status === 'pending' && b.status !== 'pending') return -1;
+    if (a.status !== 'pending' && b.status === 'pending') return 1;
+    return b.id - a.id;
+  });
+  window._allIncidents = data;
+  window._shownCount = 50;
+  renderIncidents(data.slice(0, 50), data.length);
+}
+
+function showRows(n) {
+  window._shownCount = n;
+  [50,100,200,500].forEach(x => {
+    const btn = document.getElementById('rows-'+x);
+    if (btn) {
+      btn.style.background = x===n ? '#1e293b' : 'none';
+      btn.style.color = x===n ? '#6366f1' : '#64748b';
+      btn.style.borderColor = x===n ? '#6366f1' : '#334155';
+    }
+  });
+  const all = window._allIncidents || [];
+  renderIncidents(all.slice(0, n), all.length);
+}
+
+function renderIncidents(data, total) {
   const tbody = document.getElementById('incidents-tbody');
+  if (!tbody) return;
   if (data.length === 0) {
     tbody.innerHTML = '<tr><td colspan="5" class="empty-state"><div class="empty-icon">✅</div>No incidents yet</td></tr>';
     return;
@@ -672,6 +709,20 @@ async function runAnalysis() {
 document.getElementById('alert-input').addEventListener('keypress', e => {
   if (e.key === 'Enter') runAnalysis();
 });
+
+function showRows(n) {
+  window._shownCount = n;
+  [50,100,200,500].forEach(x => {
+    const btn = document.getElementById('btn-'+x);
+    if (btn) {
+      btn.style.background = x===n ? '#1e1b4b' : '#0f172a';
+      btn.style.borderColor = x===n ? '#6366f1' : '#334155';
+      btn.style.color = x===n ? '#a5b4fc' : '#64748b';
+    }
+  });
+  const all = window._allIncidents || [];
+  renderIncidents(all.slice(0,n), all.length);
+}
 
 async function init() {
   await Promise.all([loadDashboard(), loadIncidents(), loadCampaigns()]);
