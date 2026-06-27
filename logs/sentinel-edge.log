@@ -1357,3 +1357,40 @@ SyntaxError: unmatched '}'
 127.0.0.1 - - [27/Jun/2026:00:07:09 +0100] "GET /dashboard/evidence HTTP/1.1" 200 1806 "-" "curl/8.21.0"
 127.0.0.1 - - [27/Jun/2026:00:07:09 +0100] "POST /simulate/failure HTTP/1.1" 200 116 "-" "curl/8.21.0"
 127.0.0.1 - - [27/Jun/2026:00:07:09 +0100] "POST /simulate/failure HTTP/1.1" 200 112 "-" "curl/8.21.0"
+[2026-06-27 01:43:17 +0100] [28733] [CRITICAL] WORKER TIMEOUT (pid:28734)
+[2026-06-27 01:43:17 +0100] [28734] [INFO] Worker exiting (pid: 28734)
+[2026-06-27 01:43:19 +0100] [28733] [ERROR] Worker (pid:28734) exited with code 1.
+[2026-06-27 01:43:19 +0100] [14610] [INFO] Booting worker with pid: 14610
+[2026-06-27 01:43:19 +0100] [28733] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+[2026-06-27 06:16:18 +0100] [20147] [INFO] Starting gunicorn 26.0.0
+[2026-06-27 06:16:18 +0100] [20147] [INFO] Listening at: http://127.0.0.1:5000 (20147)
+[2026-06-27 06:16:18 +0100] [20147] [INFO] Using worker: gthread
+[2026-06-27 06:16:18 +0100] [20149] [INFO] Booting worker with pid: 20149
+[2026-06-27 06:16:18 +0100] [20150] [INFO] Booting worker with pid: 20150
+[2026-06-27 06:16:18 +0100] [20151] [INFO] Booting worker with pid: 20151
+[2026-06-27 06:16:18 +0100] [20152] [INFO] Booting worker with pid: 20152
+[2026-06-27 06:16:19 +0100] [20147] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [27/Jun/2026:06:16:29 +0100] "GET /health HTTP/1.1" 200 126 "-" "python-requests/2.34.2"
+127.0.0.1 - - [27/Jun/2026:06:16:29 +0100] "POST /analyze HTTP/1.1" 400 42 "-" "python-requests/2.34.2"
+127.0.0.1 - - [27/Jun/2026:06:16:29 +0100] "POST /analyze HTTP/1.1" 400 42 "-" "python-requests/2.34.2"
+127.0.0.1 - - [27/Jun/2026:06:16:29 +0100] "POST /analyze HTTP/1.1" 400 34 "-" "python-requests/2.34.2"
+127.0.0.1 - - [27/Jun/2026:06:16:29 +0100] "POST /analyze HTTP/1.1" 400 43 "-" "python-requests/2.34.2"
+127.0.0.1 - - [27/Jun/2026:06:16:48 +0100] "POST /analyze HTTP/1.1" 200 3867 "-" "python-requests/2.34.2"
+127.0.0.1 - - [27/Jun/2026:06:16:48 +0100] "GET /dashboard HTTP/1.1" 200 1677 "-" "python-requests/2.34.2"
+127.0.0.1 - - [27/Jun/2026:06:16:49 +0100] "GET /dashboard/evidence HTTP/1.1" 200 2375 "-" "python-requests/2.34.2"
+127.0.0.1 - - [27/Jun/2026:06:16:49 +0100] "GET /correlate HTTP/1.1" 200 77 "-" "python-requests/2.34.2"
+127.0.0.1 - - [27/Jun/2026:06:16:49 +0100] "GET /incidents HTTP/1.1" 200 13016 "-" "python-requests/2.34.2"
+127.0.0.1 - - [27/Jun/2026:06:16:49 +0100] "GET /incidents?limit=5 HTTP/1.1" 200 9034 "-" "python-requests/2.34.2"
+127.0.0.1 - - [27/Jun/2026:06:16:49 +0100] "GET / HTTP/1.1" 200 35813 "-" "python-requests/2.34.2"
+127.0.0.1 - - [27/Jun/2026:06:16:49 +0100] "GET /demo HTTP/1.1" 200 14208 "-" "python-requests/2.34.2"
+127.0.0.1 - - [27/Jun/2026:06:16:49 +0100] "GET /metrics HTTP/1.1" 200 10702 "-" "python-requests/2.34.2"
+127.0.0.1 - - [27/Jun/2026:06:16:50 +0100] "GET /judge HTTP/1.1" 200 18186 "-" "python-requests/2.34.2"
+127.0.0.1 - - [27/Jun/2026:06:16:50 +0100] "GET /qwen HTTP/1.1" 200 13009 "-" "python-requests/2.34.2"
+127.0.0.1 - - [27/Jun/2026:06:16:50 +0100] "POST /simulate/failure HTTP/1.1" 200 116 "-" "python-requests/2.34.2"
+127.0.0.1 - - [27/Jun/2026:06:16:50 +0100] "POST /simulate/failure HTTP/1.1" 200 112 "-" "python-requests/2.34.2"
+127.0.0.1 - - [27/Jun/2026:06:16:50 +0100] "POST /simulate/failure HTTP/1.1" 400 58 "-" "python-requests/2.34.2"
+127.0.0.1 - - [27/Jun/2026:06:16:50 +0100] "GET /dashboard HTTP/1.1" 200 1677 "-" "python-requests/2.34.2"
+127.0.0.1 - - [27/Jun/2026:06:16:50 +0100] "GET /dashboard HTTP/1.1" 200 1677 "-" "python-requests/2.34.2"
+127.0.0.1 - - [27/Jun/2026:06:16:50 +0100] "GET /dashboard HTTP/1.1" 200 1677 "-" "python-requests/2.34.2"
+127.0.0.1 - - [27/Jun/2026:06:16:50 +0100] "GET /dashboard HTTP/1.1" 200 1677 "-" "python-requests/2.34.2"
+127.0.0.1 - - [27/Jun/2026:06:16:50 +0100] "GET /dashboard HTTP/1.1" 200 1677 "-" "python-requests/2.34.2"
