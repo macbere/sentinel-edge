@@ -279,7 +279,7 @@ class CorrelationEngine:
                     "end_time": campaign_incidents[-1]["timestamp"],
                     "severity": self._calculate_campaign_severity(campaign_incidents),
                     "threat_actor_profile": {
-                        "actor_id": f"APT-Unknown-{primary_ip}",
+                        "actor_id": _make_actor_id(list(set(threat_types)), primary_ip),
                         "known_iocs": all_iocs,
                         "tactics": list(set(threat_types)),
                         "confidence": round(avg_correlation, 2)
@@ -289,5 +289,24 @@ class CorrelationEngine:
         campaigns.sort(key=lambda x: x["avg_correlation_score"], reverse=True)
         return campaigns
 
+
+
+def _make_actor_id(tactics, primary_ip):
+    tactic_names = {
+        "ransomware_beacon": "Ransomware",
+        "brute_force_attack": "BruteForce",
+        "privilege_escalation": "PrivEsc",
+        "unauthorized_access": "AccessOps",
+        "network_scan": "Recon",
+        "phishing_attempt": "Phishing",
+        "malware_execution": "Malware",
+        "data_exfiltration": "DataTheft",
+        "sql_injection": "SQLi",
+        "lateral_movement": "LateralMove",
+    }
+    labels = [tactic_names.get(t) for t in tactics if tactic_names.get(t)]
+    prefix = labels[0] if labels else "Intrusion"
+    ip_suffix = primary_ip.replace(".", "")[-6:] if primary_ip != "Unknown" else "000000"
+    return f"THREAT-{prefix}-{ip_suffix}"
 
 correlation_engine = CorrelationEngine()
