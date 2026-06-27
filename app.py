@@ -275,3 +275,9 @@ def simulate_failure():
         load_dotenv(override=True)
         return jsonify({"status": "simulated", "mode": "cloud_restore", "message": "Environment restored from .env — Qwen API active"})
     return jsonify({"error": "Invalid mode. Use cloud_down or cloud_restore"}), 400
+
+
+@app.route("/incidents-all", methods=["GET"])
+def incidents_all_page():
+    from flask import render_template
+    return render_template("incidents_all.html")

@@ -1430,3 +1430,12 @@ SyntaxError: unmatched '}'
 [2026-06-27 06:53:04 +0100] [4490] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
 127.0.0.1 - - [27/Jun/2026:06:53:11 +0100] "GET /correlate?hours=168 HTTP/1.1" 200 3242 "-" "curl/8.21.0"
 127.0.0.1 - - [27/Jun/2026:06:53:11 +0100] "GET /incidents?limit=50 HTTP/1.1" 200 44896 "-" "curl/8.21.0"
+[2026-06-27 12:02:04 +0100] [2554] [INFO] Starting gunicorn 26.0.0
+[2026-06-27 12:02:04 +0100] [2554] [INFO] Listening at: http://127.0.0.1:5000 (2554)
+[2026-06-27 12:02:04 +0100] [2554] [INFO] Using worker: gthread
+[2026-06-27 12:02:04 +0100] [2555] [INFO] Booting worker with pid: 2555
+[2026-06-27 12:02:04 +0100] [2558] [INFO] Booting worker with pid: 2558
+[2026-06-27 12:02:04 +0100] [2564] [INFO] Booting worker with pid: 2564
+[2026-06-27 12:02:04 +0100] [2573] [INFO] Booting worker with pid: 2573
+[2026-06-27 12:02:05 +0100] [2554] [INFO] Control socket listening at /data/data/com.termux/files/home/.gunicorn/gunicorn.ctl
+127.0.0.1 - - [27/Jun/2026:12:02:11 +0100] "GET /incidents-all HTTP/1.1" 200 9697 "-" "curl/8.21.0"

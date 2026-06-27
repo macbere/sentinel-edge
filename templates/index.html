@@ -243,7 +243,7 @@
           <div class="section-title">Recent Incidents</div>
           <div class="section-sub">Click View to see full reasoning chain</div>
         </div>
-        <span class="card-action" style="cursor:pointer" onclick="loadIncidents()">↻ Refresh</span>
+        <button onclick="loadIncidents()" style="background:none;border:1px solid #334155;color:#6366f1;padding:4px 10px;border-radius:6px;font-size:12px;cursor:pointer;">↻ Refresh</button>
       </div>
       <div style="overflow-x:auto">
         <table class="incidents-table">
@@ -292,7 +292,7 @@
         <div class="section-title">🎯 APT Campaign Correlation Engine</div>
         <div class="section-sub">Automatically groups related incidents into coordinated attack campaigns</div>
       </div>
-      <span class="card-action" style="cursor:pointer" onclick="loadCampaigns()">↻ Refresh</span>
+      <button onclick="loadCampaigns()" style="background:none;border:1px solid #334155;color:#6366f1;padding:4px 10px;border-radius:6px;font-size:12px;cursor:pointer;">↻ Refresh</button>
     </div>
     <div id="campaigns-container">
       <div class="empty-state"><div class="empty-icon">🔍</div>Loading campaigns...</div>
