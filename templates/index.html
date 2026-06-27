@@ -430,7 +430,7 @@ async function loadDashboard() {
   document.getElementById('pending-approval').textContent = data.metrics?.pending_approval ?? '--';
   document.getElementById('uptime').textContent = data.system?.uptime ?? '--';
   document.getElementById('platform').textContent = data.system?.platform + ' / Python ' + data.system?.python_version;
-  document.getElementById('last-refresh').textContent = 'Refreshed ' + new Date().toLocaleTimeString();
+  const lrEl = document.getElementById('last-refresh'); if(lrEl) lrEl.textContent = 'Refreshed ' + new Date().toLocaleTimeString();
 
   const qwen = data.ai_provider_stats?.qwen_analyses || 0;
   const offline = data.ai_provider_stats?.offline_fallbacks || 0;
