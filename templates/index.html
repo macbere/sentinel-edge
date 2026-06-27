@@ -246,11 +246,7 @@
         <button onclick="loadIncidents()" style="background:none;border:1px solid #334155;color:#6366f1;padding:4px 10px;border-radius:6px;font-size:12px;cursor:pointer;">↻ Refresh</button>
       </div>
       <div style="display:flex;gap:6px;align-items:center;margin-bottom:10px;flex-wrap:wrap">
-        <span style="font-size:12px;color:#64748b">Show:</span>
-        <button onclick="showRows(50)" id="rows-50" style="background:#1e293b;border:1px solid #6366f1;color:#6366f1;padding:3px 10px;border-radius:6px;font-size:12px;cursor:pointer;">50</button>
-        <button onclick="showRows(100)" id="rows-100" style="background:none;border:1px solid #334155;color:#64748b;padding:3px 10px;border-radius:6px;font-size:12px;cursor:pointer;">100</button>
-        <button onclick="showRows(200)" id="rows-200" style="background:none;border:1px solid #334155;color:#64748b;padding:3px 10px;border-radius:6px;font-size:12px;cursor:pointer;">200</button>
-        <button onclick="showRows(500)" id="rows-500" style="background:none;border:1px solid #334155;color:#64748b;padding:3px 10px;border-radius:6px;font-size:12px;cursor:pointer;">500</button>
+        <span style="font-size:12px;color:#64748b">10 most recent</span>
         <a href="/incidents-all" style="margin-left:auto;font-size:12px;color:#6366f1;text-decoration:none;border:1px solid #334155;padding:3px 10px;border-radius:6px;">View All with Filters →</a>
       </div>
       <div style="overflow-x:auto">
@@ -435,13 +431,13 @@ async function loadDashboard() {
   document.getElementById('platform').textContent = data.system?.platform + ' / Python ' + data.system?.python_version;
   document.getElementById('last-refresh').textContent = 'Refreshed ' + new Date().toLocaleTimeString();
 
-  const total = data.metrics?.total_incidents || 1;
   const qwen = data.ai_provider_stats?.qwen_analyses || 0;
   const offline = data.ai_provider_stats?.offline_fallbacks || 0;
+  const total = qwen + offline || 1;
   const qpct = Math.round(qwen/total*100);
   const opct = Math.round(offline/total*100);
-  document.getElementById('qwen-pct').textContent = qpct + '%';
-  document.getElementById('offline-pct').textContent = opct + '%';
+  document.getElementById('qwen-pct').textContent = qwen + ' analyses (' + qpct + '%)';
+  document.getElementById('offline-pct').textContent = offline + ' analyses (' + opct + '%)';
   document.getElementById('qwen-bar').style.width = qpct + '%';
   document.getElementById('offline-bar').style.width = opct + '%';
 
@@ -471,22 +467,7 @@ async function loadIncidents() {
     return b.id - a.id;
   });
   window._allIncidents = data;
-  window._shownCount = 50;
-  renderIncidents(data.slice(0, 50), data.length);
-}
-
-function showRows(n) {
-  window._shownCount = n;
-  [50,100,200,500].forEach(x => {
-    const btn = document.getElementById('rows-'+x);
-    if (btn) {
-      btn.style.background = x===n ? '#1e293b' : 'none';
-      btn.style.color = x===n ? '#6366f1' : '#64748b';
-      btn.style.borderColor = x===n ? '#6366f1' : '#334155';
-    }
-  });
-  const all = window._allIncidents || [];
-  renderIncidents(all.slice(0, n), all.length);
+  renderIncidents(data.slice(0, 10), data.length);
 }
 
 function renderIncidents(data, total) {
