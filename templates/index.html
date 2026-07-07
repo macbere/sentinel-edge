@@ -501,7 +501,7 @@ function renderIncidents(data, total) {
 async function loadCampaigns() {
   const btn = document.getElementById('campaigns-refresh-btn');
   if (btn) { btn.textContent = '⏳'; btn.disabled = true; }
-  const data = await fetchJSON(API + '/correlate?hours=168');
+  const data = await fetchJSON(API + '/correlate?hours=720');
   if (btn) { btn.textContent = '↻ Refresh'; btn.disabled = false; }
   document.getElementById('campaigns-count').textContent = data?.campaigns_detected ?? '--';
   const container = document.getElementById('campaigns-container');
