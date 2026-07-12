@@ -75,6 +75,11 @@ def list_incidents():
 
 @app.route("/approve/<int:incident_id>", methods=["POST"])
 def approve_action(incident_id):
+    import os as _os
+    expected = _os.environ.get("APPROVE_SECRET", "")
+    provided = request.headers.get("X-Approve-Token", "") or (request.get_json(silent=True) or {}).get("token", "")
+    if not expected or provided != expected:
+        return jsonify({"error": "Unauthorized — invalid or missing approval token", "incident_id": incident_id}), 401
     from modules.action import approve_and_execute
     result = approve_and_execute(incident_id)
     if "error" in result:

@@ -605,7 +605,7 @@ function closeModal() {
 async function approveIncident(id, btn) {
   btn.disabled = true;
   btn.textContent = 'Approving...';
-  const result = await postJSON(API + `/approve/${id}`, {});
+  const result = await postJSON(API + `/approve/${id}`, {token: '8729f3c4081b3051a246665d3526ad0c6ef2df9e4e60c7060f060d2ce4b2e2f3'});
   if (result) {
     btn.textContent = '✓ Approved';
     btn.style.background = '#052e16';

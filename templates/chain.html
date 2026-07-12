@@ -223,7 +223,7 @@ async function approve(id, btn) {
   btn.disabled = true;
   btn.textContent = '⏳ Executing containment...';
   try {
-    const r = await fetch(`/approve/${id}`, {method: 'POST'});
+    const r = await fetch(`/approve/${id}`, {method: 'POST', headers: {'Content-Type': 'application/json', 'X-Approve-Token': '8729f3c4081b3051a246665d3526ad0c6ef2df9e4e60c7060f060d2ce4b2e2f3'}, body: JSON.stringify({token: '8729f3c4081b3051a246665d3526ad0c6ef2df9e4e60c7060f060d2ce4b2e2f3'})});
     const data = await r.json();
     if (data.status === 'executed') {
       btn.outerHTML = `<div class="executed-badge">✅ ${data.execution_log?.length || 0} actions executed successfully</div>`;
