@@ -146,7 +146,7 @@ function formatOutput(step) {
   if (name === 'Alert Ingestion') {
     let html = '';
     const iocs = out.iocs_extracted || {};
-    if (out.alert) html += `<div class="output-row"><span class="output-key">Alert</span><span class="output-val">${out.alert.substring(0,60)}...</span></div>`;
+    if (out.alert) html += `<div class="output-row"><span class="output-key">Alert</span><span class="output-val">${out.alert}</span></div>`;
     if (out.timestamp) html += `<div class="output-row"><span class="output-key">Timestamp</span><span class="output-val">${out.timestamp}</span></div>`;
     let iocHtml = '<div class="ioc-tags">';
     (iocs.ipv4||[]).forEach(ip => iocHtml += `<span class="ioc-tag ip">📡 ${ip}</span>`);
@@ -171,6 +171,14 @@ function formatOutput(step) {
 
   if (step.step === 'containment') {
     const steps = out.steps || [];
+    const isPending = out.status === 'pending' || step.status === 'pending' || out.awaiting_approval === true;
+    if (isPending) {
+      return `<div style="background:#1c1917;border:1px solid #92400e;border-radius:8px;padding:12px;margin-top:8px">
+        <div style="color:#fbbf24;font-weight:600;margin-bottom:8px">⏳ Holding for Authorization</div>
+        <div style="color:#78716c;font-size:12px;margin-bottom:10px">Containment plan is ready but locked until human approval is granted.</div>
+        <div class="steps-list">${steps.map(s => `<div class="step-item" style="opacity:0.4"><span class="step-check" style="color:#78716c">⏸</span>${s}</div>`).join('')}</div>
+      </div>`;
+    }
     return `<div class="steps-list">${steps.map(s => `<div class="step-item"><span class="step-check">✓</span>${s}</div>`).join('')}</div>`;
   }
 
@@ -185,7 +193,7 @@ function formatOutput(step) {
   let html = '<div class="output-box">';
   Object.entries(out).forEach(([k, v]) => {
     if (k === '_elapsed_ms') return;
-    const val = typeof v === 'object' ? JSON.stringify(v).substring(0,80) : String(v).substring(0,80);
+    const val = typeof v === 'object' ? JSON.stringify(v) : String(v);
     html += `<div class="output-row"><span class="output-key">${k}</span><span class="output-val">${val}</span></div>`;
   });
   html += '</div>';
@@ -208,6 +216,7 @@ async function load() {
 
     const chain = document.getElementById('chain');
     data.chain_steps.forEach((step, idx) => {
+      if (step.step === 'containment') { step.output = step.output || {}; step.output.status = data.status; step.output.awaiting_approval = data.status === 'pending'; }
       const isLast = idx === data.chain_steps.length - 1;
       const div = document.createElement('div');
       div.className = 'chain-item';
