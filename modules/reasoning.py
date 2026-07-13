@@ -110,7 +110,19 @@ def analyze_with_chain(alert_text, max_retries=1):
     # STEP 2: Tool Selection
     step2_sys = (
         'You are a security tool selector. Respond ONLY in JSON: '
-        '{"tools":["tool1","tool2"],"rationale":"brief reason"}'
+        '{"tools":["tool1","tool2"],"rationale":"brief reason"}. '
+        'IMPORTANT TOOL SELECTION RULES: '
+        'If the threat involves GitHub, GitLab, source code, secrets, API keys, or cloud repositories — '
+        'select from: ["GitHub Advanced Security","GitGuardian","Trufflehog","Secret Scanner","SAST"]. '
+        'If the threat involves ransomware, malware, or endpoint infection — '
+        'select from: ["CrowdStrike Falcon","ESET Endpoint Security","EDR","Malwarebytes"]. '
+        'If the threat involves network scanning, brute force, or unauthorized access — '
+        'select from: ["Fail2Ban","Cloudflare","SIEM","IDS/IPS"]. '
+        'If the threat involves data exfiltration or insider threat — '
+        'select from: ["DLP","UEBA","SIEM","Netflow Analyzer"]. '
+        'If the threat involves phishing or email — '
+        'select from: ["Email Gateway","DMARC Analyzer","URL Sandbox","Proofpoint"]. '
+        'Always match tools to the actual attack vector.'
     )
     step2_input = (
         f"Threat: {step1_res.get('threat_type')} | "
