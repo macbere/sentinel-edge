@@ -60,7 +60,7 @@
   .analyze-title { font-size: 18px; font-weight: 700; color: #f1f5f9; margin-bottom: 6px; }
   .analyze-subtitle { font-size: 13px; color: #64748b; margin-bottom: 20px; }
   .input-row { display: flex; gap: 12px; }
-  .alert-input { flex: 1; background: #0a0e1a; border: 1px solid #334155; border-radius: 8px; padding: 12px 16px; color: #e2e8f0; font-size: 14px; outline: none; transition: border-color 0.2s; }
+  .alert-input { flex: 1; background: #0a0e1a; border: 1px solid #334155; border-radius: 8px; padding: 12px 16px; color: #e2e8f0; font-size: 14px; outline: none; transition: border-color 0.2s; overflow-wrap: break-word; word-break: break-word; white-space: normal; min-height: 48px; height: auto; resize: none; }
   .alert-input:focus { border-color: #6366f1; }
   .alert-input::placeholder { color: #475569; }
   .analyze-btn { background: linear-gradient(135deg, #6366f1, #8b5cf6); border: none; color: white; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: opacity 0.2s; }
@@ -216,7 +216,7 @@
     <div class="analyze-title">🔍 Live Threat Analysis</div>
     <div class="analyze-subtitle">Submit a security alert and watch the 4-step Qwen agentic reasoning chain execute in real time</div>
     <div class="input-row">
-      <input class="alert-input" id="alert-input" type="text" placeholder="e.g. Ransomware beacon from 185.220.101.45 targeting finance-db server..." />
+      <textarea class="alert-input" id="alert-input" rows="2" placeholder="e.g. Ransomware beacon from 185.220.101.45 targeting finance-db server..."></textarea>
       <button class="analyze-btn" id="analyze-btn" onclick="runAnalysis()">⚡ Analyze Threat</button>
     </div>
     <div class="chain-container" id="chain-container">
@@ -635,7 +635,17 @@ async function approveIncident(id, btn) {
     btn.textContent = '✓ Approved';
     btn.style.background = '#052e16';
     btn.style.color = '#4ade80';
-    setTimeout(loadIncidents, 1000);
+    // Update row status immediately without refresh
+    const row = btn.closest('tr');
+    if (row) {
+      const statusCell = row.querySelector('.badge-pending');
+      if (statusCell) {
+        statusCell.textContent = 'executed';
+        statusCell.className = 'badge badge-executed';
+      }
+      btn.remove();
+    }
+    setTimeout(loadIncidents, 1500);
   } else {
     btn.textContent = 'Failed';
     btn.disabled = false;
