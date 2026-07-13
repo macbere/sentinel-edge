@@ -261,6 +261,23 @@ async function approve(id, btn) {
     const data = await r.json();
     if (data.status === 'executed') {
       btn.outerHTML = `<div class="executed-badge">✅ ${data.execution_log?.length || 0} actions executed successfully</div>`;
+      // Update containment plan immediately without reload
+      const containmentBox = document.querySelector('.chain-item:last-child');
+      if (containmentBox) {
+        const holdingBox = containmentBox.querySelector('[style*="Holding"]') || 
+                          Array.from(containmentBox.querySelectorAll('div')).find(d => d.textContent.includes('Holding for Authorization'));
+        if (holdingBox) {
+          const steps = Array.from(containmentBox.querySelectorAll('.step-item'));
+          holdingBox.outerHTML = `<div class="steps-list">${steps.map(s => 
+            `<div class="step-item"><span class="step-check">✓</span>${s.textContent.trim()}</div>`
+          ).join('')}</div>`;
+        }
+      }
+      // Also update the badge on containment plan header
+      const allBadges = document.querySelectorAll('.badge');
+      allBadges.forEach(b => { if(b.textContent === 'ready') { b.textContent = 'executed'; b.className = 'badge badge-executed'; }});
+      // Reload after 1.5s to sync full state
+      setTimeout(() => location.reload(), 1500);
     }
   } catch(e) {
     btn.disabled = false;
