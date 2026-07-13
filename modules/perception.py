@@ -9,7 +9,7 @@ def validate_alert(alert_text: str) -> dict:
 
     # Extract common indicators (IP, timestamp, user)
     indicators = {
-        "ips": re.findall(r"(?:\d{1,3}\.){3}\d{1,3}", alert_text),
+        "ips": [ip for ip in re.findall(r'\b(?:\d{1,3}\.){3}\d{1,3}\b', alert_text) if ip not in {'47.77.199.98','127.0.0.1','0.0.0.0'} and not ip.startswith('10.') and not ip.startswith('192.168.')],
         "timestamps": re.findall(r"\d{2}:\d{2}(?:UTC|Z)?", alert_text, re.I),
         "users": re.findall(r"(?:user|login|account)\s+[:\-]?\s*(\w+)", alert_text, re.I)
     }

@@ -192,7 +192,7 @@ class ThreatIntelMCP:
         """
         enrichments = []
 
-        for ip in iocs.get("ipv4", [])[:3]:
+        for ip in [x for x in iocs.get("ipv4", [])[:3] if x not in {'47.77.199.98','127.0.0.1','0.0.0.0'} and not x.startswith('10.') and not x.startswith('192.168.')]:
             result = self.lookup_ip(ip)
             enrichments.append(result)
 

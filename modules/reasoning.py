@@ -55,7 +55,7 @@ def _mcp_lookup_threaded(iocs, result_container):
     """Run full IOC enrichment in a thread."""
     try:
         results = []
-        for ip in iocs.get("ipv4", [])[:2]:
+        for ip in [x for x in iocs.get("ipv4", [])[:2] if x not in {'47.77.199.98','127.0.0.1','0.0.0.0'} and not x.startswith('10.') and not x.startswith('192.168.')]:
             results.append(threat_intel_mcp.lookup_ip(ip))
         for domain in iocs.get("domain", [])[:2]:
             results.append(threat_intel_mcp.lookup_domain(domain))

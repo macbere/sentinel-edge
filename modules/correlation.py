@@ -259,8 +259,21 @@ class CorrelationEngine:
                         if ioc_type not in all_iocs:
                             all_iocs[ioc_type] = []
                         all_iocs[ioc_type].extend(values)
+                # Whitelist — never flag our own infrastructure as threat actors
+                SAFE_IPS = {
+                    '47.77.199.98',   # Alibaba Cloud ECS server
+                    '127.0.0.1',      # localhost
+                    '0.0.0.0',        # default
+                    '10.0.0.1',       # internal gateway
+                }
                 for ioc_type in all_iocs:
                     all_iocs[ioc_type] = list(set(all_iocs[ioc_type]))
+                # Strip safe/own IPs from threat actor profiles
+                all_iocs['ipv4'] = [ip for ip in all_iocs.get('ipv4', [])
+                                    if ip not in SAFE_IPS
+                                    and not ip.startswith('10.')
+                                    and not ip.startswith('192.168.')
+                                    and not ip.startswith('172.16.')]
 
                 primary_ip = all_iocs.get('ipv4', ['Unknown'])[0] if all_iocs.get('ipv4') else 'Unknown'
 
