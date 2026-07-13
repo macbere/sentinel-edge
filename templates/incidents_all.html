@@ -46,6 +46,28 @@
 
   * { box-sizing: border-box; }
   p, li, td, th, div, span { overflow-wrap: break-word; word-break: break-word; }
+
+  /* ═══ GLOBAL TRUNCATION FIX — applied app-wide ═══ */
+  *, *::before, *::after { box-sizing: border-box; }
+  p, li, td, th, span, div, a, label, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+    white-space: normal !important;
+  }
+  pre, code, .json-view, .monospace {
+    white-space: pre-wrap !important;
+    overflow-x: auto !important;
+    word-break: break-all !important;
+  }
+  .card, .campaign-card, .step-card, .result-item, .mcp-result,
+  .chain-step, .evidence-item, .alert-card, .incident-row {
+    height: auto !important;
+    min-height: fit-content !important;
+    overflow: visible !important;
+  }
+  table { table-layout: fixed; width: 100%; }
+  td, th { overflow-wrap: break-word !important; word-break: break-word !important; }
+  /* ═══════════════════════════════════════════════ */
 </style>
 </head>
 <body>

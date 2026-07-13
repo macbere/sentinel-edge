@@ -96,7 +96,7 @@
   .incidents-table th { text-align: left; padding: 10px 12px; font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #1e293b; }
   .incidents-table td { padding: 12px; font-size: 13px; border-bottom: 1px solid #0f172a; vertical-align: middle; }
   .incidents-table tr:hover td { background: #0f172a; }
-  .alert-text { max-width: 100%; overflow-wrap: break-word; word-break: break-word; white-space: normal; color: #cbd5e1; }
+  .alert-text { max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #cbd5e1; }
   .approve-btn { background: #052e16; border: 1px solid #16a34a; color: #4ade80; padding: 4px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; transition: all 0.2s; }
   .approve-btn:hover { background: #16a34a; color: white; }
   .view-btn { background: #0c1a2e; border: 1px solid #0369a1; color: #38bdf8; padding: 4px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; margin-right: 6px; transition: all 0.2s; }
@@ -129,13 +129,10 @@
   /* Modal */
   .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
   .modal.open { display: flex; }
-  .modal-content { background: #0f172a; border: 1px solid #334155; border-radius: 16px; padding: 24px; max-width: 700px; width: 100%; max-height: 90vh; overflow-y: auto; overflow-wrap: break-word; word-break: break-word; }
+  .modal-content { background: #0f172a; border: 1px solid #334155; border-radius: 16px; padding: 24px; max-width: 700px; width: 100%; max-height: 80vh; overflow-y: auto; }
   .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
   .modal-close { background: none; border: none; color: #64748b; font-size: 24px; cursor: pointer; }
   .json-view { background: #0a0e1a; border: 1px solid #1e293b; border-radius: 8px; padding: 16px; font-family: monospace; font-size: 12px; color: #94a3b8; overflow-x: auto; white-space: pre-wrap; word-break: break-all; }
-  * { box-sizing: border-box; }
-  p, li, td, th, div, span { overflow-wrap: break-word; word-break: break-word; }
-
 
   /* Threat chart */
   .threat-bars { display: flex; flex-direction: column; gap: 10px; }
@@ -162,28 +159,6 @@
   .section-sub { font-size: 12px; color: #64748b; margin-bottom: 16px; }
   .empty-state { text-align: center; padding: 40px; color: #475569; }
   .empty-icon { font-size: 40px; margin-bottom: 12px; }
-
-  /* ═══ GLOBAL TRUNCATION FIX — applied app-wide ═══ */
-  *, *::before, *::after { box-sizing: border-box; }
-  p, li, td, th, span, div, a, label, h1, h2, h3, h4, h5, h6 {
-    overflow-wrap: break-word !important;
-    word-break: break-word !important;
-    white-space: normal !important;
-  }
-  pre, code, .json-view, .monospace {
-    white-space: pre-wrap !important;
-    overflow-x: auto !important;
-    word-break: break-all !important;
-  }
-  .card, .campaign-card, .step-card, .result-item, .mcp-result,
-  .chain-step, .evidence-item, .alert-card, .incident-row {
-    height: auto !important;
-    min-height: fit-content !important;
-    overflow: visible !important;
-  }
-  table { table-layout: fixed; width: 100%; }
-  td, th { overflow-wrap: break-word !important; word-break: break-word !important; }
-  /* ═══════════════════════════════════════════════ */
 </style>
 </head>
 <body>
@@ -270,10 +245,6 @@
         </div>
         <button onclick="loadIncidents()" style="background:none;border:1px solid #334155;color:#6366f1;padding:4px 10px;border-radius:6px;font-size:12px;cursor:pointer;">↻ Refresh</button>
       </div>
-      <div style="display:flex;gap:6px;align-items:center;margin-bottom:10px;flex-wrap:wrap">
-        <span style="font-size:12px;color:#64748b">10 most recent</span>
-        <a href="/incidents-all" style="margin-left:auto;font-size:12px;color:#6366f1;text-decoration:none;border:1px solid #334155;padding:3px 10px;border-radius:6px;">View All with Filters →</a>
-      </div>
       <div style="overflow-x:auto">
         <table class="incidents-table">
           <thead>
@@ -321,7 +292,7 @@
         <div class="section-title">🎯 APT Campaign Correlation Engine</div>
         <div class="section-sub">Automatically groups related incidents into coordinated attack campaigns</div>
       </div>
-      <button id="campaigns-refresh-btn" onclick="loadCampaigns()" style="background:none;border:1px solid #334155;color:#6366f1;padding:4px 10px;border-radius:6px;font-size:12px;cursor:pointer;">↻ Refresh</button>
+      <button onclick="loadCampaigns()" style="background:none;border:1px solid #334155;color:#6366f1;padding:4px 10px;border-radius:6px;font-size:12px;cursor:pointer;">↻ Refresh</button>
     </div>
     <div id="campaigns-container">
       <div class="empty-state"><div class="empty-icon">🔍</div>Loading campaigns...</div>
@@ -446,8 +417,6 @@ function getThreatType(analysis) {
 }
 
 async function loadDashboard() {
-  const tbElInit = document.getElementById('threat-bars');
-  if (tbElInit) tbElInit.innerHTML = '';
   const data = await fetchJSON(API + '/dashboard');
   if (!data) return;
   document.getElementById('total-incidents').textContent = data.metrics?.total_incidents ?? '--';
@@ -455,15 +424,15 @@ async function loadDashboard() {
   document.getElementById('pending-approval').textContent = data.metrics?.pending_approval ?? '--';
   document.getElementById('uptime').textContent = data.system?.uptime ?? '--';
   document.getElementById('platform').textContent = data.system?.platform + ' / Python ' + data.system?.python_version;
-  const lrEl = document.getElementById('last-refresh'); if(lrEl) lrEl.textContent = 'Refreshed ' + new Date().toLocaleTimeString();
+  document.getElementById('last-refresh').textContent = 'Refreshed ' + new Date().toLocaleTimeString();
 
+  const total = data.metrics?.total_incidents || 1;
   const qwen = data.ai_provider_stats?.qwen_analyses || 0;
   const offline = data.ai_provider_stats?.offline_fallbacks || 0;
-  const total = qwen + offline || 1;
   const qpct = Math.round(qwen/total*100);
   const opct = Math.round(offline/total*100);
-  document.getElementById('qwen-pct').textContent = qwen + ' analyses (' + qpct + '%)';
-  document.getElementById('offline-pct').textContent = offline + ' analyses (' + opct + '%)';
+  document.getElementById('qwen-pct').textContent = qpct + '%';
+  document.getElementById('offline-pct').textContent = opct + '%';
   document.getElementById('qwen-bar').style.width = qpct + '%';
   document.getElementById('offline-bar').style.width = opct + '%';
 
@@ -487,13 +456,16 @@ async function loadIncidents() {
   const data = await fetchJSON(API + '/incidents?limit=500');
   if (refreshBtn) { refreshBtn.textContent = '↻ Refresh'; refreshBtn.disabled = false; }
   if (!data || !Array.isArray(data)) return;
+  // Sort: pending first, then by id desc
   data.sort((a,b) => {
     if (a.status === 'pending' && b.status !== 'pending') return -1;
     if (a.status !== 'pending' && b.status === 'pending') return 1;
     return b.id - a.id;
   });
   window._allIncidents = data;
-  renderIncidents(data.slice(0, 10), data.length);
+  window._shownCount = 50;
+  renderIncidents(data.slice(0, 50), data.length);
+  renderIncidents(data.slice(0,50), data.length);
 }
 
 function renderIncidents(data, total) {
@@ -524,14 +496,11 @@ function renderIncidents(data, total) {
 }
 
 async function loadCampaigns() {
-  const btn = document.getElementById('campaigns-refresh-btn');
-  if (btn) { btn.textContent = '⏳'; btn.disabled = true; }
-  const data = await fetchJSON(API + '/correlate?hours=720');
-  if (btn) { btn.textContent = '↻ Refresh'; btn.disabled = false; }
+  const data = await fetchJSON(API + '/correlate?hours=168');
   document.getElementById('campaigns-count').textContent = data?.campaigns_detected ?? '--';
   const container = document.getElementById('campaigns-container');
-  if (!data || !data.campaigns || data.campaigns.length === 0) {
-    container.innerHTML = '<div class="empty-state"><div class="empty-icon">🔍</div>No campaigns detected in last 7 days. Submit more alerts to build correlation data.</div>';
+  if (!data || data.campaigns_detected === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">🔍</div>No campaigns detected in last 24 hours. Submit more alerts to build correlation data.</div>';
     return;
   }
   container.innerHTML = data.campaigns.map(c => {
@@ -599,7 +568,7 @@ async function viewIncident(id) {
       <div class="mcp-result">
         <div class="mcp-header">🔌 AbuseIPDB Threat Intelligence (Live)</div>
         <div class="mcp-grid">
-          <div class="mcp-item"><span>IP: </span>${mcp.ioc_value || mcp.ip || "N/A"}</div>
+          <div class="mcp-item"><span>IP: </span>${mcp.ip}</div>
           <div class="mcp-item"><span>Score: </span>${mcp.abuse_confidence_score}%</div>
           <div class="mcp-item"><span>Country: </span>${mcp.country || 'Unknown'}</div>
           <div class="mcp-item"><span>Source: </span><span style="color:#4ade80">${mcp.source}</span></div>
@@ -630,7 +599,7 @@ function closeModal() {
 async function approveIncident(id, btn) {
   btn.disabled = true;
   btn.textContent = 'Approving...';
-  const result = await postJSON(API + `/approve/${id}`, {token: '8729f3c4081b3051a246665d3526ad0c6ef2df9e4e60c7060f060d2ce4b2e2f3'});
+  const result = await postJSON(API + `/approve/${id}`, {});
   if (result) {
     btn.textContent = '✓ Approved';
     btn.style.background = '#052e16';
@@ -697,7 +666,7 @@ async function runAnalysis() {
       <div class="result-item"><div class="result-item-label">Severity</div><div class="result-item-value ${sev}">${sev}</div></div>
       <div class="result-item"><div class="result-item-label">Confidence</div><div class="result-item-value info">${((result.confidence||0)*100).toFixed(0)}%</div></div>
     </div>
-    ${mcp ? `<div class="mcp-result"><div class="mcp-header">🔌 AbuseIPDB Live Result</div><div class="mcp-grid"><div class="mcp-item"><span>IP: </span>${mcp.ioc_value || mcp.ip || "N/A"}</div><div class="mcp-item"><span>Abuse Score: </span>${mcp.abuse_confidence_score}%</div><div class="mcp-item"><span>Country: </span>${mcp.country||'Unknown'}</div><div class="mcp-item"><span>Source: </span><span style="color:#4ade80">${mcp.source}</span></div></div></div>` : ''}
+    ${mcp ? `<div class="mcp-result"><div class="mcp-header">🔌 AbuseIPDB Live Result</div><div class="mcp-grid"><div class="mcp-item"><span>IP: </span>${mcp.ip}</div><div class="mcp-item"><span>Abuse Score: </span>${mcp.abuse_confidence_score}%</div><div class="mcp-item"><span>Country: </span>${mcp.country||'Unknown'}</div><div class="mcp-item"><span>Source: </span><span style="color:#4ade80">${mcp.source}</span></div></div></div>` : ''}
     <div style="margin-top:14px">
       <div style="font-size:12px;color:#64748b;margin-bottom:8px">Containment Steps</div>
       <ul class="containment-list">
