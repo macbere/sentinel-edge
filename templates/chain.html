@@ -54,7 +54,7 @@
   .output-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 12px; border-bottom: 1px solid #0f172a; }
   .output-row:last-child { border-bottom: none; }
   .output-key { color: #64748b; }
-  .output-val { color: #cbd5e1; font-family: monospace; max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .output-val { color: #cbd5e1; font-family: monospace; max-width: 100%; overflow-wrap: break-word; word-break: break-word; white-space: normal; }
   .ioc-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
   .ioc-tag { background: #0a0e1a; border: 1px solid #334155; color: #94a3b8; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-family: monospace; }
   .ioc-tag.ip { border-color: #7f1d1d; color: #f87171; }
@@ -77,6 +77,9 @@
   .spinner { width: 40px; height: 40px; border: 3px solid #1e293b; border-top-color: #6366f1; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
   @keyframes spin { to { transform: rotate(360deg); } }
   @media (max-width: 600px) { .meta-grid { grid-template-columns: repeat(2, 1fr); } .mcp-grid { grid-template-columns: 1fr; } }
+
+  * { box-sizing: border-box; }
+  p, li, td, th, div, span { overflow-wrap: break-word; word-break: break-word; }
 </style>
 </head>
 <body>

@@ -25,7 +25,7 @@
   th { text-align:left; padding:10px 12px; font-size:11px; color:#64748b; text-transform:uppercase; border-bottom:1px solid #1e293b; }
   td { padding:12px; font-size:13px; border-bottom:1px solid #0f172a; vertical-align:middle; }
   tr:hover td { background:#0f172a; }
-  .alert-text { max-width:320px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:#cbd5e1; }
+  .alert-text { max-width:100%; overflow-wrap:break-word; word-break:break-word; white-space:normal; color:#cbd5e1; }
   .badge { display:inline-flex; align-items:center; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; }
   .badge-critical { background:#450a0a; color:#f87171; border:1px solid #7f1d1d; }
   .badge-high { background:#431407; color:#fb923c; border:1px solid #7c2d12; }
@@ -43,6 +43,9 @@
   .load-more { display:block; width:100%; background:#1e293b; border:1px solid #334155; color:#94a3b8; padding:12px; border-radius:8px; font-size:13px; cursor:pointer; margin-top:16px; text-align:center; }
   .load-more:hover { border-color:#6366f1; color:#a5b4fc; }
   .empty { text-align:center; padding:40px; color:#475569; }
+
+  * { box-sizing: border-box; }
+  p, li, td, th, div, span { overflow-wrap: break-word; word-break: break-word; }
 </style>
 </head>
 <body>

@@ -96,7 +96,7 @@
   .incidents-table th { text-align: left; padding: 10px 12px; font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #1e293b; }
   .incidents-table td { padding: 12px; font-size: 13px; border-bottom: 1px solid #0f172a; vertical-align: middle; }
   .incidents-table tr:hover td { background: #0f172a; }
-  .alert-text { max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #cbd5e1; }
+  .alert-text { max-width: 100%; overflow-wrap: break-word; word-break: break-word; white-space: normal; color: #cbd5e1; }
   .approve-btn { background: #052e16; border: 1px solid #16a34a; color: #4ade80; padding: 4px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; transition: all 0.2s; }
   .approve-btn:hover { background: #16a34a; color: white; }
   .view-btn { background: #0c1a2e; border: 1px solid #0369a1; color: #38bdf8; padding: 4px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; margin-right: 6px; transition: all 0.2s; }
@@ -129,10 +129,13 @@
   /* Modal */
   .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
   .modal.open { display: flex; }
-  .modal-content { background: #0f172a; border: 1px solid #334155; border-radius: 16px; padding: 24px; max-width: 700px; width: 100%; max-height: 80vh; overflow-y: auto; }
+  .modal-content { background: #0f172a; border: 1px solid #334155; border-radius: 16px; padding: 24px; max-width: 700px; width: 100%; max-height: 90vh; overflow-y: auto; overflow-wrap: break-word; word-break: break-word; }
   .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
   .modal-close { background: none; border: none; color: #64748b; font-size: 24px; cursor: pointer; }
   .json-view { background: #0a0e1a; border: 1px solid #1e293b; border-radius: 8px; padding: 16px; font-family: monospace; font-size: 12px; color: #94a3b8; overflow-x: auto; white-space: pre-wrap; word-break: break-all; }
+  * { box-sizing: border-box; }
+  p, li, td, th, div, span { overflow-wrap: break-word; word-break: break-word; }
+
 
   /* Threat chart */
   .threat-bars { display: flex; flex-direction: column; gap: 10px; }
