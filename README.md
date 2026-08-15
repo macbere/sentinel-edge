@@ -1,108 +1,111 @@
 # Sentinel Edge
 
-**Autonomous Cybersecurity Incident Response Agent — Alibaba Cloud x Qwen Hackathon**
+**Autonomous Cybersecurity Incident Response Agent**
 
 Sentinel Edge is a production-grade AI agent that automates end-to-end cybersecurity incident response workflows using a 4-step agentic reasoning chain powered by Qwen Cloud API, with real-time threat intelligence enrichment via AbuseIPDB.
 
 > 🏆 Submitted to: Global AI Hackathon Series with Qwen Cloud — **Track 4: Autopilot Agent**
 
 ## 🎥 Demo Video
-**[Watch the Demo Video](#)** *(Link will be updated before submission)*
+
+[▶️ Watch the Sentinel Edge Hackathon Demo](https://youtu.be/QvPTKNo8VRM)
 
 ## 🔍 What It Does
 
 Sentinel Edge automates the full incident response lifecycle end-to-end:
 
-1. **Perceive** — Extracts IOCs (IPs, domains, usernames, filepaths) from raw security alerts
+1. **Perceive** — Extracts IOCs from raw security alerts
 2. **Reason** — Runs a 4-step agentic chain via Qwen Cloud API
-3. **Enrich** — Queries AbuseIPDB in real-time to enrich IP reputation and threat context
-4. **Act** — Generates containment plans with mandatory human-in-the-loop approval gates
-5. **Remember** — Persists all incidents in SQLite for cross-session forensic correlation
+3. **Enrich** — Queries AbuseIPDB in real-time for threat intelligence
+4. **Act** — Generates containment plans with human-in-the-loop approval
+5. **Remember** — Persists all incidents in SQLite for forensic correlation
 
 ## 🎯 Track 4: Autopilot Agent — Qualification
 
 | Requirement | How Sentinel Edge Qualifies |
 |---|---|
-| Automates real-world workflows end-to-end | Full incident response: alert to analysis to containment plan to approval |
-| Handles ambiguous inputs | Offline fallback analyzer handles any unstructured alert text |
+| Automates real-world workflows end-to-end | Full incident response: alert to analysis to containment to approval |
+| Handles ambiguous inputs | Offline fallback handles any unstructured alert text |
 | Invokes external tools | AbuseIPDB MCP tool called live during every analysis |
 | Human-in-the-loop checkpoints | Every critical/high severity incident requires human approval |
-| Production-readiness | Deployed on Alibaba Cloud ECS with Gunicorn, audit logging, rate limiting |
+| Production-readiness | Alibaba Cloud ECS, Gunicorn, Nginx, systemd, 70+ incidents |
 
 ## 🧠 4-Step Agentic Reasoning Chain
 
 Every /analyze request triggers 4 sequential Qwen API calls:
 
-Step 1: Threat Classification — Identifies threat type, severity, extracts IOCs
-MCP Tool: AbuseIPDB Lookup — Enriches IP reputation, country, abuse score
-Step 2: Tool Selection — Decides which security tools are needed
-Step 3: Action Plan Generation — Creates containment steps
-Step 4: Confidence Validation — Self-checks the plan, assigns confidence score
-Human Approval Gate — Incident Stored — Dashboard Updated
+Step 1: Threat Classification — identifies threat type, severity, extracts IOCs
+MCP Tool: AbuseIPDB Lookup — enriches IP reputation and abuse score
+Step 2: Tool Selection — decides which security tools are needed
+Step 3: Action Plan Generation — creates containment steps
+Step 4: Confidence Validation — self-checks the plan quality
 
 ## ☁️ Alibaba Cloud Deployment
 
-Live URL: https://sentinel-edge.duckdns.org
+Live URL: http://47.77.199.98
 
 | Service | Usage |
 |---|---|
 | Elastic Compute Service (ECS) | Hosts the production Flask/Gunicorn server |
 | Qwen Cloud API (DashScope) | Powers the 4-step agentic reasoning chain |
+| Nginx | Reverse proxy on port 80 |
+| systemd | Auto-restart on reboot or failure |
 
 Test the live deployment:
 
-curl https://sentinel-edge.duckdns.org/health
+curl http://47.77.199.98/health
 
-curl -X POST https://sentinel-edge.duckdns.org/analyze -H "Content-Type: application/json" -d '{"alert": "Ransomware beacon from 10.0.0.77"}'
-
-## 🏗️ Architecture
-
-See architecture_diagram.svg for the full visual diagram.
-
-EDGE LAYER: SIEM Logs, IDS Alerts, Network Flow, User Input
-SENTINEL EDGE AGENT: Perception, Reasoning, MCP, Action, Memory
-ALIBABA CLOUD: Qwen Cloud API + ECS
-OUTPUT: JSON API, Dashboard, Audit Logs, Reports
+curl -X POST http://47.77.199.98/analyze -H "Content-Type: application/json" -d '{"alert": "Ransomware beacon from 185.220.101.45 targeting finance-db"}'
 
 ## 🔌 API Endpoints
 
 | Endpoint | Method | Description |
 |---|---|---|
-| /health | GET | System status and module list |
-| /analyze | POST | Submit alert for full agentic analysis |
-| /dashboard | GET | Real-time metrics and incident stats |
-| /correlate | GET | Detect attack campaigns from incident history |
-| /incidents | GET | List all stored incidents |
-| /approve/id | POST | Human approval for pending actions |
-| /report/id | GET | Full forensic report for an incident |
+| /health | GET | System status |
+| /analyze | POST | 4-step AI threat analysis |
+| /dashboard | GET | Real-time metrics |
+| /correlate | GET | APT campaign detection |
+| /incidents | GET | Incident list |
+| /approve/id | POST | Human approval |
+| /report/id | GET | Forensic report |
+| /chain/view/id | GET | AI decision chain page |
+| /demo | GET | One-click attack simulator |
+| /metrics | GET | Visual analytics |
+| /judge | GET | Judge Q&A panel |
+| /qwen | GET | Why Qwen panel |
+| /dashboard/evidence | GET | Evidence panel |
+| /incidents-all | GET | All incidents with filters |
 
 ## 🛡️ Security Features
 
 - Rate Limiting — 30 requests per minute per IP
-- Input Sanitization — Blocks SQL and command injection patterns
-- Schema Validation — Rejects malformed payloads before AI processing
-- Audit Logging — Every request logged with full JSON audit trail
-- Offline Fallback — Smart heuristic analyzer when Qwen API is unavailable
+- Input Sanitization — blocks SQL and command injection
+- Schema Validation — rejects malformed payloads before AI processing
+- Audit Logging — every request logged with full JSON audit trail
+- Offline Fallback — smart heuristic analyzer when Qwen is unavailable
 
-## 🧪 Test Results (15/15 — 100% Pass Rate)
+## 🧪 Test Results (49/49 — 100% Pass Rate)
 
-| Test | Result |
-|---|---|
-| Health endpoint | PASS |
-| Malformed JSON handling | PASS |
-| Missing alert field rejection | PASS |
-| Empty alert handling | PASS |
-| Very long alerts 10KB | PASS |
-| Unicode character support | PASS |
-| SQL injection protection | PASS |
-| Multiple IOC extraction | PASS |
-| Rapid sequential requests 20 | PASS |
-| Dashboard metrics accuracy | PASS |
-| Audit logging completeness | PASS |
-| Incident persistence | PASS |
-| Threat classification accuracy 4/4 | PASS |
-| Concurrent requests 10/10 | PASS |
-| Endpoint discovery | PASS |
+Full test suite: 49/49 passed at 100%
+
+Coverage includes: health, input validation, threat analysis, MCP enrichment, dashboard, evidence panel, APT correlation, incidents, frontend pages, failure simulation, and concurrent load.
+
+See test_full.py for the complete test suite.
+
+| Category | Tests | Result |
+|---|---|---|
+| Health and connectivity | 5 | PASS |
+| Input validation | 4 | PASS |
+| Threat analysis | 10 | PASS |
+| MCP enrichment | 2 | PASS |
+| Dashboard metrics | 5 | PASS |
+| Evidence panel | 4 | PASS |
+| APT correlation | 3 | PASS |
+| Incidents | 3 | PASS |
+| Frontend pages | 5 | PASS |
+| Failure simulation | 4 | PASS |
+| Concurrent load | 1 | PASS |
+| Total | 49 | 100% |
 
 ## 🚀 Quick Start
 
@@ -117,33 +120,35 @@ Add your QWEN_API_KEY and ABUSEIPDB_API_KEY to .env
 
 ### Innovation & AI Creativity (30%)
 - 4-step agentic reasoning chain with 4 sequential Qwen API calls per analysis
-- Real MCP integration with live AbuseIPDB threat intelligence lookup
+- Real MCP integration with live AbuseIPDB threat intelligence
 - Edge-cloud hybrid architecture with graceful offline degradation
-- Automated campaign detection using graph-based correlation engine
+- Automated APT campaign detection using graph-based correlation engine
 
 ### Technical Depth & Engineering (30%)
-- Modular architecture with 8 independent modules
-- Production deployment with Gunicorn on Alibaba Cloud ECS
+- Modular architecture with 10 independent modules
+- Production deployment with 5 workers x 4 threads on Alibaba Cloud ECS
 - Non-trivial logic including correlation engine, audit system, offline analyzer
-- Error handling with timeouts, fallbacks, input validation at every layer
+- Error handling with timeouts, fallbacks, and input validation at every layer
 
 ### Problem Value & Impact (25%)
-- Real-world pain point — SOC teams spend hours on manual incident triage
-- Productization potential — REST API, dashboard, audit trails, HITL workflow
+- Real SOC automation pain point
+- Productization ready with REST API, dashboard, audit trails, HITL workflow
 - Scalable stateless API design with database-backed persistence
 
 ### Presentation & Documentation (15%)
+- Demo video linked above
 - Architecture diagram in SVG and text formats
 - Proof of Alibaba Cloud deployment in alibaba_cloud_proof.md
-- Comprehensive README with quick start guide
-- Demo video link above
+- Comprehensive README, API.md, JUDGE_GUIDE.md, DEMO_SCRIPT.md
 
 ## 📁 Repository Structure
 
-app.py — Flask API server
+app.py — Flask API server (14 routes)
 config.py — Environment configuration
 memory.py — SQLite persistent storage
-modules/perception.py — IOC extraction and alert parsing
+seed.py — 70 rich incident seeder
+test_full.py — 49-test full suite
+modules/perception.py — IOC extraction
 modules/reasoning.py — 4-step Qwen agentic chain
 modules/mcp_threat_intel.py — AbuseIPDB real threat intelligence
 modules/action.py — Containment execution and HITL
@@ -152,10 +157,17 @@ modules/correlation.py — Campaign detection engine
 modules/audit.py — Structured audit logging
 modules/security.py — Rate limiting and sanitization
 modules/offline_analyzer.py — Smart offline fallback
-requirements.txt
-Dockerfile
-alibaba_cloud_proof.md
-architecture_diagram.svg
-LICENSE
+modules/chain_view.py — AI decision chain data
+templates/index.html — Main dashboard
+templates/demo.html — One-click attack simulator
+templates/metrics.html — Visual analytics
+templates/judge.html — Judge Q&A panel
+templates/qwen.html — Why Qwen panel
+templates/chain.html — AI decision chain viewer
+templates/incidents_all.html — All incidents with filters
+alibaba_cloud_proof.md — Proof of Alibaba Cloud deployment
+architecture_diagram.svg — Visual architecture diagram
+Dockerfile and docker-compose.yml — Container config
+LICENSE — MIT License
 
 MIT License — Copyright (c) 2026 Sentinel Edge
